@@ -1,0 +1,1 @@
+export const basketballGirlsPoolA = { removed: true };

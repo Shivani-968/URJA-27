@@ -1,0 +1,1 @@
+export const hockeyBoysPoolA = { removed: true };

@@ -1,0 +1,877 @@
+/* General page container */
+.points-table-page {
+  padding-bottom: 50px;
+  padding-top: 80px;
+  color: #f0f0f0;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible !important;
+  /* CRITICAL FIX: Ensures absolute children are NOT clipped by this container */
+  position: relative;
+  z-index: 0;
+  background: #000000;
+  overflow: hidden;
+  /* New footer-style background */
+}
+
+.points-table-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 80% 20%,
+      rgba(255, 60, 0, 0.2) 0,
+      transparent 80%),
+    radial-gradient(circle at 20% 80%,
+      rgba(0, 207, 255, 0.2) 0,
+      transparent 80%);
+  z-index: 0;
+}
+
+/* Main "Points Table" heading */
+.main-points-heading {
+  font-size: 5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  color: #ffffff;
+  letter-spacing: 5px;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+    2px 2px 0px rgba(255, 106, 0, 0.6), -2px -2px 0px rgba(0, 199, 255, 0.6),
+    4px 4px 0px rgba(255, 45, 0, 0.4), -4px -4px 0px rgba(30, 144, 255, 0.4);
+  animation: pointsGlow 3s ease-in-out infinite alternate,
+    hyperspeedLines 2s linear infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pointsGlow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+      2px 2px 0px rgba(255, 106, 0, 0.6), -2px -2px 0px rgba(0, 199, 255, 0.6),
+      4px 4px 0px rgba(255, 45, 0, 0.4), -4px -4px 0px rgba(30, 144, 255, 0.4);
+  }
+
+  to {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+      0 0 30px rgba(255, 170, 0, 1), 0 0 40px rgba(255, 68, 0, 1),
+      3px 3px 0px rgba(255, 106, 0, 0.8), -3px -3px 0px rgba(0, 199, 255, 0.8),
+      5px 5px 0px rgba(255, 45, 0, 0.6), -5px -5px 0px rgba(30, 144, 255, 0.6);
+  }
+}
+
+@keyframes hyperspeedLines {
+  0% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+      2px 2px 0px rgba(255, 106, 0, 0.6), -2px -2px 0px rgba(0, 199, 255, 0.6),
+      4px 4px 0px rgba(255, 45, 0, 0.4), -4px -4px 0px rgba(30, 144, 255, 0.4);
+  }
+
+  25% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+      1px 1px 0px rgba(255, 210, 0, 0.6), -1px -1px 0px rgba(0, 102, 204, 0.6),
+      3px 3px 0px rgba(255, 106, 0, 0.4), -3px -3px 0px rgba(0, 199, 255, 0.4);
+  }
+
+  50% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+      0px 0px 0px rgba(255, 45, 0, 0.6), 0px 0px 0px rgba(30, 144, 255, 0.6),
+      2px 2px 0px rgba(255, 210, 0, 0.4), -2px -2px 0px rgba(0, 102, 204, 0.4);
+  }
+
+  75% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+      -1px -1px 0px rgba(0, 199, 255, 0.6), 1px 1px 0px rgba(255, 106, 0, 0.6),
+      1px 1px 0px rgba(30, 144, 255, 0.4), -1px -1px 0px rgba(255, 45, 0, 0.4);
+  }
+
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 170, 0, 0.8), 0 0 30px rgba(255, 68, 0, 0.8),
+      2px 2px 0px rgba(255, 106, 0, 0.6), -2px -2px 0px rgba(0, 199, 255, 0.6),
+      4px 4px 0px rgba(255, 45, 0, 0.4), -4px -4px 0px rgba(30, 144, 255, 0.4);
+  }
+}
+
+/* Radio button container styles (for Desktop/Tablet) */
+.sports-radio-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 3rem;
+}
+
+.sport-radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 25px;
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.sport-radio-input {
+  display: none;
+}
+
+.sport-radio-text {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #b0e0ff;
+  text-shadow: 0 0 5px rgba(176, 224, 255, 0.6);
+  transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out;
+}
+
+.sport-emoji {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  filter: saturate(0.8) contrast(1.2);
+  transition: filter 0.4s ease-in-out;
+}
+
+.sport-radio-label:hover {
+  background-color: rgba(40, 40, 40, 0.85);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.sport-radio-input:checked+.sport-radio-text {
+  color: #ffaa00;
+  text-shadow: 0 0 15px rgba(255, 170, 0, 0.8);
+}
+
+.sport-radio-input:checked~.sport-radio-label {
+  background: linear-gradient(90deg, #5f281c, #ff6600);
+  border-color: #ff8800;
+  transform: translateY(0);
+}
+
+/* Mobile Sport Dropdown Container */
+.sports-mobile-dropdown-nav {
+  display: none;
+  /* Hidden by default (desktop) */
+  position: relative;
+  z-index: 2000;
+  /* CRITICAL FIX: High Z-Index for the Sport dropdown */
+  margin-bottom: 2rem;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Styling for the Gender/Stage/Pool dropdowns and the Sport dropdown */
+.dropdowns-container {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.dropdown-wrapper {
+  position: relative;
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* --- FIX: Dynamically raise the Z-index of the open dropdown wrapper --- */
+.dropdown-wrapper.active-dropdown {
+  z-index: 200;
+  /* Lifts the active filter dropdown above its siblings */
+}
+
+/* ---------------------------------------------------------------------- */
+
+.dropdown-wrapper label {
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  color: #b0e0ff;
+  text-shadow: 0 0 5px rgba(176, 224, 255, 0.6);
+}
+
+.custom-dropdown-button {
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.8rem 2.5rem 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-dropdown-button.open {
+  border-color: #00cfff;
+  box-shadow: 0 0 15px rgba(0, 207, 255, 0.5);
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #fff;
+  transition: transform 0.3s ease;
+}
+
+.custom-dropdown-button.open .dropdown-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #1a1a1a;
+  z-index: 2001;
+  /* CRITICAL FIX: Highest Z-Index for the menu options */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.dropdown-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.dropdown-menu li {
+  padding: 1rem 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-menu li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu li.selected {
+  background-color: #00cfff;
+  color: #000;
+  font-weight: 700;
+}
+
+.no-data-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #aaa;
+  margin-top: 5rem;
+}
+
+/* Scoreboard container and table styling */
+.scoreboard-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 2rem;
+  padding: 3.5rem;
+  background: linear-gradient(135deg,
+      rgba(20, 20, 20, 0.7),
+      rgba(0, 0, 0, 0.8));
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(2px);
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  /* Keep content below dropdowns (2000/2001) */
+}
+
+.scoreboard-container h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #e0e0e0;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(to right, #ff4400, #ff8800, #00aaff);
+  border-image-slice: 1;
+  padding-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+}
+
+.scoreboard-table-container {
+  margin-bottom: 3rem;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-top: 1rem;
+  background: none;
+}
+
+th {
+  background: linear-gradient(45deg, #0a1c2e, #1a3a5c);
+  color: #f0f0f0;
+  font-weight: 700;
+  padding: 1.2rem 1rem;
+  border: none;
+  border-bottom: 3px solid #00aaff;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  border-radius: 8px 8px 0 0;
+}
+
+td {
+  background: rgba(40, 40, 40, 0.8);
+  color: #d0d0d0;
+  padding: 1rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1rem;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+tbody tr:hover td {
+  background-color: rgba(60, 60, 60, 0.9);
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+.matches-list-container {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.matches-list-container h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #e0e0e0;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.match-card {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.match-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.match-date {
+  font-size: 1rem;
+  color: #ffaa00;
+  text-shadow: 0 0 5px rgba(255, 170, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.match-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+}
+
+.match-team {
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.match-score {
+  font-size: 1.6rem;
+  color: #ffaa00;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.7);
+  margin: 0 1rem;
+}
+
+.match-result {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+.match-venue {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.scorecard-link {
+  display: inline-block;
+  color: #00cfff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #00cfff;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.scorecard-link:hover {
+  background-color: #00cfff;
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 207, 255, 0.8);
+}
+
+/* Knockout Bracket Styles (Complex Flow - Final version) */
+.knockout-bracket-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 2rem;
+  padding: 2.5rem 2rem;
+  background: linear-gradient(135deg,
+      rgba(20, 20, 20, 0.7),
+      rgba(0, 0, 0, 0.8));
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(2px);
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 400px;
+}
+
+/* Wrapper for Semi-finals, Final/Third, and Winner columns */
+.bracket-main-flow {
+  display: flex;
+  /* Use flexbox to align all columns side-by-side */
+  align-items: flex-start;
+  /* CRITICAL: Start alignment from the top */
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+  padding-top: 20px;
+}
+
+.round-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #e0e0e0;
+  text-shadow: 0 0 10px rgba(0, 207, 255, 0.5);
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  text-align: center;
+  width: 100%;
+  min-width: 180px;
+
+  /* Horizontal Line Styling for Heading (Orange/Blue gradient) */
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(to right, #ffaa00, #00cfff);
+  border-image-slice: 1;
+}
+
+/* 💡 Style for the Semi-Finals Heading */
+.semi-finals-round .round-heading {
+  border-image: linear-gradient(to right, #00cfff, #ffaa00) 1;
+}
+
+/* 💡 Style for the Final Heading */
+.final-stage-column .final-match-block .round-heading {
+  border-image: linear-gradient(to right, #ffaa00, #00cfff) 1;
+}
+
+/* 💡 New style for the extracted Third Place Heading */
+.round-heading.third-place-heading {
+  font-size: 1.2rem;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  min-width: 220px;
+}
+
+.bracket-round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 220px;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/* This column holds the Final Match and Third Place Match */
+.final-stage-column {
+  /* RESET: Set margin to 0 for top alignment, matching Semi-finals and Champions */
+  margin-top: 0;
+}
+
+/* Matches container needs to be flex-aligned for vertical gaps */
+.bracket-round .round-matches {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Individual Match Box */
+.bracket-match {
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 60px;
+  /* Gap between semi-final matches */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-in-out;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  text-align: left;
+}
+
+/* Targets the LAST semi-final match to remove its bottom margin */
+.bracket-round.semi-finals-round .round-matches .bracket-match:last-child {
+  margin-bottom: 0;
+}
+
+/* Final Match Block */
+.final-match-block {
+  margin-bottom: 20px;
+  /* Space above the third place area */
+}
+
+.bracket-match.final-match {
+  margin-bottom: 0;
+  /* Remove margin from final match box */
+}
+
+/* Third Place Match Styling */
+.bracket-match.third-place-match {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Match Details */
+.match-info {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.bracket-team {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 1rem;
+  color: #f0f0f0;
+  font-family: "Orbitron", sans-serif;
+}
+
+.bracket-team:first-of-type {
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.team-name {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #b0e0ff;
+  text-shadow: 0 0 5px rgba(176, 224, 255, 0.4);
+}
+
+.team-score {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #ffaa00;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.7);
+}
+
+/* Connector Styling - Used between Semi-Finals and Final/Third Place */
+.bracket-connectors.spacer-area {
+  width: 40px;
+  height: 100%;
+  position: relative;
+  padding-top: 20px;
+}
+
+.bracket-connectors.spacer-area::before {
+  /* Vertical line */
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background-color: #555;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bracket-connectors.spacer-area::after {
+  /* Horizontal line */
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #555;
+  /* Aligns with the center of the gap between semi-final matches */
+  top: calc(60px + 80px);
+  left: 0;
+  z-index: 2;
+}
+
+
+/* ---------------------------------------------------------------------- */
+/* 🏆 WINNER COLUMN STYLES 🏆 */
+/* ---------------------------------------------------------------------- */
+
+.winner-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+/* Alignment space is removed because we are aligning everything to the top */
+.winner-space-align {
+  display: none;
+}
+
+/* Re-use standard round heading for 'CHAMPIONS' title */
+.winner-column .round-heading {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  border-image: linear-gradient(to right, #ffcc00, #ffaa00) 1;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+.winner-box {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  border: 2px solid #ffcc00;
+  /* Gold highlight border */
+  text-align: center;
+  position: relative;
+  min-height: 80px;
+  /* Ensure height matches match boxes */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Remove medal icon/pseudo-element */
+.winner-box::before {
+  content: none;
+}
+
+.winner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Only the team name inside the box */
+.winner-team-name {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffcc00;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.9);
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ---------------------------------------------------------------------- */
+/* Media Queries (Mobile) */
+/* ---------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .main-points-heading {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* HIDE the Radio Buttons on small screens */
+  .sports-radio-container {
+    display: none !important;
+  }
+
+  /* SHOW the Mobile Sport Dropdown on small screens */
+  .sports-mobile-dropdown-nav {
+    display: block;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2000;
+  }
+
+  .sports-mobile-dropdown-nav .custom-dropdown-button {
+    width: 100%;
+  }
+
+  /* Dropdowns */
+  .dropdowns-container {
+    flex-direction: column;
+    /* This remains column-wise for filters/dropdowns */
+    gap: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 3rem;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .dropdown-wrapper {
+    width: 80%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .dropdown-wrapper label {
+    flex-shrink: 0;
+    padding-left: 5px;
+  }
+
+  .custom-dropdown-button {
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: left;
+    margin-left: 5px;
+  }
+
+  .scoreboard-container {
+    width: 100%;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  /* 👇 CRITICAL CHANGE: ROW-WISE for Knockout on small screens 👇 */
+
+  .knockout-bracket-container.complex-flow {
+    flex-direction: row;
+    align-items: flex-start;
+    /* CRITICAL: Align top for mobile scrolling */
+    padding: 10px;
+    min-height: auto;
+    overflow-x: auto;
+    /* Enables Horizontal Scrolling */
+    justify-content: flex-start;
+    width: 100%;
+    /* Important for overflow to work */
+  }
+
+  .bracket-main-flow {
+    flex-direction: row;
+    /* CRITICAL: Force a wide element so overflow-x: auto works on the parent */
+    min-width: 800px;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .bracket-round {
+    min-width: 140px;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .bracket-round.final-round {
+    margin-top: 0;
+  }
+
+  .final-stage-column {
+    margin-top: 0;
+  }
+
+
+  /* Connectors can be shown if needed for horizontal layout, but usually hidden on mobile */
+  .bracket-connectors.spacer-area {
+    display: none;
+  }
+
+  .bracket-connectors.spacer-area::before,
+  .bracket-connectors.spacer-area::after {
+    content: none;
+  }
+
+  .winner-space-align {
+    display: none;
+  }
+
+  .winner-box {
+    width: 140px;
+    padding: 15px;
+  }
+
+  .winner-team-name {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,55 @@
+# .github/workflows/deploy.yml
+name: Deploy Vite App to GitHub Pages
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on pushes to the 'main' branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions needed for GitHub Actions to deploy to Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# The deployment job
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    # Ensures only one deployment job runs at a time
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # Use your required Node version
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project (Creates the 'dist' folder)
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact (Uploads the 'dist' folder contents)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # This is the folder created by 'npm run build'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

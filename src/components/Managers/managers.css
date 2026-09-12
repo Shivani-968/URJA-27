@@ -1,0 +1,265 @@
+/* ===== Managers Section (Compact & Centered) ===== */
+
+.main-team-heading {
+  font-size: clamp(1.8rem, 5vw + 1rem, 4rem); /* ✅ scales dynamically */
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 68, 0, 0.8),
+    0 0 30px rgba(0, 170, 255, 0.8), 2px 2px 0px rgba(255, 106, 0, 0.6),
+    -2px -2px 0px rgba(0, 199, 255, 0.6), 4px 4px 0px rgba(255, 45, 0, 0.4),
+    -4px -4px 0px rgba(30, 144, 255, 0.4);
+  letter-spacing: clamp(
+    1px,
+    0.5vw + 1px,
+    5px
+  ); /* ✅ reduce letter spacing on small screens */
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
+  animation: teamGlow 3s ease-in-out infinite alternate,
+    hyperspeedLines 2s linear infinite;
+  position: relative;
+  z-index: 1;
+  word-break: break-word; /* ✅ ensures long text wraps */
+  overflow-wrap: break-word;
+}
+
+/* Optional fine-tuning for mobile screens */
+@media (max-width: 600px) {
+  .main-team-heading {
+    line-height: 1.1;
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.mgr-wrap {
+  padding: 2rem 1rem 5rem;
+  background: radial-gradient(
+      1200px 600px at 10% -10%,
+      rgba(255, 255, 255, 0.06),
+      transparent
+    ),
+    radial-gradient(
+      1200px 600px at 110% 10%,
+      rgba(255, 140, 0, 0.08),
+      transparent
+    ),
+    #0b0b0f;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mgr-container {
+  max-width: 1000px; /* ✅ Smaller, keeps cards centered */
+  margin: 0 auto;
+}
+
+.mgr-title {
+  font-size: clamp(2rem, 1rem + 3vw, 3.2rem);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.25),
+    0 0 46px rgba(0, 153, 255, 0.35);
+  margin: 0;
+}
+
+.mgr-sub {
+  text-align: center;
+  color: #c9c9d4;
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
+}
+
+/* ===== Grid Layout ===== */
+.mgr-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  justify-content: center; /* ✅ Center grid horizontally */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px; /* ✅ More breathing room between cards */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Group heading for ordered sections (Team Lead, 3rd Year, 2nd Year) */
+.mgr-group {
+  margin-top: 2.5rem;
+}
+
+.mgr-group-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* ===== Manager Card ===== */
+.mgr-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35),
+    inset 0 0 16px rgba(0, 153, 255, 0.08);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  width: 260px; /* ✅ Compact width */
+  margin: 0 auto; /* ✅ Center each card */
+}
+
+.mgr-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 153, 255, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 153, 255, 0.18),
+    0 0 18px rgba(0, 153, 255, 0.15);
+}
+
+/* ===== Square Image Area (Smaller) ===== */
+.mgr-imgwrap {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Always square */
+  display: grid;
+  place-items: center;
+  background: #111419;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mgr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(105%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.mgr-card:hover .mgr-img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* ===== Text Section ===== */
+.mgr-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px 16px;
+  flex: 1;
+}
+
+.mgr-name {
+  color: #fff;
+  margin: 2px 0 4px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.mgr-role {
+  color: #c9c9d4;
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+
+.mgr-regno {
+  color: #b5c5e0;
+  font-size: 0.85rem;
+  margin: 0 0 10px;
+  text-align: left;
+  letter-spacing: 0.03em;
+  opacity: 0.9;
+}
+
+.mgr-regno strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Keeps spacing consistent */
+.mgr-body::after {
+  content: "";
+  display: block;
+  flex: 1;
+}
+
+/* ===== Phone Button ===== */
+.mgr-phone {
+  align-self: start;
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 153, 255, 0.35);
+  text-decoration: none;
+  color: #e6f4ff;
+  font-weight: 600;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: inset 0 0 15px rgba(0, 153, 255, 0.12);
+  font-size: 0.85rem;
+}
+
+.mgr-phone:hover {
+  background: rgba(0, 153, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 153, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 900px) {
+  .mgr-grid {
+    gap: 24px;
+  }
+  .mgr-card {
+    width: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mgr-grid {
+    gap: 20px;
+  }
+  .mgr-card {
+    width: 220px;
+  }
+}
+
+/* ===== Contributors specific layout: first row 3 cards, second row 2 cards centered ===== */
+.mgr-group[data-group="contributors"] .mgr-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* centers the last row with 2 items */
+  gap: 30px;
+  max-width: 860px; /* ensure 3 cards (3*260 + gaps) fit on one row on wider screens */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mgr-group[data-group="contributors"] .mgr-card {
+  /* keep the same compact width so 3 fit on first row */
+  width: 260px;
+  margin: 0; /* cards handled by flex gap / centering */
+}
+
+@media (max-width: 900px) {
+  .mgr-group[data-group="contributors"] .mgr-card {
+    width: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mgr-group[data-group="contributors"] .mgr-card {
+    width: 220px;
+  }
+}
