@@ -21,6 +21,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://www.urja-nitjsr.com",
   "https://urja-nitjsr.com",
+  "https://aditya1006gt.github.io",
 ];
 
 if (process.env.FRONTEND_URL) {

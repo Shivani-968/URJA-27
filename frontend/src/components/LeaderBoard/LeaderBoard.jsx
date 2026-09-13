@@ -3,7 +3,7 @@ import "./LeaderBoard.css";
 import Footer from '../Footer/Footer.jsx';
 
 // Backend API URL for leaderboard data
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/$/, '');
+const API_URL = (import.meta.env.VITE_API_URL || 'https://urja-2026.onrender.com').replace(/\/$/, '');
 const LEADERBOARD_API_URL = `${API_URL}/api/leaderboard`;
 
 // --- FUNCTION TO CALCULATE TOTAL POINTS (Remains the same) ---

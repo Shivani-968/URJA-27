@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer.jsx';
    CONFIG
    =============================================== */
 
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/$/, '');
+const API_URL = (import.meta.env.VITE_API_URL || 'https://urja-2026.onrender.com').replace(/\/$/, '');
 
 /* UI config for sports/genders/pools (events) */
 const sportsDataMap = {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminLogin.css";
 
-const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5001").replace(/\/$/, "");
+const API_URL = (import.meta.env.VITE_API_URL || "https://urja-2026.onrender.com").replace(/\/$/, "");
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
