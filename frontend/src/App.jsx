@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar"
 import Home from "./components/Home/Home";
 import Team from "./components/Team/Team";
@@ -9,6 +9,9 @@ import Pool from "./components/Pool/Pool";
 import BranchLeaderboard from "./components/LeaderBoard/LeaderBoard";
 import PointsTable from "./components/PointsTable/PointsTable";
 import Managers from "./components/Managers/managers"; 
+import AdminLogin from "./components/Admin/AdminLogin";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+
 function ScrollToTop() {
   React.useEffect(() => {
     const unlisten = () => {
@@ -19,14 +22,27 @@ function ScrollToTop() {
   }, []);
   return null;
 }
-// Main App Component with Routing
 
+// Wrapper to conditionally show Navbar (hide on admin pages)
+function Layout({ children }) {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+  return (
+    <>
+      {!isAdmin && <Navbar />}
+      <main style={!isAdmin ? { paddingTop: "84px" } : undefined}>
+        {children}
+      </main>
+    </>
+  );
+}
+
+// Main App Component with Routing
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Navbar />
-      <main style={{ paddingTop: "84px" }}>
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/team" element={<Team />} />
@@ -36,9 +52,11 @@ export default function App() {
           <Route path="/branch-leaderboard" element={<BranchLeaderboard />} />
           <Route path="/points-table" element={<PointsTable />} />
           <Route path="/managers" element={<Managers />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="*" element={<Home />} />
         </Routes>
-      </main>
+      </Layout>
     </BrowserRouter>
   );
 }

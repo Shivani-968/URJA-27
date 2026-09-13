@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./LeaderBoard.css";
 import Footer from '../Footer/Footer.jsx';
 
-// **PASTE YOUR WEB APP URL HERE**
-const GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbyYkVeii_WHmF7PECg9jaYNFoQNbQ5JTNJDFWUejGxHU3yYpEq6vx_juWne9xK3zkeh/exec";
+// Backend API URL for leaderboard data
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/$/, '');
+const LEADERBOARD_API_URL = `${API_URL}/api/leaderboard`;
 
 // --- FUNCTION TO CALCULATE TOTAL POINTS (Remains the same) ---
 const calculateTotalPoints = (data) => {
@@ -33,7 +34,7 @@ const LeaderBoard = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(GOOGLE_SHEET_API_URL);
+        const response = await fetch(LEADERBOARD_API_URL);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

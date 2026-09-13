@@ -6,8 +6,7 @@ import Footer from '../Footer/Footer.jsx';
    CONFIG
    =============================================== */
 
-// 🔴 REPLACE with your deployed Apps Script /exec URL:
-const ATH_API = "https://script.google.com/macros/s/AKfycbzmSjoHsaZO6fznE_lDOdL1wfFa3635T_tRIq5KTCaE9W0R7DON6fxKYbQfBRfRyP-w2g/exec";
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/$/, '');
 
 /* UI config for sports/genders/pools (events) */
 const sportsDataMap = {
@@ -22,6 +21,11 @@ const sportsDataMap = {
     Badminton: {
         genders: ['Boys', 'Girls'],
         pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
+        stages: ['Group Stage', 'Knockout'],
+    },
+    Basketball: {
+        genders: ['Boys', 'Girls'],
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A'] },
         stages: ['Group Stage', 'Knockout'],
     },
     Chess: {
@@ -39,9 +43,14 @@ const sportsDataMap = {
         pools: { Boys: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
+    Hockey: {
+        genders: ['Boys'],
+        pools: { Boys: ['Pool A'] },
+        stages: ['Group Stage', 'Knockout'],
+    },
     'Lawn Tennis': {
         genders: ['Boys', 'Girls'],
-        pools: { Boys: ['Pool A'], Girls: ['Pool A', 'Pool B'] },
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
     'Table Tennis': {
@@ -51,7 +60,7 @@ const sportsDataMap = {
     },
     Volleyball: {
         genders: ['Boys', 'Girls'],
-        pools: { Boys: ['Pool A', 'Pool B'] },
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
 };
@@ -67,15 +76,6 @@ const formatString = (str) => {
         .map(w => w.charAt(0).toUpperCase() + w.slice(1))
         .join(' ');
 };
-
-// Fetch athletics data for a given event + gender from Apps Script API
-async function fetchAthleticsEventPoints(eventName, gender) {
-    const url = `${ATH_API}?event=${encodeURIComponent(eventName)}&gender=${encodeURIComponent(gender)}`;
-    console.log(url)
-    const res = await fetch(url, { cache: 'no-cache' });
-    if (!res.ok) throw new Error(`Athletics API HTTP ${res.status}`);
-    return await res.json(); // { pointsTable: { headings, data }, matches: [] }
-}
 
 /* ===============================================
    Presentational components
@@ -287,9 +287,11 @@ function PointsTable() {
     const sportsList = [
         { name: 'Athletics', emoji: '🏃' },
         { name: 'Badminton', emoji: '🏸' },
+        { name: 'Basketball', emoji: '🏀' },
         { name: 'Chess', emoji: '♟️' },
         { name: 'Cricket', emoji: '🏏' },
         { name: 'Football', emoji: '⚽' },
+        { name: 'Hockey', emoji: '🏑' },
         { name: 'Lawn Tennis', emoji: '🎾' },
         { name: 'Table Tennis', emoji: '🏓' },
         { name: 'Volleyball', emoji: '🏐' },
@@ -309,9 +311,9 @@ function PointsTable() {
         }
     }, [selectedSport, selectedGender, selectedStage, selectedPool]);
 
-    // Load data for current selection
+    // Load data for current selection from backend API
     useEffect(() => {
-        const importData = async () => {
+        const fetchData = async () => {
             setCurrentData(null);
 
             if (!selectedSport || !selectedGender || (selectedStage === 'Group Stage' && !selectedPool && selectedSport !== 'Athletics')) {
@@ -319,48 +321,51 @@ function PointsTable() {
             }
 
             try {
-                const sportFolderPath = selectedSport.toLowerCase().replace(' ', '-');
-                const genderFolderPath = selectedGender.toLowerCase().replace(' ', '-');
-
+                // Determine the event parameter for the API
+                let eventParam;
                 if (selectedSport === 'Athletics') {
-                    // LIVE fetch from the Apps Script API
-                    const live = await fetchAthleticsEventPoints(selectedPool, selectedGender);
-                    setCurrentData(live);
+                    eventParam = selectedPool; // e.g. "100m", "200m"
+                } else if (selectedStage === 'Knockout') {
+                    eventParam = 'Knockout';
+                } else {
+                    eventParam = selectedPool; // e.g. "Pool A", "Pool B"
+                }
+
+                const params = new URLSearchParams({
+                    sport: selectedSport,
+                    gender: selectedGender,
+                    event: eventParam,
+                    stage: selectedStage,
+                });
+
+                const res = await fetch(`${API_URL}/api/scores?${params}`, { cache: 'no-cache' });
+                if (!res.ok) throw new Error(`API HTTP ${res.status}`);
+                const scores = await res.json();
+
+                if (scores.length === 0) {
+                    setCurrentData(null);
                     return;
                 }
 
-                // Non-athletics: dynamic import from your local files
-                let module = null;
-                let dataKey = '';
+                const doc = scores[0];
 
-                if (selectedStage === 'Group Stage') {
-                    const poolFolderPath = selectedPool.toLowerCase().replace(' ', '-');
-                    module = await import(`./sports/${sportFolderPath}/${genderFolderPath}/${poolFolderPath}.jsx`).catch(e => {
-                        console.error("Group Stage import failed:", e);
-                        return null;
-                    });
-                    dataKey = module ? Object.keys(module)[0] : '';
+                if (selectedStage === 'Knockout') {
+                    // For knockout, the data is in the `knockout` field
+                    setCurrentData(doc.knockout || null);
                 } else {
-                    module = await import(`./sports/${sportFolderPath}/${genderFolderPath}/knockout.jsx`).catch(e => {
-                        console.error("Knockout import failed:", e);
-                        return null;
+                    // For group stage / athletics, use pointsTable + matches
+                    setCurrentData({
+                        pointsTable: doc.pointsTable,
+                        matches: doc.matches || [],
                     });
-                    dataKey = module ? Object.keys(module)[0] : '';
-                }
-
-                if (module && module[dataKey]) {
-                    setCurrentData(module[dataKey]);
-                } else {
-                    console.warn(`Data not found or key ${dataKey} missing for ${selectedSport}.`);
-                    setCurrentData(null);
                 }
             } catch (err) {
-                console.error(`Unexpected crash during data import for ${selectedSport}:`, err);
+                console.error(`Failed to fetch data for ${selectedSport}:`, err);
                 setCurrentData(null);
             }
         };
 
-        importData();
+        fetchData();
     }, [selectedSport, selectedGender, selectedPool, selectedStage]);
 
     // Resize + outside click for mobile dropdown

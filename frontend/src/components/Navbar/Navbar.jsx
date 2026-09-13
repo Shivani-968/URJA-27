@@ -129,6 +129,12 @@ function Navbar() {
             <span className="nav-glow"></span>
           </Link>
         </li>
+        <li style={{ "--item-index": 7 }}>
+          <Link to="/admin" onClick={closeMenu} className={`admin-nav-link ${location.pathname.startsWith("/admin") ? "active" : ""}`}>
+            <span className="nav-text">Admin</span>
+            <span className="nav-glow"></span>
+          </Link>
+        </li>
       </ul>
     </nav>
   );
