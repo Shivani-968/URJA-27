@@ -1,7 +1,9 @@
-//Gallery.js
+// Gallery.jsx
+
 import React, { useState } from "react";
 import "./Gallery.css";
-import Footer from '../Footer/Footer.jsx';  
+import Footer from "../Footer/Footer.jsx";
+
 // --- Image Data ---
 // Replace the `src` with your actual image paths.
 const galleryImages = [
@@ -65,7 +67,7 @@ const galleryImages = [
         title: "Shotput Throw",
         category: "Athletics",
     },
-     {
+    {
         id: 11,
         src: "race.jpg",
         title: "Race",
@@ -78,7 +80,6 @@ const galleryImages = [
         category: "Yoga",
     },
 ];
-
 
 export default function Gallery() {
     // State to keep track of the selected image
@@ -99,41 +100,71 @@ export default function Gallery() {
         e.stopPropagation();
     };
 
-
     return (
         <>
-        <div className="gallery-container">
-            <h1 className="gallery-title">Moments of URJA</h1>
-            <div className="gallery-grid">
-                {galleryImages.map((image) => (
-                    <div
-                        className="gallery-card"
-                        key={image.id}
-                        onClick={() => openModal(image)}
-                    >
-                        <img src={`/gallery/${image.src}`} alt={image.title} className="gallery-image" />
-                        <div className="gallery-overlay">
-                            <h3 className="gallery-image-title">{image.title}</h3>
+            <div className="gallery-container">
+
+                <h1 className="gallery-title">
+                    Moments of URJA
+                </h1>
+
+                <div className="gallery-grid">
+
+                    {galleryImages.map((image) => (
+                        <div
+                            className="gallery-card"
+                            key={image.id}
+                            onClick={() => openModal(image)}
+                        >
+
+                            <img
+                                src={`${import.meta.env.BASE_URL}gallery/${image.src}`}
+                                alt={image.title}
+                                className="gallery-image"
+                            />
+
+                            <div className="gallery-overlay">
+                                <h3 className="gallery-image-title">
+                                    {image.title}
+                                </h3>
+                            </div>
+
                         </div>
+                    ))}
+
+                </div>
+
+                {/* --- Modal Popup --- */}
+                {selectedImage && (
+                    <div
+                        className="gallery-modal"
+                        onClick={closeModal}
+                    >
+
+                        <span
+                            className="modal-close"
+                            onClick={closeModal}
+                        >
+                            &times;
+                        </span>
+
+                        <img
+                            src={`${import.meta.env.BASE_URL}gallery/${selectedImage.src}`}
+                            alt={selectedImage.title}
+                            className="modal-content"
+                            onClick={handleImageClick}
+                        />
+
+                        <div className="modal-caption">
+                            {selectedImage.title}
+                        </div>
+
                     </div>
-                ))}
+                )}
+
             </div>
 
-            {/* --- Modal Popup --- */}
-            {selectedImage && (
-                <div className="gallery-modal" onClick={closeModal}>
-                    <span className="modal-close" onClick={closeModal}>&times;</span>
-                    <img
-                        src={`/gallery/${selectedImage.src}`}
-                        alt={selectedImage.title}
-                        className="modal-content"
-                        onClick={handleImageClick} // Prevents closing when image is clicked
-                    />
-                     <div className="modal-caption">{selectedImage.title}</div>
-                </div>
-            )}
-        </div>
-        <Footer />
-        </> 
+            <Footer />
+        </>
     );
 }

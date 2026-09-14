@@ -30,7 +30,7 @@ export default function Home() {
             playsInline
             preload="auto"
           >
-            <source src="/urja-bg.mp4" type="video/mp4" />
+         <source src={`${import.meta.env.BASE_URL}urja-bg.mp4`} type="video/mp4" />
           </video>
         </div>
 

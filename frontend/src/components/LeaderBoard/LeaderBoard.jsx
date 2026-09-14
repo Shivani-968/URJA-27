@@ -158,7 +158,7 @@ const LeaderBoard = () => {
         <div className="leaderboard-container">
           <div className="title-section">
             <div className="main-title">LEADERBOARD</div>
-            <div className="subtitle">URJA'26 • SPORTSFEST 2025 (Live Data)</div>
+          <div className="subtitle">URJA'27 • SPORTSFEST 2027 (Live Data)</div>
           </div>
 
           {showPodium && (

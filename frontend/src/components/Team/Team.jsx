@@ -1,6 +1,7 @@
 import React from 'react';
 import './Team.css';
-import Footer from '../Footer/Footer.jsx';  
+import Footer from '../Footer/Footer.jsx';
+
 // Updated team data with one entry per person
 const supercoreTeamData = [
     {
@@ -158,32 +159,61 @@ const supercoreTeamData = [
 function Team() {
     return (
         <>
-        <div className="team-page-content">
-            <h1 className="main-team-heading">URJA'26 SUPERCORE</h1>
-            <div className="team-cards-container">
-                {supercoreTeamData.map((member, index) => (
-                    <div className="team-card" key={index}>
-                        <div className="card-image-container">
-                            <img
-                                src={`/supercore/${member.image}`}
-                                alt={member.name}
-                                className="member-image"
-                                loading="lazy"
-                                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/supercore/priyanshu_dev.jpg'; }}
-                            />
-                            <div className="card-overlay"></div>
+            <div className="team-page-content">
+
+                <h1 className="main-team-heading">
+                    URJA'27 SUPERCORE
+                </h1>
+
+                <div className="team-cards-container">
+
+                    {supercoreTeamData.map((member, index) => (
+
+                        <div className="team-card" key={index}>
+
+                            <div className="card-image-container">
+
+                                <img
+                                    src={`${import.meta.env.BASE_URL}supercore/${member.image}`}
+                                    alt={member.name}
+                                    className="member-image"
+                                    loading="lazy"
+                                    onError={(e) => {
+                                        e.currentTarget.onerror = null;
+                                        e.currentTarget.src = `${import.meta.env.BASE_URL}supercore/priyanshu_dev.jpg`;
+                                    }}
+                                />
+
+                                <div className="card-overlay"></div>
+
+                            </div>
+
+                            <div className="card-details">
+
+                                <p className="card-post">
+                                    {member.post}
+                                </p>
+
+                                <h2 className="card-name">
+                                    {member.name}
+                                </h2>
+
+                                <p className="card-regno">
+                                    {member.regNo}
+                                </p>
+
+                            </div>
+
                         </div>
-                        <div className="card-details">
-                            <p className="card-post">{member.post}</p>
-                            <h2 className="card-name">{member.name}</h2>
-                            <p className="card-regno">{member.regNo}</p>
-                        </div>
-                    </div>
-                ))}
+
+                    ))}
+
+                </div>
+
             </div>
-        </div>
-        <Footer/>
-        </> 
+
+            <Footer />
+        </>
     );
 }
 

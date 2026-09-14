@@ -59,7 +59,7 @@ export default function AdminLogin() {
           <div className="admin-login-header">
             <div className="admin-lock-icon">🔐</div>
             <h1>Admin Login</h1>
-            <p>URJA 2026 Score Management</p>
+           <p>URJA 2027 Score Management</p>
           </div>
 
           <form onSubmit={handleSubmit} className="admin-login-form">

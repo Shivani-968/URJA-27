@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
-const logo = "/urja-logo-white.png";
+const logo = `${import.meta.env.BASE_URL}urja-logo-white.png`;
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
