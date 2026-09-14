@@ -1,171 +1,694 @@
-/* Home.css - Styles for Home component */
+/* =========================================================
+   URJA '27 — HOME PAGE
+   Theme: VORTEX
+   Background: Video + Neon Pink + Black
+========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
 
-.urja-homepage {
-  background-color: black;
-  color: white;
-  /* Use fixed height and hidden overflow to prevent scrolling */
-  height: 100vh;
-  overflow: hidden;
-  /* Removed min-height and overflow-x: hidden for a cleaner full-screen effect */
-  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =========================================================
+   MAIN HOMEPAGE
+========================================================= */
+
+.urja-homepage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  background: #000000;
+
+  color: white;
+
+  overflow: hidden;
+
+  font-family:
+    'Poppins',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
 
 .hero-section {
   position: relative;
+
+  width: 100%;
   height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
+
+  background: #000000;
 }
 
-.hyperspeed-bg {
+
+/* =========================================================
+   VIDEO BACKGROUND CONTAINER
+========================================================= */
+
+.video-bg {
   position: absolute;
-  top: 0;
-  left: 0;
+
+  inset: 0;
+
   width: 100%;
   height: 100%;
-  z-index: 1;
+
+  z-index: 0;
+
+  overflow: hidden;
+
+  background: #000000;
 }
+
+
+/* =========================================================
+   ACTUAL VIDEO
+========================================================= */
+
+.hero-video {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, -50%);
+
+  object-fit: cover;
+
+  object-position: center;
+
+  display: block;
+
+  background: #000000;
+}
+
+
+/* =========================================================
+   VIDEO DARK + NEON PINK OVERLAY
+========================================================= */
+
+/*
+   This layer makes the original red/orange video
+   blend with the URJA neon-pink + black theme.
+*/
+
+.video-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+
+    /* Top pink glow */
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 20, 147, 0.45),
+      transparent 55%
+    ),
+
+    /* Bottom-left pink glow */
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(255, 105, 180, 0.18),
+      transparent 40%
+    ),
+
+    /* Right-side pink glow */
+    radial-gradient(
+      circle at 90% 50%,
+      rgba(255, 20, 147, 0.20),
+      transparent 35%
+    ),
+
+    /* Main black/pink gradient */
+    linear-gradient(
+      180deg,
+      rgba(26, 0, 18, 0.72) 0%,
+      rgba(16, 0, 12, 0.78) 50%,
+      rgba(5, 0, 3, 0.90) 100%
+    );
+
+  mix-blend-mode: normal;
+}
+
+
+/* =========================================================
+   EXTRA DARKNESS
+========================================================= */
+
+.hero-section::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.35),
+      transparent 35%,
+      transparent 65%,
+      rgba(0, 0, 0, 0.35)
+    );
+
+  box-shadow:
+    inset 0 0 150px rgba(0, 0, 0, 0.85);
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
 
 .hero-content {
   position: relative;
+
   z-index: 10;
-  text-align: center;
-  padding: 0 1.5rem;
+
+  width: 100%;
   max-width: 80rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* Use height 100% or 100vh to ensure it stays in view */
+
   height: 100vh;
+
+  padding: 0 1.5rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
 }
 
-.hero-title {
-  font-size: 3.75rem;
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
-}
 
-/* Improve visibility for hero text: subtle stroke + shadows */
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
 .hero-title {
+  margin: 0 0 1.5rem;
+
   color: #ffffff;
+
+  font-size: 3.75rem;
+
+  font-weight: 900;
+
+  line-height: 1.1;
+
+  letter-spacing: 1px;
+
   -webkit-text-stroke: 0.9px rgba(0, 0, 0, 0.75);
+
   text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.02),
-    0 6px 18px rgba(0, 0, 0, 0.85),
-    0 1px 3px rgba(0, 0, 0, 0.6);
+
+    0 0 5px #ffffff,
+
+    0 0 12px rgba(255, 20, 147, 0.75),
+
+    0 0 25px rgba(255, 20, 147, 0.65),
+
+    0 0 45px rgba(255, 20, 147, 0.35),
+
+    0 6px 18px rgba(0, 0, 0, 0.9);
 }
+
+
+/* =========================================================
+   DESKTOP TITLE
+========================================================= */
 
 @media (min-width: 768px) {
+
   .hero-title {
     font-size: 6rem;
   }
+
 }
+
+
+/* =========================================================
+   HERO SUBTITLE
+========================================================= */
 
 .hero-subtitle {
   margin-top: 0.5rem;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.25rem;
-  font-weight: 500;
-  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.6);
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
-  letter-spacing: 0.6px;
-  max-width: 900px;
+
   margin-left: auto;
   margin-right: auto;
+
+  max-width: 900px;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  font-size: 1.25rem;
+
+  font-weight: 500;
+
+  letter-spacing: 0.6px;
+
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.6);
+
+  text-shadow:
+
+    0 0 5px rgba(255, 255, 255, 0.8),
+
+    0 0 12px rgba(255, 20, 147, 0.65),
+
+    0 4px 12px rgba(0, 0, 0, 0.9);
 }
 
+
+/* =========================================================
+   DESKTOP SUBTITLE
+========================================================= */
+
 @media (min-width: 768px) {
+
   .hero-subtitle {
     font-size: 1.5rem;
   }
+
 }
 
-@media (max-width: 480px) {
-  .hero-subtitle {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-}
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
 
 .hero-buttons {
   display: flex;
-  gap: 1rem;
+
   justify-content: center;
   align-items: center;
+
+  gap: 1rem;
+
   margin-top: 3rem;
 }
 
-@media (max-width: 768px) {
-  .hero-buttons {
-    gap: 0.75rem;
-  }
 
-  .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-  }
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.hero-btn-primary {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  padding: 1rem 2rem;
+
+  border: 1px solid rgba(255, 105, 180, 0.5);
+
+  border-radius: 9999px;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #ffe6f3 100%
+    );
+
+  color: #000000;
+
+  font-weight: 700;
+
+  font-size: 1.125rem;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
-@media (max-width: 480px) {
-  .hero-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
+
+/* =========================================================
+   PRIMARY BUTTON HOVER
+========================================================= */
+
+.hero-btn-primary:hover {
+
+  transform:
+    scale(1.05)
+    translateY(-2px);
+
+  background: #ffffff;
+
+  box-shadow:
+
+    0 0 10px #ffffff,
+
+    0 0 20px rgba(255, 20, 147, 0.7),
+
+    0 0 35px rgba(255, 20, 147, 0.45);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.hero-btn-secondary {
+
+  padding: 1rem 2rem;
+
+  border:
+
+    1px solid
+    rgba(255, 105, 180, 0.8);
+
+  border-radius: 9999px;
+
+  background:
+
+    rgba(0, 0, 0, 0.35);
+
+  color: #ffffff;
+
+  font-weight: 700;
+
+  font-size: 1.125rem;
+
+  cursor: pointer;
+
+  transition:
+    all 0.3s ease;
+
+  backdrop-filter: blur(6px);
+
+  -webkit-backdrop-filter: blur(6px);
+
+  box-shadow:
+
+    0 0 8px rgba(255, 20, 147, 0.25),
+
+    inset 0 0 10px rgba(255, 20, 147, 0.05);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON HOVER
+========================================================= */
+
+.hero-btn-secondary:hover {
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255, 20, 147, 0.45),
+      rgba(255, 20, 147, 0.12)
+    );
+
+  color: #ffffff;
+
+  transform:
+    scale(1.05)
+    translateY(-2px);
+
+  border-color: #ff69b4;
+
+  box-shadow:
+
+    0 0 8px rgba(255, 20, 147, 0.8),
+
+    0 0 20px rgba(255, 20, 147, 0.6),
+
+    0 0 35px rgba(255, 20, 147, 0.3),
+
+    inset 0 0 15px rgba(255, 20, 147, 0.12);
+}
+
+
+/* =========================================================
+   SCROLL INDICATOR
+========================================================= */
+
+.scroll-indicator {
+
+  position: absolute;
+
+  bottom: 25px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 10;
+
+  width: 30px;
+
+  height: 48px;
+
+  border:
+
+    2px solid
+    rgba(255, 255, 255, 0.65);
+
+  border-radius: 20px;
+
+  display: flex;
+
+  justify-content: center;
+
+  padding-top: 8px;
+
+  box-shadow:
+
+    0 0 8px rgba(255, 20, 147, 0.4);
+}
+
+
+/* =========================================================
+   SCROLL MOUSE
+========================================================= */
+
+.scroll-mouse {
+
+  width: 4px;
+
+  height: 8px;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  box-shadow:
+
+    0 0 8px #ff1493,
+
+    0 0 15px rgba(255, 20, 147, 0.7);
+
+  animation:
+    scrollMove 1.6s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   SCROLL ANIMATION
+========================================================= */
+
+@keyframes scrollMove {
+
+  0% {
+    transform: translateY(0);
+    opacity: 1;
   }
+
+  50% {
+    transform: translateY(14px);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hero-title {
+
+    font-size: 2.5rem;
+
+    margin-bottom: 2rem;
+
+  }
+
+
+  .hero-buttons {
+
+    gap: 0.75rem;
+
+    margin-top: 2.5rem;
+
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hero-title {
+
+    font-size: 2rem;
+
+    margin-bottom: 1.5rem;
+
+  }
+
+
+  .hero-subtitle {
+
+    font-size: 1rem;
+
+    padding: 0 1rem;
+
+  }
+
+
+  .hero-buttons {
+
+    flex-direction: column;
+
+    gap: 0.5rem;
+
+  }
+
 
   .hero-btn-primary,
   .hero-btn-secondary {
+
     width: 280px;
+
     padding: 0.75rem 1.5rem;
+
     font-size: 1rem;
+
   }
+
+
+  .scroll-indicator {
+
+    bottom: 18px;
+
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 360px) {
 
   .hero-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+
+    font-size: 1.75rem;
+
   }
+
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+
+    width: 250px;
+
+  }
+
 }
 
-.hero-btn-primary {
-  justify-content: center;
-  background-color: white;
-  color: black;
-  padding: 1rem 2rem;
-  border-radius: 9999px;
-  font-weight: 700;
-  font-size: 1.125rem;
-  transition: transform 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  border: none;
-}
 
-.hero-btn-primary:hover {
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
-}
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
 
-.hero-btn-secondary {
-  border: 2px solid white;
-  padding: 1rem 2rem;
-  border-radius: 9999px;
-  font-weight: 700;
-  font-size: 1.125rem;
-  transition: all 0.3s;
-  cursor: pointer;
-  background: transparent;
-  color: white;
-}
+@media (prefers-reduced-motion: reduce) {
 
-.hero-btn-secondary:hover {
-  background-color: white;
-  color: black;
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  .hero-video {
+
+    animation: none;
+
+  }
+
+  .scroll-mouse {
+
+    animation: none;
+
+  }
+
+  .hero-title,
+  .hero-buttons button {
+
+    transition: none !important;
+
+  }
+
 }

@@ -24,12 +24,22 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 80% 20%,
-      rgba(255, 60, 0, 0.2) 0,
-      transparent 80%),
-    radial-gradient(circle at 20% 80%,
-      rgba(0, 207, 255, 0.2) 0,
-      transparent 80%);
+  background:radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 20, 147, 0.45),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(255, 105, 180, 0.18),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      #1a0012 0%,
+      #10000c 50%,
+      #050003 100%
+    );
   z-index: 0;
 }
 

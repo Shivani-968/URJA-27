@@ -1,63 +1,109 @@
-/* General page container */
+
+/* ---------------------------------
+   GENERAL PAGE CONTAINER
+--------------------------------- */
+
 .team-page-content {
-    padding-bottom: 50px;
     padding-top: 80px;
+    padding-bottom: 50px;
     color: #f0f0f0;
     font-family: 'Poppins', sans-serif;
     text-align: center;
     min-height: calc(100vh - 80px);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background: #000000;
+
+    background: #000;
     position: relative;
     overflow: hidden;
 }
+
+
+/* ---------------------------------
+   BACKGROUND GLOW
+--------------------------------- */
 
 .team-page-content::before {
     content: '';
     position: absolute;
     inset: 0;
+
     pointer-events: none;
-    background: radial-gradient(circle at 80% 20%, rgba(255, 60, 0, 0.2) 0, transparent 80%),
-        radial-gradient(circle at 20% 80%, rgba(0, 207, 255, 0.2) 0, transparent 80%);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 20, 147, 0.45),
+            transparent 55%
+        ),
+        radial-gradient(
+            circle at 15% 70%,
+            rgba(255, 105, 180, 0.18),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            #1a0012 0%,
+            #10000c 50%,
+            #050003 100%
+        );
+
     z-index: 0;
 }
 
-/* Main heading style */
+
+/* ---------------------------------
+   MAIN HEADING
+--------------------------------- */
+
 .main-team-heading {
     font-size: 5rem;
     font-weight: 900;
+
     text-transform: uppercase;
+    letter-spacing: 5px;
+
     margin-bottom: 3rem;
+
     color: #ffffff;
+
     text-shadow:
         0 0 10px rgba(255, 255, 255, 0.5),
         0 0 20px rgba(255, 68, 0, 0.8),
         0 0 30px rgba(0, 170, 255, 0.8),
-        2px 2px 0px rgba(255, 106, 0, 0.6),
-        -2px -2px 0px rgba(0, 199, 255, 0.6),
-        4px 4px 0px rgba(255, 45, 0, 0.4),
-        -4px -4px 0px rgba(30, 144, 255, 0.4);
-    letter-spacing: 5px;
+        2px 2px 0 rgba(255, 106, 0, 0.6),
+        -2px -2px 0 rgba(0, 199, 255, 0.6),
+        4px 4px 0 rgba(255, 45, 0, 0.4),
+        -4px -4px 0 rgba(30, 144, 255, 0.4);
+
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
-    animation: teamGlow 3s ease-in-out infinite alternate, hyperspeedLines 2s linear infinite;
+
     position: relative;
     z-index: 1;
+
+    animation:
+        teamGlow 3s ease-in-out infinite alternate,
+        hyperspeedLines 2s linear infinite;
 }
 
-/* Keyframe for a dual-tone fire and ice glow */
+
+/* ---------------------------------
+   HEADING GLOW ANIMATION
+--------------------------------- */
+
 @keyframes teamGlow {
     from {
         text-shadow:
             0 0 10px rgba(255, 255, 255, 0.5),
             0 0 20px rgba(255, 68, 0, 0.8),
             0 0 30px rgba(0, 170, 255, 0.8),
-            2px 2px 0px rgba(255, 106, 0, 0.6),
-            -2px -2px 0px rgba(0, 199, 255, 0.6),
-            4px 4px 0px rgba(255, 45, 0, 0.4),
-            -4px -4px 0px rgba(30, 144, 255, 0.4);
+            2px 2px 0 rgba(255, 106, 0, 0.6),
+            -2px -2px 0 rgba(0, 199, 255, 0.6),
+            4px 4px 0 rgba(255, 45, 0, 0.4),
+            -4px -4px 0 rgba(30, 144, 255, 0.4);
     }
 
     to {
@@ -65,12 +111,17 @@
             0 0 15px rgba(255, 255, 255, 0.8),
             0 0 30px rgba(255, 68, 0, 1),
             0 0 40px rgba(0, 170, 255, 1),
-            3px 3px 0px rgba(255, 106, 0, 0.8),
-            -3px -3px 0px rgba(0, 199, 255, 0.8),
-            5px 5px 0px rgba(255, 45, 0, 0.6),
-            -5px -5px 0px rgba(30, 144, 255, 0.6);
+            3px 3px 0 rgba(255, 106, 0, 0.8),
+            -3px -3px 0 rgba(0, 199, 255, 0.8),
+            5px 5px 0 rgba(255, 45, 0, 0.6),
+            -5px -5px 0 rgba(30, 144, 255, 0.6);
     }
 }
+
+
+/* ---------------------------------
+   HYPERSPEED TEXT EFFECT
+--------------------------------- */
 
 @keyframes hyperspeedLines {
     0% {
@@ -78,10 +129,10 @@
             0 0 10px rgba(255, 255, 255, 0.5),
             0 0 20px rgba(255, 68, 0, 0.8),
             0 0 30px rgba(0, 170, 255, 0.8),
-            2px 2px 0px rgba(255, 106, 0, 0.6),
-            -2px -2px 0px rgba(0, 199, 255, 0.6),
-            4px 4px 0px rgba(255, 45, 0, 0.4),
-            -4px -4px 0px rgba(30, 144, 255, 0.4);
+            2px 2px 0 rgba(255, 106, 0, 0.6),
+            -2px -2px 0 rgba(0, 199, 255, 0.6),
+            4px 4px 0 rgba(255, 45, 0, 0.4),
+            -4px -4px 0 rgba(30, 144, 255, 0.4);
     }
 
     25% {
@@ -89,10 +140,10 @@
             0 0 10px rgba(255, 255, 255, 0.5),
             0 0 20px rgba(255, 68, 0, 0.8),
             0 0 30px rgba(0, 170, 255, 0.8),
-            1px 1px 0px rgba(255, 210, 0, 0.6),
-            -1px -1px 0px rgba(0, 102, 204, 0.6),
-            3px 3px 0px rgba(255, 106, 0, 0.4),
-            -3px -3px 0px rgba(0, 199, 255, 0.4);
+            1px 1px 0 rgba(255, 210, 0, 0.6),
+            -1px -1px 0 rgba(0, 102, 204, 0.6),
+            3px 3px 0 rgba(255, 106, 0, 0.4),
+            -3px -3px 0 rgba(0, 199, 255, 0.4);
     }
 
     50% {
@@ -100,10 +151,10 @@
             0 0 10px rgba(255, 255, 255, 0.5),
             0 0 20px rgba(255, 68, 0, 0.8),
             0 0 30px rgba(0, 170, 255, 0.8),
-            0px 0px 0px rgba(255, 45, 0, 0.6),
-            0px 0px 0px rgba(30, 144, 255, 0.6),
-            2px 2px 0px rgba(255, 210, 0, 0.4),
-            -2px -2px 0px rgba(0, 102, 204, 0.4);
+            0 0 0 rgba(255, 45, 0, 0.6),
+            0 0 0 rgba(30, 144, 255, 0.6),
+            2px 2px 0 rgba(255, 210, 0, 0.4),
+            -2px -2px 0 rgba(0, 102, 204, 0.4);
     }
 
     75% {
@@ -111,10 +162,10 @@
             0 0 10px rgba(255, 255, 255, 0.5),
             0 0 20px rgba(255, 68, 0, 0.8),
             0 0 30px rgba(0, 170, 255, 0.8),
-            -1px -1px 0px rgba(0, 199, 255, 0.6),
-            1px 1px 0px rgba(255, 106, 0, 0.6),
-            1px 1px 0px rgba(30, 144, 255, 0.4),
-            -1px -1px 0px rgba(255, 45, 0, 0.4);
+            -1px -1px 0 rgba(0, 199, 255, 0.6),
+            1px 1px 0 rgba(255, 106, 0, 0.6),
+            1px 1px 0 rgba(30, 144, 255, 0.4),
+            -1px -1px 0 rgba(255, 45, 0, 0.4);
     }
 
     100% {
@@ -122,154 +173,322 @@
             0 0 10px rgba(255, 255, 255, 0.5),
             0 0 20px rgba(255, 68, 0, 0.8),
             0 0 30px rgba(0, 170, 255, 0.8),
-            2px 2px 0px rgba(255, 106, 0, 0.6),
-            -2px -2px 0px rgba(0, 199, 255, 0.6),
-            4px 4px 0px rgba(255, 45, 0, 0.4),
-            -4px -4px 0px rgba(30, 144, 255, 0.4);
+            2px 2px 0 rgba(255, 106, 0, 0.6),
+            -2px -2px 0 rgba(0, 199, 255, 0.6),
+            4px 4px 0 rgba(255, 45, 0, 0.4),
+            -4px -4px 0 rgba(30, 144, 255, 0.4);
     }
 }
 
-/* Grid container for the cards */
+
+/* ---------------------------------
+   TEAM CARDS CONTAINER
+--------------------------------- */
+
 .team-cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 0 2rem 1rem;
+    width: 100%;
     max-width: 1400px;
+
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(280px, 1fr)
+    );
+
+    gap: 2rem;
+
+    padding: 0 2rem 1rem;
+
+    position: relative;
+    z-index: 1;
 }
 
-/* Styling for each member card */
+
+/* ---------------------------------
+   TEAM CARD
+--------------------------------- */
+
 .team-card {
     background: rgba(255, 255, 255, 0.05);
+
     border-radius: 20px;
     overflow: hidden;
+
     position: relative;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.3);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.6),
+        inset 0 0 20px rgba(0, 0, 0, 0.3);
+
     backdrop-filter: blur(15px);
-    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    -webkit-backdrop-filter: blur(15px);
+
+    transition:
+        transform 0.4s ease-in-out,
+        box-shadow 0.4s ease-in-out,
+        border 0.4s ease-in-out;
+
     text-align: center;
+
     display: flex;
     flex-direction: column;
+
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* More impressive hover effect */
+
+/* ---------------------------------
+   CARD HOVER
+--------------------------------- */
+
 .team-card:hover {
     transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9),
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.9),
         0 0 30px rgba(255, 68, 0, 0.5),
         0 0 30px rgba(0, 170, 255, 0.5);
+
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Image container with a defined aspect ratio */
+
+/* ---------------------------------
+   IMAGE CONTAINER
+--------------------------------- */
+
 .card-image-container {
     position: relative;
+
     width: 100%;
-    padding-bottom: 100%;
+
+    aspect-ratio: 1 / 1;
+
     overflow: hidden;
+
     background: #111;
 }
 
+
+/* ---------------------------------
+   MEMBER IMAGE
+--------------------------------- */
+
 .member-image {
     position: absolute;
+
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
     object-position: center top;
+
     display: block;
-    transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+
+    transition:
+        transform 0.4s ease-in-out,
+        filter 0.4s ease-in-out;
 }
 
-/* More impressive hover image effect */
+
+/* ---------------------------------
+   IMAGE HOVER
+--------------------------------- */
+
 .team-card:hover .member-image {
     transform: scale(1.1);
+
+    filter: brightness(1.08);
+
     border-bottom: 2px solid #fff;
 }
 
-/* Card details section */
+
+/* ---------------------------------
+   CARD DETAILS
+--------------------------------- */
+
 .card-details {
     padding: 1.5rem 1rem;
+
     flex-grow: 1;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
 
+
+/* ---------------------------------
+   POST
+--------------------------------- */
+
 .card-post {
     font-size: 1.2rem;
     font-weight: 600;
+
     color: #c0f8ff;
+
     text-transform: uppercase;
-    text-shadow: 0 0 5px rgba(192, 248, 255, 0.6);
+
+    text-shadow:
+        0 0 5px rgba(192, 248, 255, 0.6);
+
     line-height: 1.2;
+
     margin-bottom: 0.5rem;
-    transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out;
+
+    transition:
+        color 0.4s ease-in-out,
+        text-shadow 0.4s ease-in-out;
 }
+
+
+/* ---------------------------------
+   NAME
+--------------------------------- */
 
 .card-name {
     font-size: 1.5rem;
     font-weight: 800;
+
     color: #ffffff;
+
     line-height: 1.2;
+
     margin-bottom: 0.25rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.4);
 }
+
+
+/* ---------------------------------
+   REGISTRATION NUMBER
+--------------------------------- */
 
 .card-regno {
     font-size: 0.9rem;
+
     color: #aaa;
+
     margin-bottom: 0.5rem;
 }
 
-/* More impressive hover text effects */
+
+/* ---------------------------------
+   POST HOVER
+--------------------------------- */
+
 .team-card:hover .card-post {
     color: #ffaa00;
-    text-shadow: 0 0 15px rgba(255, 170, 0, 0.8);
+
+    text-shadow:
+        0 0 15px rgba(255, 170, 0, 0.8);
 }
 
-/* Styling for the phone number link */
+
+/* ---------------------------------
+   PHONE LINK
+--------------------------------- */
+
 .card-phone-link {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     text-decoration: none;
+
     margin-top: 0.5rem;
+
     color: #808080;
+
     font-size: 1rem;
     font-weight: 500;
+
     transition: all 0.3s ease-in-out;
+
     letter-spacing: 1px;
 }
 
+
 .card-phone-link:hover {
     color: #00cfff;
-    text-shadow: 0 0 10px rgba(0, 207, 255, 0.8);
+
+    text-shadow:
+        0 0 10px rgba(0, 207, 255, 0.8);
+
     transform: scale(1.05);
 }
 
+
+/* ---------------------------------
+   PHONE ICON
+--------------------------------- */
+
 .card-phone-icon {
     font-size: 1rem;
+
     margin-right: 8px;
+
     filter: grayscale(100%);
-    transition: filter 0.3s ease-in-out;
+
+    transition:
+        filter 0.3s ease-in-out;
 }
+
 
 .card-phone-link:hover .card-phone-icon {
     filter: none;
 }
 
+
+/* ---------------------------------
+   TABLET
+--------------------------------- */
+
+@media (max-width: 1024px) {
+
+    .main-team-heading {
+        font-size: 4rem;
+    }
+
+    .team-cards-container {
+        grid-template-columns: repeat(
+            2,
+            minmax(250px, 1fr)
+        );
+    }
+}
+
+
+/* ---------------------------------
+   MOBILE
+--------------------------------- */
+
 @media (max-width: 768px) {
+
+    .team-page-content {
+        padding-top: 60px;
+    }
+
     .main-team-heading {
         font-size: 2.5rem;
+        letter-spacing: 3px;
+        margin-bottom: 2rem;
     }
 
     .team-cards-container {
         grid-template-columns: 1fr;
-        /* Stack cards vertically */
-        padding: 0 1rem 2rem;
+
+        padding:
+            0 1rem 2rem;
+
+        gap: 1.5rem;
     }
 
     .team-card {
@@ -288,4 +507,24 @@
     .card-phone-link {
         font-size: 0.9rem;
     }
+
 }
+
+
+/* ---------------------------------
+   SMALL MOBILE
+--------------------------------- */
+
+@media (max-width: 480px) {
+
+    .main-team-heading {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .card-details {
+        padding: 1.2rem 0.8rem;
+    }
+
+}
+

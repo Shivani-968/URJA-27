@@ -15,15 +15,22 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(
-      circle at 80% 20%,
-      rgba(255, 60, 0, 0.1) 0,
-      transparent 60%
+  background:  radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 20, 147, 0.35),
+      transparent 35%
     ),
     radial-gradient(
-      circle at 20% 80%,
-      rgba(0, 207, 255, 0.1) 0,
-      transparent 70%
+      circle at 80% 70%,
+      rgba(255, 105, 180, 0.25),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #000000 0%,
+      #090009 45%,
+      #16000f 70%,
+      #000000 100%
     );
   z-index: 0;
 }

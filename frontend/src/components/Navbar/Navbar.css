@@ -1,491 +1,782 @@
-/* Reset */
+/* =========================================================
+   URJA '27 — VORTEX NAVBAR
+   Theme: Neon Pink + Black
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-/* Main Navbar */
-/* Main Navbar */
-/* Navbar Shell */
+.navbar,
+.navbar * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN NAVBAR
+========================================================= */
+
 .navbar {
-    width: 100%;
-    background: linear-gradient(to right,
-            rgba(255, 60, 0, 0.15) 0%,
-            rgba(0, 0, 0, 0.4) 50%,
-            rgba(0, 207, 255, 0.15) 100%);
-    padding: 0.6rem 1.4rem;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    z-index: 1000;
+    width: 100%;
+    height: 95px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
-    border-bottom: 2px solid;
-    border-image: linear-gradient(to right, #ff3c00 0%, transparent 50%, #00cfff 100%);
-    border-image-slice: 1;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.35s ease;
-    overflow: visible;
+
+    padding: 0 38px;
+
+    /* BLACK + NEON PINK GRADIENT */
+    background:
+        radial-gradient(
+            circle at 10% 50%,
+            rgba(255, 20, 147, 0.55),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 0, 128, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 50%,
+            rgba(255, 20, 147, 0.28),
+            transparent 30%
+        ),
+        linear-gradient(
+            90deg,
+            #000000 0%,
+            #100007 18%,
+            #260014 42%,
+            #18000e 65%,
+            #050003 100%
+        );
+
+    border-bottom: 1px solid rgba(255, 20, 147, 0.55);
+
+    box-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.75),
+        0 0 20px rgba(255, 20, 147, 0.12);
+
+    z-index: 1000;
+    overflow: hidden;
+
+    transition:
+        height 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.navbar-scrolled {
-    padding: 0.45rem 1.4rem;
-    background: linear-gradient(to right,
-            rgba(255, 60, 0, 0.25) 0%,
-            rgba(0, 0, 0, 0.65) 50%,
-            rgba(0, 207, 255, 0.25) 100%);
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.9);
+
+/* =========================================================
+   NAVBAR PINK GLOW LINE
+========================================================= */
+
+.navbar::after {
+    content: "";
+
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+
+    width: 90%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 20, 147, 0.4) 15%,
+        #ff1493 35%,
+        #ff69b4 50%,
+        #ff1493 65%,
+        rgba(255, 20, 147, 0.4) 85%,
+        transparent 100%
+    );
+
+    box-shadow:
+        0 0 6px #ff1493,
+        0 0 15px rgba(255, 20, 147, 0.8),
+        0 0 30px rgba(255, 20, 147, 0.45);
+
+    pointer-events: none;
 }
 
-/* Logo */
+
+/* =========================================================
+   PINK AMBIENT GLOW
+========================================================= */
+
+.navbar::before {
+    content: "";
+
+    position: absolute;
+    top: -100px;
+    left: 20%;
+
+    width: 350px;
+    height: 200px;
+
+    background: rgba(255, 20, 147, 0.12);
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    pointer-events: none;
+
+    animation: navbarGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes navbarGlow {
+
+    0% {
+        transform: translateX(-80px) scale(0.9);
+        opacity: 0.45;
+    }
+
+    100% {
+        transform: translateX(120px) scale(1.15);
+        opacity: 0.8;
+    }
+}
+
+
+/* =========================================================
+   LOGO LINK
+========================================================= */
+
 .navbar-logo-link {
+    position: relative;
+
     display: flex;
     align-items: center;
+
+    z-index: 5;
+
     text-decoration: none;
+
+    background: transparent;
+
     flex-shrink: 0;
 }
 
+
+/* =========================================================
+   URJA '27 LOGO
+   IMPORTANT:
+   Use transparent PNG here.
+========================================================= */
+
 .navbar-logo {
-    height: 52px;
-    width: auto;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 8px rgba(255, 60, 0, 0.6)) drop-shadow(0 0 8px rgba(0, 207, 255, 0.6));
-    transition: all 0.3s ease;
+    width: 200px;
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+
+    /*
+       IMPORTANT:
+       No mix-blend-mode here.
+       The new PNG already has transparent background.
+    */
+
+    filter:
+        drop-shadow(0 0 4px rgba(255, 255, 255, 0.75))
+        drop-shadow(0 0 10px rgba(255, 20, 147, 0.45));
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease,
+        opacity 0.3s ease;
 }
 
-.navbar-scrolled .navbar-logo {
-    height: 45px;
-}
+
+/* =========================================================
+   LOGO HOVER
+========================================================= */
 
 .navbar-logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
+
+    filter:
+        drop-shadow(0 0 5px #ffffff)
+        drop-shadow(0 0 12px #ff1493)
+        drop-shadow(0 0 25px rgba(255, 20, 147, 0.8));
 }
 
-/* Nav Links */
+
+/* =========================================================
+   NAVIGATION LINKS CONTAINER
+========================================================= */
+
 .nav-links {
-    list-style: none;
+    position: relative;
+
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    /* ✅ right-aligned */
+
+    gap: 20px;
+
+    list-style: none;
+
     margin: 0;
     padding: 0;
-    gap: 0.65rem;
-    /* ✅ spacing between items */
-    margin-right: clamp(0.8rem, 3vw, 2rem);
-    /* ✅ safe offset from right edge */
+
+    z-index: 5;
+
     flex-shrink: 1;
+
     overflow: visible;
 }
 
-.navbar li {
+
+/* =========================================================
+   NAVIGATION LIST ITEM
+========================================================= */
+
+.nav-links li {
     position: relative;
+
+    display: flex;
+    align-items: center;
 }
 
-/* Link Style */
-.navbar a {
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+.nav-links li a {
     position: relative;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
-    color: #fff;
-    font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    /* ✅ increased font size */
-    letter-spacing: 0.04em;
-    padding: 0.55rem 0.65rem;
-    border-radius: 10px;
-    white-space: nowrap;
-    transition: all 0.25s ease;
-    text-shadow: 0 0 10px rgba(255, 60, 0, 0.4), 0 0 15px rgba(0, 207, 255, 0.4);
-}
 
-.navbar a:hover {
-    transform: scale(1.05);
-    text-shadow: 0 0 16px #fff, 0 0 18px rgba(255, 60, 0, 0.8), 0 0 18px rgba(0, 207, 255, 0.8);
-}
+    padding: 11px 13px;
 
-.navbar a.active {
     color: #ffffff;
-    background: linear-gradient(135deg, rgba(77, 136, 255, 0.3), rgba(0, 174, 255, 0.25));
-    box-shadow: 0 0 20px rgba(77, 136, 255, 0.7), 0 0 25px rgba(0, 174, 255, 0.5);
-    text-shadow: 0 0 12px #fff, 0 0 16px rgba(77, 136, 255, 0.7);
+
+    text-decoration: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    border-radius: 12px;
+
+    transition:
+        color 0.3s ease,
+        background 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        text-shadow 0.3s ease;
 }
 
-/* Hamburger */
+
+/* =========================================================
+   NAV TEXT
+========================================================= */
+
+.nav-text {
+    position: relative;
+
+    z-index: 2;
+
+    transition: 0.3s ease;
+}
+
+
+/* =========================================================
+   HOVER EFFECT
+========================================================= */
+
+.nav-links li a:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 20, 147, 0.22),
+            rgba(255, 20, 147, 0.06)
+        );
+
+    transform: translateY(-2px);
+
+    text-shadow:
+        0 0 5px #ffffff,
+        0 0 12px #ff1493,
+        0 0 25px rgba(255, 20, 147, 0.8);
+
+    box-shadow:
+        0 0 8px rgba(255, 20, 147, 0.25),
+        inset 0 0 10px rgba(255, 20, 147, 0.08);
+}
+
+
+/* =========================================================
+   ACTIVE LINK
+========================================================= */
+
+.nav-links li a.active {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 20, 147, 0.48),
+            rgba(255, 20, 147, 0.12)
+        );
+
+    border: 1px solid rgba(255, 105, 180, 0.35);
+
+    box-shadow:
+        0 0 8px rgba(255, 20, 147, 0.65),
+        0 0 18px rgba(255, 20, 147, 0.45),
+        0 0 30px rgba(255, 20, 147, 0.18),
+        inset 0 0 12px rgba(255, 20, 147, 0.12);
+
+    text-shadow:
+        0 0 5px #ffffff,
+        0 0 12px #ff1493,
+        0 0 22px rgba(255, 20, 147, 0.8);
+}
+
+
+/* =========================================================
+   ACTIVE LINK HOVER
+========================================================= */
+
+.nav-links li a.active:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 20, 147, 0.58),
+            rgba(255, 20, 147, 0.16)
+        );
+
+    box-shadow:
+        0 0 10px rgba(255, 20, 147, 0.8),
+        0 0 25px rgba(255, 20, 147, 0.55),
+        inset 0 0 15px rgba(255, 20, 147, 0.15);
+}
+
+
+/* =========================================================
+   NAV GLOW
+========================================================= */
+
+.nav-glow {
+    position: absolute;
+
+    left: 20%;
+    bottom: -5px;
+
+    width: 60%;
+    height: 2px;
+
+    background: #ff1493;
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 5px #ff1493,
+        0 0 12px #ff1493,
+        0 0 22px rgba(255, 20, 147, 0.8);
+
+    transition:
+        opacity 0.3s ease,
+        width 0.3s ease,
+        left 0.3s ease;
+}
+
+.nav-links li a:hover .nav-glow,
+.nav-links li a.active .nav-glow {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   HAMBURGER
+========================================================= */
+
 .hamburger {
     display: none;
+
+    position: relative;
+
+    width: 42px;
+    height: 42px;
+
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 5px;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
+    align-items: center;
+
+    gap: 6px;
+
     cursor: pointer;
-    background: transparent;
-    z-index: 1002;
-    transition: all 0.3s ease;
+
+    z-index: 1100;
+
+    border-radius: 10px;
+
+    transition: 0.3s ease;
 }
+
 
 .hamburger:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 20, 147, 0.12);
+
+    box-shadow:
+        0 0 10px rgba(255, 20, 147, 0.3);
 }
+
+
+/* =========================================================
+   HAMBURGER LINES
+========================================================= */
 
 .hamburger .line {
-    width: 26px;
-    height: 3px;
-    background: linear-gradient(90deg, #ff3c00, #00cfff);
-    border-radius: 2px;
-    box-shadow: 0 0 8px rgba(255, 60, 0, 0.5);
-    transition: all 0.3s ease;
+    width: 25px;
+    height: 2px;
+
+    background: #ffffff;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 0 5px #ff1493;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        width 0.3s ease;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 1300px) {
-    .navbar a {
-        font-size: 0.9rem;
-        padding: 0.5rem 0.6rem;
-    }
 
-    .nav-links {
-        gap: 0.5rem;
-        margin-right: 1rem;
-    }
+/* =========================================================
+   HAMBURGER OPEN
+========================================================= */
+
+.hamburger.open .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
 }
+
+.hamburger.open .line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* =========================================================
+   SCROLLED NAVBAR
+========================================================= */
+
+.navbar-scrolled {
+    height: 85px;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(255, 20, 147, 0.42),
+            transparent 28%
+        ),
+        linear-gradient(
+            90deg,
+            #000000,
+            #140009,
+            #220012,
+            #0a0006,
+            #000000
+        );
+
+    box-shadow:
+        0 5px 30px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(255, 20, 147, 0.15);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 1100px) {
-    .navbar a {
-        font-size: 0.85rem;
-        padding: 0.45rem 0.5rem;
+
+    .navbar {
+        padding: 0 25px;
     }
 
     .navbar-logo {
-        height: 48px;
+        width: 175px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links li a {
+        padding: 10px 9px;
+        font-size: 14px;
     }
 }
 
-@media (max-width: 900px) {
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
     .navbar {
-        justify-content: space-between;
+        height: 75px;
+
+        padding: 0 18px;
+
+        background:
+            radial-gradient(
+                circle at 50% 0%,
+                rgba(255, 20, 147, 0.35),
+                transparent 45%
+            ),
+            linear-gradient(
+                180deg,
+                #16000d 0%,
+                #080004 100%
+            );
     }
+
+
+    /* Logo */
+
+    .navbar-logo {
+        width: 155px;
+    }
+
+
+    /* Hamburger */
 
     .hamburger {
         display: flex;
     }
 
+
+    /* Navigation menu */
+
     .nav-links {
         position: fixed;
-        top: 0;
-        left: -100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+
+        top: 75px;
+        left: 0;
+
         width: 100%;
-        height: 100vh;
-        gap: 1.5rem;
-        background: rgba(0, 0, 0, 0.96);
-        transition: left 0.35s ease;
-        margin: 0;
-        padding: 2rem;
+        height: calc(100vh - 75px);
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: flex-start;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 35px 20px;
+
+        background:
+            radial-gradient(
+                circle at 50% 0%,
+                rgba(255, 20, 147, 0.3),
+                transparent 40%
+            ),
+            linear-gradient(
+                180deg,
+                #12000a 0%,
+                #050003 100%
+            );
+
+        border-top: 1px solid rgba(255, 20, 147, 0.4);
+
+        transform: translateX(100%);
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transition:
+            transform 0.35s ease,
+            opacity 0.35s ease,
+            visibility 0.35s ease;
+
+        overflow-y: auto;
     }
+
+
+    /* Open menu */
 
     .nav-links.open {
-        left: 0;
+        transform: translateX(0);
+
+        opacity: 1;
+
+        visibility: visible;
     }
 
-    .navbar a {
-        font-size: 1.3rem;
-        padding: 1rem 1.4rem;
-        letter-spacing: 0.08em;
-    }
-}
 
+    /* Mobile list */
 
-.nav-text {
-    position: relative;
-    z-index: 2;
-}
+    .nav-links li {
+        width: 90%;
 
-.nav-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg,
-            rgba(255, 60, 0, 0.1),
-            rgba(0, 207, 255, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 10px;
-    z-index: 1;
-}
+        max-width: 350px;
 
-.navbar a:hover .nav-glow {
-    opacity: 1;
-}
+        opacity: 0;
 
-.navbar a:hover {
-    transform: translateY(-2px);
-    text-shadow: 0 0 14px #fff, 0 0 18px rgba(255, 60, 0, 0.7), 0 0 18px rgba(0, 207, 255, 0.7);
-    box-shadow: 0 3px 15px rgba(255, 60, 0, 0.25), 0 3px 15px rgba(0, 207, 255, 0.25);
-}
+        transform: translateX(30px);
 
-.navbar a.active {
-    color: #ffffff;
-    background: linear-gradient(135deg,
-            rgba(77, 136, 255, 0.3),
-            rgba(0, 174, 255, 0.25));
-    box-shadow: 0 0 18px rgba(77, 136, 255, 0.6),
-        0 0 25px rgba(0, 174, 255, 0.4),
-        inset 0 0 12px rgba(77, 136, 255, 0.35);
-    text-shadow: 0 0 10px #fff,
-        0 0 16px rgba(77, 136, 255, 0.7),
-        0 0 20px rgba(0, 174, 255, 0.5);
-    transform: translateY(-2px);
-}
-
-.navbar a.active::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00cfff, transparent);
-    box-shadow: 0 0 8px rgba(0, 207, 255, 0.7);
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 1400px) {
-    .navbar {
-        padding: 0.6rem 1.2rem;
+        transition:
+            opacity 0.35s ease,
+            transform 0.35s ease;
     }
 
-    .navbar a {
-        font-size: 0.75rem;
-        padding: 0.45rem 0.5rem;
+
+    /* Animate items */
+
+    .nav-links.open li {
+        opacity: 1;
+
+        transform: translateX(0);
+
+        transition-delay:
+            calc(var(--item-index) * 0.05s);
     }
 
-    .nav-links {
-        gap: 0.2rem;
-    }
-}
 
-@media (max-width: 1200px) {
-    .navbar {
-        padding: 0.6rem 1rem;
-    }
+    /* Mobile links */
 
-    .navbar a {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.45rem;
-        letter-spacing: 0.02em;
-    }
+    .nav-links li a {
+        width: 100%;
 
-    .navbar-logo {
-        height: 50px;
+        padding: 14px 20px;
+
+        font-size: 17px;
+
+        justify-content: center;
+
+        border-radius: 12px;
     }
 
-    .nav-links {
-        gap: 0.15rem;
-    }
-}
 
-@media (max-width: 1100px) {
-    .navbar a {
-        font-size: 0.65rem;
-        padding: 0.4rem 0.4rem;
-    }
+    /* Active mobile */
 
-    .nav-links {
-        gap: 0.1rem;
-    }
-}
+    .nav-links li a.active {
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255, 20, 147, 0.45),
+                rgba(255, 20, 147, 0.1)
+            );
 
-@media (max-width: 1000px) {
-    .navbar a {
-        font-size: 0.6rem;
-        padding: 0.35rem 0.35rem;
-        letter-spacing: 0.01em;
-    }
-}
-
-@media (max-width: 900px) {
-    .navbar a {
-        font-size: 0.55rem;
-        padding: 0.35rem 0.3rem;
+        box-shadow:
+            0 0 12px rgba(255, 20, 147, 0.45),
+            inset 0 0 12px rgba(255, 20, 147, 0.1);
     }
 
-    .navbar-logo {
-        height: 45px;
-    }
-}
 
-/* Mobile Menu */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.7rem 1rem;
-    }
-
-    .navbar-logo {
-        height: 48px;
-        transition: opacity 0.3s ease-in-out;
-    }
+    /* Hide logo when menu opens */
 
     .navbar-logo.hide-logo {
         opacity: 0;
         pointer-events: none;
     }
-
-    .hamburger {
-        margin-left: -43px;
-        display: flex;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100vh;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg,
-                rgba(0, 0, 0, 0.98) 0%,
-                rgba(20, 20, 40, 0.98) 50%,
-                rgba(0, 0, 0, 0.98) 100%);
-        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1001;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        padding: 2rem;
-        gap: 1.5rem;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-    }
-
-    .nav-links.open {
-        left: 0;
-    }
-
-    .navbar li {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-            transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .nav-links.open li {
-        opacity: 1;
-        transform: translateY(0);
-        transition-delay: calc(var(--item-index) * 0.08s + 0.1s);
-    }
-
-    .navbar a {
-        font-size: 1.3rem;
-        padding: 0.9rem 1.4rem;
-        letter-spacing: 0.08em;
-        width: 100%;
-        justify-content: center;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .navbar a.active {
-        background: linear-gradient(135deg,
-                rgba(77, 136, 255, 0.45),
-                rgba(255, 77, 77, 0.2));
-        box-shadow: 0 0 35px rgba(77, 136, 255, 0.9),
-            0 0 25px rgba(0, 174, 255, 0.8),
-            0 8px 30px rgba(0, 0, 0, 0.5),
-            inset 0 0 20px rgba(77, 136, 255, 0.5);
-        text-shadow: 0 0 25px #fff,
-            0 0 30px rgba(77, 136, 255, 0.9),
-            0 0 20px rgba(255, 77, 77, 0.5);
-        transform: translateY(-3px) scale(1.03);
-        border-color: rgba(77, 136, 255, 0.5);
-    }
-
-    .nav-links.open a.active {
-        animation: pulseGlow 2s ease-in-out infinite;
-    }
 }
 
-@keyframes pulseGlow {
 
-    0%,
-    100% {
-        box-shadow: 0 0 35px rgba(77, 136, 255, 0.9),
-            0 0 25px rgba(0, 174, 255, 0.8),
-            0 8px 30px rgba(0, 0, 0, 0.5),
-            inset 0 0 20px rgba(77, 136, 255, 0.5);
-    }
-
-    50% {
-        box-shadow: 0 0 45px rgba(77, 136, 255, 1),
-            0 0 35px rgba(0, 174, 255, 0.9),
-            0 10px 40px rgba(0, 0, 0, 0.6),
-            inset 0 0 25px rgba(77, 136, 255, 0.6);
-    }
-}
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
 @media (max-width: 480px) {
-    .navbar a {
-        font-size: 1.15rem;
-        padding: 0.85rem 1.2rem;
+
+    .navbar {
+        height: 68px;
+
+        padding: 0 14px;
+    }
+
+
+    .navbar-logo {
+        width: 140px;
+    }
+
+
+    .hamburger {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .nav-links {
+        top: 68px;
+
+        height: calc(100vh - 68px);
+
+        padding-top: 25px;
+    }
+
+
+    .nav-links li {
+        width: 94%;
+    }
+
+
+    .nav-links li a {
+        font-size: 16px;
+
+        padding: 13px 16px;
     }
 }
 
-/* ─── Admin Nav Link ─────────────────────────────────── */
-.admin-nav-link {
-  position: relative;
-  background: linear-gradient(135deg, rgba(255, 106, 0, 0.08), rgba(255, 60, 0, 0.04)) !important;
-  border: 1px solid rgba(255, 106, 0, 0.25) !important;
-  border-radius: 10px !important;
-  transition: all 0.3s ease !important;
-}
 
-.admin-nav-link:hover {
-  background: linear-gradient(135deg, rgba(255, 106, 0, 0.18), rgba(255, 60, 0, 0.1)) !important;
-  border-color: rgba(255, 106, 0, 0.5) !important;
-  box-shadow: 0 0 20px rgba(255, 106, 0, 0.25), 0 0 40px rgba(255, 60, 0, 0.1) !important;
-  text-shadow: 0 0 14px #fff, 0 0 20px rgba(255, 106, 0, 0.8) !important;
-}
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
 
-.admin-nav-link.active {
-  background: linear-gradient(135deg, rgba(255, 106, 0, 0.3), rgba(255, 60, 0, 0.2)) !important;
-  border-color: rgba(255, 106, 0, 0.5) !important;
-  box-shadow: 0 0 25px rgba(255, 106, 0, 0.5), 0 0 45px rgba(255, 60, 0, 0.2), inset 0 0 15px rgba(255, 106, 0, 0.15) !important;
-  text-shadow: 0 0 12px #fff, 0 0 18px rgba(255, 106, 0, 0.8) !important;
-}
+@media (prefers-reduced-motion: reduce) {
 
-.admin-nav-link.active::before {
-  background: linear-gradient(90deg, transparent, #ff6a00, transparent) !important;
-  box-shadow: 0 0 8px rgba(255, 106, 0, 0.7) !important;
-}
+    .navbar::before {
+        animation: none;
+    }
 
-@media (max-width: 768px) {
-  .admin-nav-link {
-    background: linear-gradient(135deg, rgba(255, 106, 0, 0.1), rgba(255, 60, 0, 0.05)) !important;
-    border: 1px solid rgba(255, 106, 0, 0.2) !important;
-  }
-
-  .admin-nav-link.active {
-    background: linear-gradient(135deg, rgba(255, 106, 0, 0.35), rgba(255, 60, 0, 0.15)) !important;
-    box-shadow: 0 0 35px rgba(255, 106, 0, 0.7), 0 0 25px rgba(255, 60, 0, 0.4), 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 106, 0, 0.3) !important;
-    text-shadow: 0 0 25px #fff, 0 0 30px rgba(255, 106, 0, 0.9) !important;
-    border-color: rgba(255, 106, 0, 0.5) !important;
-  }
+    .navbar,
+    .navbar *,
+    .nav-links,
+    .nav-links li,
+    .nav-links li a,
+    .navbar-logo,
+    .hamburger,
+    .hamburger .line {
+        transition: none !important;
+    }
 }
