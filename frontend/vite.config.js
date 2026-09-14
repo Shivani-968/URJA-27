@@ -6,3 +6,4 @@ export default defineConfig({
   base: './URJA-27/',
   plugins: [react()],
 })
+ 
