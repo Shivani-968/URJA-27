@@ -193,7 +193,7 @@ function Team() {
                             <div className="card-image-container">
 
                                 <img
-                                    src={`${import.meta.env.BASE_URL}supercore/${member.image}`}
+                                    src={`${import.meta.env.BASE_URL}supercore/${member.image}${member.name === 'Urvashi Rani' ? '?v=2' : ''}`}
                                     alt={member.name}
                                     className="member-image"
                                     loading="lazy"
