@@ -140,7 +140,7 @@ function Team() {
                             <div className="card-image-container">
 
                                 <img
-                                   src={`${import.meta.env.BASE_URL}supercore/${member.image}${['Urvashi Rani', 'Rathod Nandini', 'Sai Prasad Das'].includes(member.name) ? '?v=2' : ''}`}
+                                  src={`${import.meta.env.BASE_URL}supercore/${member.image}?v=999`}
                                     alt={member.name}
                                     className="member-image"
                                     loading="lazy"
