@@ -11,18 +11,6 @@ const supercoreTeamData = [
         image: 'prakharanand.jpg'
     },
     {
-        post: 'Joint Sports Secretary',
-        name: 'Mrinal Ayush Raj',
-        regNo: '2023UGME052',
-        image: 'mrinal.jpg'
-    },
-    {
-        post: 'Joint Sports Secretary',
-        name: 'Sunita Diggi',
-        regNo: '2023UGCE052',
-        image: 'sunita.jpg'
-    },
-    {
         post: 'General Secretary',
         name: 'Ankit Kumar Sharma',
         regNo: '2023UGMM011',
@@ -72,22 +60,10 @@ const supercoreTeamData = [
         image: 'deepakkumar.jpg'
     },
     {
-        post: 'Executive Head',
-        name: 'Nainish Singh',
-        regNo: '2022UGMM043',
-        image: 'nainish.jpg'
-    },
-    {
         post: 'Logistics Head',
         name: 'Shubham Kumar',
         regNo: '2023UGMM071',
         image: 'shubhamkumar.jpg'
-    },
-    {
-        post: 'Logistics Head',
-        name: 'Prabhat Gour',
-        regNo: '2022UGPI029',
-        image: 'prabhat_gour.jpg'
     },
     {
         post: 'Planning & Development Head',
@@ -103,12 +79,6 @@ const supercoreTeamData = [
     },
     {
         post: 'Public Relations Head',
-        name: 'Aryan Patole',
-        regNo: '2022UGCS011',
-        image: 'patole.jpg'
-    },
-    {
-        post: 'Public Relations Head',
         name: 'Himanshu Teotia',
         regNo: '2023UGME108',
         image: 'himanshuteotia.jpg'
@@ -120,22 +90,10 @@ const supercoreTeamData = [
         image: 'sarwarali.jpg'
     },
     {
-        post: 'Creative Head',
-        name: 'Neeraj Jha',
-        regNo: '2022UGPI044',
-        image: 'neeraj_jha.jpg'
-    },
-    {
         post: 'Medical Head',
         name: 'Ishan Raj',
         regNo: '2023UGCM010',
         image: 'ishanraj.jpg'
-    },
-    {
-        post: 'Medical Head',
-        name: 'Kriti Pandey',
-        regNo: '2022UGMM050',
-        image: 'kriti.jpg'
     },
     {
         post: 'Corporate Affairs Head',
@@ -161,18 +119,7 @@ const supercoreTeamData = [
         regNo: '2023UGCS082',
         image: 'lokeshmaheshwari.jpg'
     },
-    {
-        post: 'Content Head',
-        name: 'Priyanshu Jha',
-        regNo: '2022UGPI022',
-        image: 'priyanshu_jha.jpg'
-    },
-    {
-        post: 'Content Head',
-        name: 'Paripoorna',
-        regNo: '2022UGCS113',
-        image: 'paripoorna.jpg'
-    },
+
 ];
 
 function Team() {

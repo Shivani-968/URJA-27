@@ -12,16 +12,6 @@ export const MANAGERS = [
     group: 'Team Lead'
   },
 
-  {
-    id: 2,
-    name: "Ritik Kumar",
-    role: "Team Lead",
-    regNo: "2022UGCS021",
-    phone: "",
-    photo: `${import.meta.env.BASE_URL}supercore/ritik.jpg`,
-    group: "Team Lead"
-  },
-
   // 3rd Year members
 
   {
