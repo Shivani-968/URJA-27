@@ -118,7 +118,7 @@ export default function Gallery() {
                         >
 
                             <img
-                                src={`${import.meta.env.BASE_URL}gallery/${image.src}`}
+                              src={`${import.meta.env.BASE_URL}gallery/${image.src}`}
                                 alt={image.title}
                                 className="gallery-image"
                             />
@@ -149,7 +149,7 @@ export default function Gallery() {
                         </span>
 
                         <img
-                            src={`${import.meta.env.BASE_URL}gallery/${selectedImage.src}`}
+                         src={`${import.meta.env.BASE_URL}gallery/${selectedImage.src}`}
                             alt={selectedImage.title}
                             className="modal-content"
                             onClick={handleImageClick}

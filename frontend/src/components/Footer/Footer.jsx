@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import "./Footer.css";
 
-const logo = "/urja-logo-white.png";
+const logo = `${import.meta.env.BASE_URL}urja-logo-white.png`;
 
 function Footer() {
   return (
@@ -91,6 +91,7 @@ function Footer() {
             >
               <FaFacebookF />
             </a>
+
             <a
               href="https://www.instagram.com/urja_nitjsr"
               target="_blank"
@@ -105,13 +106,14 @@ function Footer() {
 
       <hr className="footer-divider" />
 
-      {/* ✅ New Line Added */}
       <div className="footer-managed">
         Website is managed by <strong>Anshu Raj</strong> and{" "}
         <strong>Rajeev Kumar</strong>.
       </div>
 
-      <div className="footer-copyright">© 2026 URJA. All Rights Reserved.</div>
+      <div className="footer-copyright">
+        © 2027 URJA. All Rights Reserved.
+      </div>
     </footer>
   );
 }

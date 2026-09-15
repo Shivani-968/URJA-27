@@ -6,9 +6,9 @@ import Footer from '../Footer/Footer.jsx';
 const supercoreTeamData = [
     {
         post: 'Sports Secretary',
-        name: 'Harshit Raj',
-        regNo: '2022UGPI032',
-        image: 'harshit_raj.jpg'
+        name: 'Prakhar Anand',
+        regNo: '2023UGMM015',
+        image: 'prakharanand.jpg'
     },
     {
         post: 'Joint Sports Secretary',
@@ -24,45 +24,52 @@ const supercoreTeamData = [
     },
     {
         post: 'General Secretary',
-        name: 'Nirav Raj',
-        regNo: '2022UGCE071',
-        image: 'niraj_raj.jpg'
+        name: 'Ankit Kumar Sharma',
+        regNo: '2023UGMM011',
+        image: 'ankitkumarsharma.jpg'
     },
     {
         post: 'General Secretary',
-        name: 'Jyoti Kumari',
-        regNo: '2022UGPI001',
-        image: 'jyoti.jpg'
+        name: 'Virender Singh',
+        regNo: '2023UGMM009',
+        image: 'virendersingh.jpg'
+    },
+    {
+        post: 'Joint Alumni Secretary',
+        name: 'Vivek Kumar Mahatha',
+        regNo: '2024UGMM043',
+        image: 'vivekkumar.jpg'
+    },
+    
+    {
+        post: 'Joint Secretary',
+        name: 'Amarnath',
+        regNo: '2024PGCSCA066',
+        image: 'amarnath.jpg'
     },
     {
         post: 'Joint Secretary',
-        name: 'Sahil Raj',
-        regNo: '2022UGCE062',
-        image: 'sahil_raj.jpg'
-    },
-    {
-        post: 'Joint Secretary',
-        name: 'Anand Yadav',
-        regNo: '2022UGME010',
-        image: 'anand.jpg'
+        name: 'Anshu Kumar',
+        regNo: '2023UGME066',
+        image: 'anshukumar.jpg'
     },
     {
         post: 'Event Head',
-        name: 'Ritik Kumar',
-        regNo: '2022UGCS021',
-        image: 'ritik.jpg'
+        name: 'Sai Prasad Das',
+        regNo: '2023UGMM010',
+        image: 'saiprasaddas.jpg'
     },
     {
         post: 'Event Head',
-        name: 'Aditya Kumar',
-        regNo: '2022UGME098',
-        image: 'aditya.jpg'
+        name: 'Urvashi Rani',
+        regNo: '2023UGME100',
+        image: 'urvashirani.jpg'
     },
     {
         post: 'Executive Head',
-        name: 'Rishav Kumar',
-        regNo: '2022UGCS084',
-        image: 'rishav.jpg'
+        name: 'Deepak Kumar',
+        regNo: '2023UGPI006',
+        image: 'deepakkumar.jpg'
     },
     {
         post: 'Executive Head',
@@ -72,9 +79,9 @@ const supercoreTeamData = [
     },
     {
         post: 'Logistics Head',
-        name: 'Priyanshu Raj',
-        regNo: '2022UGCE081',
-        image: 'priyanshu_raj.jpg'
+        name: 'Shubham Kumar',
+        regNo: '2023UGMM071',
+        image: 'shubhamkumar.jpg'
     },
     {
         post: 'Logistics Head',
@@ -84,15 +91,15 @@ const supercoreTeamData = [
     },
     {
         post: 'Planning & Development Head',
-        name: 'Abhishek Kumar Gupta',
-        regNo: '2022UGCE004',
-        image: 'abhishek.jpg'
+        name: 'Himanshu Teotia',
+        regNo: '2023UGME108',
+        image: 'himanshuteotia.jpg'
     },
     {
         post: 'Planning & Development Head',
-        name: 'Adarsh Tiwari',
-        regNo: '2022UGCS089',
-        image: 'adarsh.jpg'
+        name: 'Rohit Kumar',
+        regNo: '2023UGMM096',
+        image: 'rohitkumar.jpg'
     },
     {
         post: 'Public Relations Head',
@@ -102,15 +109,15 @@ const supercoreTeamData = [
     },
     {
         post: 'Public Relations Head',
-        name: 'Sagar Gupta',
-        regNo: '2022UGCE007',
-        image: 'sagar.jpg'
+        name: 'Himanshu Teotia',
+        regNo: '2023UGME108',
+        image: 'himanshuteotia.jpg'
     },
     {
         post: 'Creative Head',
-        name: 'Chandan Chatterjee',
-        regNo: '2022UGPI039',
-        image: 'chandan.jpg'
+        name: 'Sarwar Ali',
+        regNo: '2023UGEE055',
+        image: 'sarwarali.jpg'
     },
     {
         post: 'Creative Head',
@@ -120,9 +127,9 @@ const supercoreTeamData = [
     },
     {
         post: 'Medical Head',
-        name: 'Karan Raj',
-        regNo: '2022UGCM012',
-        image: 'karan.jpg'
+        name: 'Ishan Raj',
+        regNo: '2023UGCM010',
+        image: 'ishanraj.jpg'
     },
     {
         post: 'Medical Head',
@@ -132,15 +139,27 @@ const supercoreTeamData = [
     },
     {
         post: 'Corporate Affairs Head',
-        name: 'Mrigendra Pratap Singh',
-        regNo: '2022UGPI036',
-        image: 'mrigendra.jpg'
+        name: 'Harsh Sharma',
+        regNo: '2023UGME047',
+        image: 'harshsharma.jpg'
+    },
+    {
+        post: 'Corporate Affairs Head',
+        name: 'Rathod Nandini',
+        regNo: '2023UGCS079',
+        image: 'nandinirathod.jpg'
     },
     {
         post: 'App & Web Head',
-        name: 'Priyanshu Dev',
-        regNo: '2022UGEC021',
-        image: 'priyanshu_dev.jpg'
+        name: 'Harshit Vashisth',
+        regNo: '2023UGEC058',
+        image: 'harshitvashisth.jpg'
+    },
+    {
+        post: 'App & Web Head',
+        name: 'Lokesh Maheshwari',
+        regNo: '2023UGCS082',
+        image: 'lokeshmaheshwari.jpg'
     },
     {
         post: 'Content Head',
