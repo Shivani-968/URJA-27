@@ -13,10 +13,10 @@ const sportsDataMap = {
     Athletics: {
         genders: ['Boys', 'Girls'],
         pools: {
-            Boys: ['100m', '200m', '400m', '800m', '1500m', 'Discus', '4x400m Relay', 'Cross Country', '3000m', 'Tug Of War', 'Triple Jump', 'Medley', 'Long Jump', 'High Jump', 'Shot Put', 'Javelin Throw', '4x100m Relay'],
-            Girls: ['100m', '200m', '400m', '800m', '1500m', 'Discus', '4x400m Relay', 'Cross Country', '3000m', 'Tug Of War', 'Triple Jump', 'Medley', 'Long Jump', 'High Jump', 'Shot Put', 'Javelin Throw', '4x100m Relay'],
+            Boys: ['100m', '200m', '400m'],
+            Girls: ['100m', '200m', '400m'],
         },
-        stages: ['Group Stage'],
+        stages: [],
     },
     Badminton: {
         genders: ['Boys', 'Girls'],
@@ -25,7 +25,7 @@ const sportsDataMap = {
     },
     Basketball: {
         genders: ['Boys', 'Girls'],
-        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A'] },
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
     Chess: {
@@ -34,18 +34,18 @@ const sportsDataMap = {
         stages: ['Group Stage', 'Knockout'],
     },
     Cricket: {
-        genders: ['Boys'],
-        pools: { Boys: ['Pool A', 'Pool B'] },
+        genders: ['Boys', 'Girls'],
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
     Football: {
-        genders: ['Boys'],
-        pools: { Boys: ['Pool A', 'Pool B'] },
+        genders: ['Boys', 'Girls'],
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
     Hockey: {
-        genders: ['Boys'],
-        pools: { Boys: ['Pool A'] },
+        genders: ['Boys', 'Girls'],
+        pools: { Boys: ['Pool A', 'Pool B'], Girls: ['Pool A', 'Pool B'] },
         stages: ['Group Stage', 'Knockout'],
     },
     'Lawn Tennis': {
@@ -96,10 +96,22 @@ function ScoreboardTable({ data }) {
             const aP = Number(a[pointsColumnIndex]) || 0;
             const bP = Number(b[pointsColumnIndex]) || 0;
             if (bP !== aP) return bP - aP; // desc by points
-            const aT = a[1], bT = b[1];
-            if (typeof aT === 'string' && typeof bT === 'string') return aT.localeCompare(bT);
-            return 0;
         }
+        // Secondary tie-breaker for Cricket (NRR) or Football (GD)
+        const nrrIdx = data.headings.findIndex(h => h.toLowerCase() === 'nrr');
+        if (nrrIdx !== -1) {
+            const aN = parseFloat(a[nrrIdx]) || 0;
+            const bN = parseFloat(b[nrrIdx]) || 0;
+            if (bN !== aN) return bN - aN;
+        }
+        const gdIdx = data.headings.findIndex(h => h.toLowerCase() === 'gd');
+        if (gdIdx !== -1) {
+            const aG = parseFloat(a[gdIdx]) || 0;
+            const bG = parseFloat(b[gdIdx]) || 0;
+            if (bG !== aG) return bG - aG;
+        }
+        const aT = a[0], bT = b[0];
+        if (typeof aT === 'string' && typeof bT === 'string') return aT.localeCompare(bT);
         return 0;
     });
 
@@ -300,7 +312,8 @@ function PointsTable() {
     // Keep pool (event) valid whenever selections change
     useEffect(() => {
         const poolsForGender = sportsDataMap[selectedSport]?.pools[selectedGender] || [];
-        if (selectedStage === 'Group Stage') {
+        const stages = sportsDataMap[selectedSport]?.stages || [];
+        if (stages.length === 0 || selectedStage === 'Group Stage') {
             if (poolsForGender.length > 0 && !poolsForGender.includes(selectedPool)) {
                 setSelectedPool(poolsForGender[0]);
             } else if (poolsForGender.length === 0) {
@@ -489,7 +502,7 @@ function PointsTable() {
                                         ? formatString(selectedPool)
                                         : formatString(selectedStage)}
                             </h2>
-                            {selectedStage === 'Group Stage' ? (
+                            {selectedSport === 'Athletics' || selectedStage === 'Group Stage' ? (
                                 <>
                                     <ScoreboardTable data={currentData.pointsTable} />
                                     <MatchesList matches={currentData.matches} />
@@ -499,7 +512,7 @@ function PointsTable() {
                             )}
                         </>
                     ) : (
-                        <p className="no-data-message">Loading Data...</p>
+                        <p className="no-data-message">Not played yet...</p>
                     )}
                 </div>
             </div>

@@ -199,6 +199,8 @@
   overflow-x: auto;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 400px;
+  padding-bottom: 80px;
 }
 
 .admin-edit-table {
@@ -469,3 +471,218 @@
     min-width: 100%;
   }
 }
+
+/* ─── Team Dropdown in Admin Table & Knockout ─────────── */
+.team-dropdown-container {
+  position: relative;
+  width: 100%;
+  min-width: 150px;
+}
+
+.team-dropdown-container.is-open {
+  z-index: 1000;
+}
+
+.team-dropdown-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.team-dropdown-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 106, 0, 0.4);
+}
+
+.team-dropdown-btn.placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.team-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.team-dropdown-chevron {
+  font-size: 0.65rem;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.team-dropdown-menu {
+  position: absolute;
+  left: 0;
+  z-index: 9999;
+  width: 290px;
+  background: #141416;
+  border: 1px solid rgba(255, 106, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 106, 0, 0.2);
+  padding: 12px;
+  animation: teamDropdownFadeIn 0.15s ease-out;
+}
+
+.team-dropdown-menu.open-down {
+  top: calc(100% + 4px);
+}
+
+.team-dropdown-menu.open-up {
+  bottom: calc(100% + 4px);
+}
+
+@keyframes teamDropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.team-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.team-dropdown-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ff8c33;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.team-dropdown-count {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.team-dropdown-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.team-action-btn {
+  flex: 1;
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #ddd;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.team-action-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.team-action-btn.done {
+  background: rgba(255, 106, 0, 0.25);
+  border-color: rgba(255, 106, 0, 0.5);
+  color: #ff8c33;
+}
+
+.team-action-btn.done:hover {
+  background: rgba(255, 106, 0, 0.4);
+  color: #fff;
+}
+
+/* 2-Column Grid displaying all 8 teams side-by-side */
+.team-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.team-grid-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.team-grid-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 106, 0, 0.3);
+  color: #fff;
+}
+
+.team-grid-item.checked {
+  background: rgba(255, 106, 0, 0.18);
+  border-color: rgba(255, 106, 0, 0.5);
+  color: #ff9d42;
+}
+
+.team-grid-item input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: #ff6a00;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.team-dropdown-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+}
+
+.preview-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+.preview-value {
+  color: #00cfff;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score-field {
+  max-width: 90px;
+}
+
