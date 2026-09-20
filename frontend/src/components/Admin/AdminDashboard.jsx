@@ -113,9 +113,25 @@ function parseSelectedTeams(val) {
 /* ─── Team Select Dropdown Component ──────────────────────── */
 function TeamDropdown({ value, onChange, openUp = false }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [directionUp, setDirectionUp] = useState(openUp);
   const dropdownRef = useRef(null);
 
   const selectedTeams = parseSelectedTeams(value);
+
+  const handleToggleOpen = () => {
+    if (!isOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      // Fixed save bar is ~70px high; menu needs ~240px.
+      // If space below is less than 280px, open upwards!
+      if (openUp || spaceBelow < 280) {
+        setDirectionUp(true);
+      } else {
+        setDirectionUp(false);
+      }
+    }
+    setIsOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -148,14 +164,14 @@ function TeamDropdown({ value, onChange, openUp = false }) {
       <button
         type="button"
         className={`team-dropdown-btn ${!value ? "placeholder" : ""}`}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={handleToggleOpen}
       >
         <span className="team-dropdown-label">{value || "Select team..."}</span>
         <span className="team-dropdown-chevron">{isOpen ? "▲" : "▼"}</span>
       </button>
 
       {isOpen && (
-        <div className={`team-dropdown-menu ${openUp ? "open-up" : "open-down"}`}>
+        <div className={`team-dropdown-menu ${directionUp ? "open-up" : "open-down"}`}>
           <div className="team-dropdown-header">
             <span className="team-dropdown-title">All 8 Teams</span>
             <span className="team-dropdown-count">({selectedTeams.length} selected)</span>
@@ -666,6 +682,7 @@ export default function AdminDashboard() {
                     <TeamDropdown
                       value={editData.thirdPlace.match.team1 || ""}
                       onChange={(val) => handleThirdPlaceChange("team1", val)}
+                      openUp={true}
                     />
                   </div>
                   <div className="admin-ko-field score-field">
@@ -682,6 +699,7 @@ export default function AdminDashboard() {
                     <TeamDropdown
                       value={editData.thirdPlace.match.team2 || ""}
                       onChange={(val) => handleThirdPlaceChange("team2", val)}
+                      openUp={true}
                     />
                   </div>
                   <div className="admin-ko-field score-field">
@@ -697,6 +715,7 @@ export default function AdminDashboard() {
                     <TeamDropdown
                       value={editData.thirdPlace.match.winner || ""}
                       onChange={(val) => handleThirdPlaceChange("winner", val)}
+                      openUp={true}
                     />
                   </div>
                 </div>
