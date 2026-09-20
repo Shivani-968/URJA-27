@@ -4,11 +4,20 @@ export const MANAGERS = [
 
   {
     id: 1,
-    name: 'Priyanshu Dev',
+    name: 'Lokesh Maheshwari',
     role: 'Team Lead',
-    regNo: '2022UGEC021',
+    regNo: '2023UGCS082',
     phone: '',
-    photo: `${import.meta.env.BASE_URL}gallery/priyanshu.jpg`,
+    photo: `${import.meta.env.BASE_URL}gallery/lokeshmaheshwari.jpg`,
+    group: 'Team Lead'
+  },
+  {
+    id: 2,
+    name: 'Harshit Vashisth',
+    role: 'Team Lead',
+    regNo: '2023UGEC058',
+    phone: '',
+    photo: `${import.meta.env.BASE_URL}gallery/harshitvashisth.jpg`,
     group: 'Team Lead'
   },
 
@@ -16,74 +25,45 @@ export const MANAGERS = [
 
   {
     id: 3,
-    name: "Anshu Raj",
+    name: "Aditya Kumar",
     role: "Team Lead - Web",
-    regNo: "2023UGME058",
+    regNo: "2024UGEC040",
     phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/anshu.jpg`,
+    photo: `${import.meta.env.BASE_URL}gallery/aditya.jpg`,
     group: "Web managers"
   },
 
-  {
-    id: 4,
-    name: "Rajeev Kumar",
-    role: "Team Lead - Design",
-    regNo: "2023UGPI044",
-    phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/rajeev.jpg`,
-    group: "Web managers"
-  },
 
   // Contributors
 
   {
-    id: 5,
-    name: "Anoop Burnwal",
+    id: 4,
+    name: "Isha Roy",
     role: "Frontend Developer",
-    regNo: "2024UGCM013",
+    regNo: "2025UGEV044",
     phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/anoop.png`,
+    photo: `${import.meta.env.BASE_URL}gallery/isha.jpg`,
+    group: "Contributors"
+  },
+
+  {
+    id: 5,
+    name: "Sanchita Gupta",
+    role: "Frontend Developer",
+    regNo: "2025UGEC080",
+    phone: "",
+    photo: `${import.meta.env.BASE_URL}gallery/sanchita.jpg`,
     group: "Contributors"
   },
 
   {
     id: 6,
-    name: "Swayam Agarwal",
+    name: "Shivani Sinha",
     role: "Frontend Developer",
-    regNo: "2024UGCS066",
+    regNo: "2025UGEC005",
     phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/swayam.jpeg`,
+    photo: `${import.meta.env.BASE_URL}gallery/shivani.jpg`,
     group: "Contributors"
   },
-
-  {
-    id: 7,
-    name: "Rishav Kashyap",
-    role: "Frontend Developer",
-    regNo: "2024UGCS017",
-    phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/rishav.jpg`,
-    group: "Contributors"
-  },
-
-  {
-    id: 8,
-    name: "Aditya Raj",
-    role: "Frontend Developer",
-    regNo: "2024UGCS012",
-    phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/adityaRaj.jpg`,
-    group: "Contributors"
-  },
-
-  {
-    id: 9,
-    name: "Aditya Prakash",
-    role: "Frontend Developer",
-    regNo: "2024UGCS102",
-    phone: "",
-    photo: `${import.meta.env.BASE_URL}gallery/adityaPrakash.jpg`,
-    group: "Contributors"
-  }
 
 ];

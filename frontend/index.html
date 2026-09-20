@@ -3,22 +3,71 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./public/urja-favicon.png" />
+
+  <link rel="icon" type="image/png" href="./urja-favicon.png" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Urja 26</title>
+
+  <title>Urja 27</title>
+
+  <!-- SEO -->
+  <meta
+    name="description"
+    content="URJA'27 - Annual Athletics and Sports Meet, NIT Jamshedpur"
+  />
+
+  <!-- Open Graph / WhatsApp / Facebook -->
+  <meta property="og:title" content="Urja 27" />
+
+  <meta
+    property="og:description"
+    content="URJA'27 - Annual Athletics and Sports Meet, NIT Jamshedpur"
+  />
+
+  <meta
+    property="og:image"
+    content="https://shivani-968.github.io/URJA-27/urja-preview.png"
+  />
+
+  <meta
+    property="og:url"
+    content="https://shivani-968.github.io/URJA-27/"
+  />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="URJA'27" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Urja 27" />
+
+  <meta
+    name="twitter:description"
+    content="URJA'27 - Annual Athletics and Sports Meet, NIT Jamshedpur"
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://shivani-968.github.io/URJA-27/urja-preview.png"
+  />
+
 </head>
 
 <body>
+
   <div id="root"></div>
+
+  <!-- IMPORTANT: Keep this as /src/main.jsx -->
   <script type="module" src="/src/main.jsx"></script>
+
   <script>
-  // Handle client-side redirect from 404.html
-  if (sessionStorage.redirect) {
-    const redirect = sessionStorage.redirect;
-    delete sessionStorage.redirect;
-    window.history.replaceState(null, null, redirect);
-  }
-</script>
+    // Handle client-side redirect from 404.html
+    if (sessionStorage.redirect) {
+      const redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      window.history.replaceState(null, null, redirect);
+    }
+  </script>
 
 </body>
 

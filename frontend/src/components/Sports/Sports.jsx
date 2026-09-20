@@ -10,7 +10,10 @@ import FootballRules from '../Rulebook/Football.jsx';
 import LawnTennisRules from '../Rulebook/LawnTennis.jsx';
 import TableTennisRules from '../Rulebook/TableTennis.jsx';
 import VolleyballRules from '../Rulebook/Volleyball.jsx';
+import BGMIRules from '../Rulebook/Bgmi.jsx';
+import FIFARules from '../Rulebook/Fifa.jsx';
 import Footer from '../Footer/Footer.jsx';
+
 function Sports() {
     const [selectedSport, setSelectedSport] = useState('Athletics');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -21,13 +24,14 @@ function Sports() {
     const sportsList = [
         { name: 'Athletics', emoji: '🏃‍♂️' },
         { name: 'Badminton', emoji: '🏸' },
-    { name: 'Chess', emoji: '♟️' },
+        { name: 'Chess', emoji: '♟️' },
         { name: 'Cricket', emoji: '🏏' },
         { name: 'Football', emoji: '⚽' },
-        
         { name: 'Lawn Tennis', emoji: '🎾' },
         { name: 'Table Tennis', emoji: '🏓' },
         { name: 'Volleyball', emoji: '🏐' },
+       // { name: 'Bgmi', emoji: '🎮' },
+       // { name: 'Fifa', emoji: '⚽' },
     ];
 
     // A mapping object to choose which component to render
@@ -41,6 +45,8 @@ function Sports() {
         'Lawn Tennis': LawnTennisRules,
         'Table Tennis': TableTennisRules,
         Volleyball: VolleyballRules,
+        //Bgmi:BGMIRules,
+       // Fifa:FIFARules
     };
 
     // Screen resize listener

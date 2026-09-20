@@ -67,9 +67,9 @@ function Footer() {
             <li>
               <FaPhoneAlt className="footer-icon" />
               <span>
-                +91 8789206563
+                +91 6206159701
                 <br />
-                Harshit Singh Rajput (Sports Secretary)
+                Prakhar Anand (Sports Secretary)
               </span>
             </li>
 

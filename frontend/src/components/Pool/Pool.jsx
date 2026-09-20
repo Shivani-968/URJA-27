@@ -31,18 +31,18 @@ function PoolTable({ headings, data }) {
 
 function Pool() {
     const boysData = [
-        ['ME', 'CSE'],
-        ['PG', 'CE'],
-        ['ECE', 'EE'],
-        ['MME', 'PIE']
+        ['CE','PG'],
+        ['MME', 'CSE'],
+        ['ME', 'ECE'],
+        ['PIE+ECM', 'EE']
     ];
 
     const girlsData = [
         // Note: Data for a single pool must still be an array of arrays
-        ['PG + ME'],
-        ['CE + PIE'],
-        ['EE + CSE'],
-        ['ME + ECE']
+        ['PG + CE'],
+        ['MME + CSE'],
+        ['(PIE+ECM) + ECE'],
+        ['ME + EE']
     ];
 
     return (
