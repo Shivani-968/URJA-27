@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import TextType from "../TextType/TextType";
+import Hyperspeed from "../Hyperspeed/Hyperspeed";
 import "./Home.css";
 
 export default function Home() {
@@ -17,30 +18,31 @@ export default function Home() {
   return (
     <main className="urja-homepage">
 
-      {/* ================= HERO SECTION ================= */}
+      {/* HERO SECTION */}
       <section className="hero-section">
 
-        {/* ================= VIDEO BACKGROUND ================= */}
-        <div className="video-bg" aria-hidden="true">
-          <video
-            className="hero-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-          >
-         <source src={`${import.meta.env.BASE_URL}urja-bg.mp4`} type="video/mp4" />
-          </video>
+        {/* HYPERSPEED BACKGROUND */}
+        <div
+          className="hyperspeed-background"
+          aria-hidden="true"
+        >
+          <Hyperspeed />
         </div>
 
-        {/* ================= PINK + BLACK OVERLAY ================= */}
-        <div className="video-overlay" aria-hidden="true"></div>
+        {/* DARK + PINK OVERLAY */}
+        <div
+          className="hyperspeed-overlay"
+          aria-hidden="true"
+        ></div>
 
-        {/* ================= HERO CONTENT ================= */}
+        {/* HERO CONTENT */}
         <div className="hero-content">
 
-          <h1 className="hero-title" aria-label="Welcome to URJA 2027">
+          {/* TITLE */}
+          <h1
+            className="hero-title"
+            aria-label="Welcome to URJA 2027"
+          >
             <TextType
               text="Welcome to URJA 2027"
               typingSpeed={90}
@@ -51,6 +53,7 @@ export default function Home() {
             />
           </h1>
 
+          {/* SUBTITLE */}
           <h2
             className="hero-subtitle"
             aria-label="The Clash of Extremes, The Glory of One"
@@ -67,12 +70,14 @@ export default function Home() {
             />
           </h2>
 
-          {/* ================= CTA BUTTONS ================= */}
+          {/* BUTTONS */}
           <div className="hero-buttons">
 
             <button
               className="hero-btn-primary"
-              onClick={() => handleNavigate("/Branch-Leaderboard")}
+              onClick={() =>
+                handleNavigate("/branch-leaderboard")
+              }
               aria-label="Go to Branch Leaderboard page"
             >
               Branch Leaderboard
@@ -81,7 +86,9 @@ export default function Home() {
 
             <button
               className="hero-btn-secondary"
-              onClick={() => handleNavigate("/points-table")}
+              onClick={() =>
+                handleNavigate("/points-table")
+              }
               aria-label="Go to Points Table page"
             >
               Points Table
@@ -90,8 +97,11 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ================= SCROLL INDICATOR ================= */}
-        <div className="scroll-indicator" aria-hidden="true">
+        {/* SCROLL INDICATOR */}
+        <div
+          className="scroll-indicator"
+          aria-hidden="true"
+        >
           <div className="scroll-mouse"></div>
         </div>
 

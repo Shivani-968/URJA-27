@@ -40,7 +40,7 @@ export const MANAGERS = [
     id: 4,
     name: "Isha Roy",
     role: "Frontend Developer",
-    regNo: "2025UGEV044",
+    regNo: "2025UGEC044",
     phone: "",
     photo: `${import.meta.env.BASE_URL}gallery/isha.jpg`,
     group: "Contributors"

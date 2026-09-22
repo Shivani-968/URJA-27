@@ -67,12 +67,6 @@ const supercoreTeamData = [
     },
     {
         post: 'Planning & Development Head',
-        name: 'Himanshu Teotia',
-        regNo: '2023UGME108',
-        image: 'himanshuteotia.jpg'
-    },
-    {
-        post: 'Planning & Development Head',
         name: 'Rohit Kumar',
         regNo: '2023UGMM096',
         image: 'rohitkumar.jpg'

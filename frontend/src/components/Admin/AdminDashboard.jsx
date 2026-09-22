@@ -2,118 +2,248 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
-const API_URL = (import.meta.env.VITE_API_URL || "https://urja-2026.onrender.com").replace(/\/$/, "");
+const API_URL = (
+  import.meta.env.VITE_API_URL || "https://urja-2026.onrender.com"
+).replace(/\/$/, "");
 
-/* ─── Allowed base teams (NIT Jamshedpur branches) ────────── */
-const BASE_TEAMS = ["CE", "PG", "MME", "CSE", "ME", "ECE", "PIE+ECM", "EE"];
+/* ─── Allowed base teams ─────────────────────────────────── */
 
-/* ─── Sports config ───────────────────────────────────────── */
+const BASE_TEAMS = [
+  "CE",
+  "PG",
+  "MME",
+  "CSE",
+  "ME",
+  "ECE",
+  "PIE+ECM",
+  "EE",
+];
+
+/* ─── Sports config ──────────────────────────────────────── */
+
 const sportsDataMap = {
   Athletics: {
     genders: ["Boys", "Girls"],
     pools: {
-      Boys: ["100m", "200m", "400m"],
-      Girls: ["100m", "200m", "400m"],
+      Boys: [
+        "100m",
+        "200m",
+        "400m",
+        "800m",
+        "1500m",
+        "Discus",
+        "4x400m Relay",
+        "Cross Country",
+        "3000m",
+        "Tug Of War",
+        "Triple Jump",
+        "Medley",
+        "Long Jump",
+        "High Jump",
+        "Shot Put",
+        "Javelin Throw",
+        "4x100m Relay",
+      ],
+      Girls: [
+        "100m",
+        "200m",
+        "400m",
+        "800m",
+        "1500m",
+        "Discus",
+        "4x400m Relay",
+        "Cross Country",
+        "3000m",
+        "Tug Of War",
+        "Triple Jump",
+        "Medley",
+        "Long Jump",
+        "High Jump",
+        "Shot Put",
+        "Javelin Throw",
+        "4x100m Relay",
+      ],
     },
-    stages: [], // No stages in Athletics
+    stages: ["Group Stage"],
   },
+
   Badminton: {
     genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+      Girls: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   Basketball: {
     genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+      Girls: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   Chess: {
     genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+      Girls: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   Cricket: {
-    genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    genders: ["Boys"],
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   Football: {
-    genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    genders: ["Boys"],
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   Hockey: {
-    genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    genders: ["Boys"],
+    pools: {
+      Boys: ["Pool A"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   "Lawn Tennis": {
     genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+      Girls: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   "Table Tennis": {
     genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+      Girls: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
+
   Volleyball: {
     genders: ["Boys", "Girls"],
-    pools: { Boys: ["Pool A", "Pool B"], Girls: ["Pool A", "Pool B"] },
+    pools: {
+      Boys: ["Pool A", "Pool B"],
+      Girls: ["Pool A", "Pool B"],
+    },
     stages: ["Group Stage", "Knockout"],
   },
 };
 
-/* ─── Default table headings by sport ─────────────────────── */
+/* ─── Default table headings ─────────────────────────────── */
+
 const getDefaultHeadings = (sport) => {
   if (sport === "Athletics") {
     return ["Position", "Team", "Points"];
   }
+
   if (sport === "Cricket") {
     return ["Team", "Pld", "W", "L", "NRR", "Pts"];
   }
+
   if (sport === "Football") {
     return ["Team", "Pld", "W", "L", "GD", "GS", "Pts"];
   }
+
   return ["Team", "Pld", "W", "L", "Pts"];
 };
 
-/* ─── Helpers to format and parse team names ──────────────── */
+/* ─── Team helpers ───────────────────────────────────────── */
+
 function formatTeams(teams) {
   if (!teams || teams.length === 0) return "";
-  if (teams.length === 1) return teams[0];
-  const hasComplex = teams.some((t) => t.includes("+"));
-  if (hasComplex) {
-    return teams.map((t) => (t.includes("+") ? `(${t})` : t)).join(" + ");
+
+  if (teams.length === 1) {
+    return teams[0];
   }
+
+  const hasComplex = teams.some((team) => team.includes("+"));
+
+  if (hasComplex) {
+    return teams
+      .map((team) => (team.includes("+") ? `(${team})` : team))
+      .join(" + ");
+  }
+
   return teams.join("+");
 }
 
-function parseSelectedTeams(val) {
-  if (!val || typeof val !== "string") return [];
-  const str = val.trim();
-  if (!str) return [];
+function parseSelectedTeams(value) {
+  if (!value || typeof value !== "string") {
+    return [];
+  }
+
+  const str = value.trim();
+
+  if (!str) {
+    return [];
+  }
+
   const selected = [];
   let remaining = str;
-  if (remaining.includes("PIE+ECM") || remaining.includes("PIE + ECM")) {
+
+  if (
+    remaining.includes("PIE+ECM") ||
+    remaining.includes("PIE + ECM")
+  ) {
     selected.push("PIE+ECM");
-    remaining = remaining.replace(/\(?PIE\s*\+\s*ECM\)?/g, "");
+
+    remaining = remaining.replace(
+      /\(?PIE\s*\+\s*ECM\)?/g,
+      ""
+    );
   }
-  const otherTeams = ["CE", "PG", "MME", "CSE", "ME", "ECE", "EE"];
-  for (const t of otherTeams) {
-    const regex = new RegExp(`(^|[^A-Za-z])${t}([^A-Za-z]|$)`);
+
+  const otherTeams = [
+    "CE",
+    "PG",
+    "MME",
+    "CSE",
+    "ME",
+    "ECE",
+    "EE",
+  ];
+
+  for (const team of otherTeams) {
+    const regex = new RegExp(
+      `(^|[^A-Za-z])${team}([^A-Za-z]|$)`
+    );
+
     if (regex.test(remaining)) {
-      selected.push(t);
+      selected.push(team);
       remaining = remaining.replace(regex, "$1$2");
     }
   }
+
   return selected;
 }
 
-/* ─── Team Select Dropdown Component ──────────────────────── */
-function TeamDropdown({ value, onChange, openUp = false }) {
+/* ─── Team Dropdown ──────────────────────────────────────── */
+
+function TeamDropdown({
+  value,
+  onChange,
+  openUp = false,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [directionUp, setDirectionUp] = useState(openUp);
+
   const dropdownRef = useRef(null);
 
   const selectedTeams = parseSelectedTeams(value);
@@ -122,36 +252,53 @@ function TeamDropdown({ value, onChange, openUp = false }) {
     if (!isOpen && dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
-      // Fixed save bar is ~70px high; menu needs ~240px.
-      // If space below is less than 280px, open upwards!
+
       if (openUp || spaceBelow < 280) {
         setDirectionUp(true);
       } else {
         setDirectionUp(false);
       }
     }
+
     setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
+
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener(
+        "mousedown",
+        handleClickOutside
+      );
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    };
   }, [isOpen]);
 
   const toggleTeam = (team) => {
     let next;
+
     if (selectedTeams.includes(team)) {
-      next = selectedTeams.filter((t) => t !== team);
+      next = selectedTeams.filter(
+        (selected) => selected !== team
+      );
     } else {
       next = [...selectedTeams, team];
     }
+
     onChange(formatTeams(next));
   };
 
@@ -160,27 +307,53 @@ function TeamDropdown({ value, onChange, openUp = false }) {
   };
 
   return (
-    <div className={`team-dropdown-container ${isOpen ? "is-open" : ""}`} ref={dropdownRef}>
+    <div
+      className={`team-dropdown-container ${
+        isOpen ? "is-open" : ""
+      }`}
+      ref={dropdownRef}
+    >
       <button
         type="button"
-        className={`team-dropdown-btn ${!value ? "placeholder" : ""}`}
+        className={`team-dropdown-btn ${
+          !value ? "placeholder" : ""
+        }`}
         onClick={handleToggleOpen}
       >
-        <span className="team-dropdown-label">{value || "Select team..."}</span>
-        <span className="team-dropdown-chevron">{isOpen ? "▲" : "▼"}</span>
+        <span className="team-dropdown-label">
+          {value || "Select team..."}
+        </span>
+
+        <span className="team-dropdown-chevron">
+          {isOpen ? "▲" : "▼"}
+        </span>
       </button>
 
       {isOpen && (
-        <div className={`team-dropdown-menu ${directionUp ? "open-up" : "open-down"}`}>
+        <div
+          className={`team-dropdown-menu ${
+            directionUp ? "open-up" : "open-down"
+          }`}
+        >
           <div className="team-dropdown-header">
-            <span className="team-dropdown-title">All 8 Teams</span>
-            <span className="team-dropdown-count">({selectedTeams.length} selected)</span>
+            <span className="team-dropdown-title">
+              All 8 Teams
+            </span>
+
+            <span className="team-dropdown-count">
+              ({selectedTeams.length} selected)
+            </span>
           </div>
 
           <div className="team-dropdown-actions">
-            <button type="button" onClick={clearAll} className="team-action-btn">
+            <button
+              type="button"
+              onClick={clearAll}
+              className="team-action-btn"
+            >
               Clear
             </button>
+
             <button
               type="button"
               onClick={() => setIsOpen(false)}
@@ -192,19 +365,26 @@ function TeamDropdown({ value, onChange, openUp = false }) {
 
           <div className="team-dropdown-grid">
             {BASE_TEAMS.map((team) => {
-              const isChecked = selectedTeams.includes(team);
+              const isChecked =
+                selectedTeams.includes(team);
+
               return (
                 <div
                   key={team}
                   onClick={() => toggleTeam(team)}
-                  className={`team-grid-item ${isChecked ? "checked" : ""}`}
+                  className={`team-grid-item ${
+                    isChecked ? "checked" : ""
+                  }`}
                 >
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    onChange={() => {}} // handled by parent onClick
+                    onChange={() => {}}
                   />
-                  <span className="team-name">{team}</span>
+
+                  <span className="team-name">
+                    {team}
+                  </span>
                 </div>
               );
             })}
@@ -212,8 +392,13 @@ function TeamDropdown({ value, onChange, openUp = false }) {
 
           {selectedTeams.length > 0 && (
             <div className="team-dropdown-preview">
-              <span className="preview-label">Result:</span>
-              <span className="preview-value">{formatTeams(selectedTeams)}</span>
+              <span className="preview-label">
+                Result:
+              </span>
+
+              <span className="preview-value">
+                {formatTeams(selectedTeams)}
+              </span>
             </div>
           )}
         </div>
@@ -222,65 +407,144 @@ function TeamDropdown({ value, onChange, openUp = false }) {
   );
 }
 
-/* ─── Main Admin Dashboard Component ──────────────────────── */
+/* ─── Empty knockout match ───────────────────────────────── */
+
+const createEmptyKnockoutMatch = () => ({
+  id: `match-${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2, 8)}`,
+  date: "",
+  venue: "",
+  team1: "",
+  team2: "",
+  score1: "",
+  score2: "",
+  winner: "",
+});
+
+/* ─── Main Admin Dashboard ──────────────────────────────── */
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
+
   const [adminName, setAdminName] = useState("");
+
   const token = localStorage.getItem("adminToken");
 
-  // Selection state
-  const [selectedSport, setSelectedSport] = useState("Athletics");
-  const [selectedGender, setSelectedGender] = useState("Boys");
-  const [selectedEvent, setSelectedEvent] = useState("100m");
-  const [selectedStage, setSelectedStage] = useState("Group Stage");
+  /* Selection state */
+  const [selectedSport, setSelectedSport] =
+    useState("Athletics");
 
-  // Data state
-  const [scoreDoc, setScoreDoc] = useState(null);
+  const [selectedGender, setSelectedGender] =
+    useState("Boys");
+
+  const [selectedEvent, setSelectedEvent] =
+    useState("100m");
+
+  const [selectedStage, setSelectedStage] =
+    useState("Group Stage");
+
+  /* Data state */
   const [editData, setEditData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [saveMsg, setSaveMsg] = useState("");
-  const [fetchError, setFetchError] = useState("");
 
-  // Auth check
+  const [loading, setLoading] =
+    useState(false);
+
+  const [saving, setSaving] =
+    useState(false);
+
+  const [saveMsg, setSaveMsg] =
+    useState("");
+
+  const [fetchError, setFetchError] =
+    useState("");
+
+  /* ─── Auth check ─────────────────────────────────────── */
+
   useEffect(() => {
     if (!token) {
-      navigate("/admin", { replace: true });
+      navigate("/admin", {
+        replace: true,
+      });
+
       return;
     }
-    setAdminName(localStorage.getItem("adminName") || "Admin");
+
+    setAdminName(
+      localStorage.getItem("adminName") ||
+        "Admin"
+    );
   }, [token, navigate]);
 
-  // Keep selections valid whenever sport/gender/stage changes
+  /* ─── Keep selections valid ─────────────────────────── */
+
   useEffect(() => {
     const cfg = sportsDataMap[selectedSport];
+
     if (!cfg) return;
-    if (!cfg.genders.includes(selectedGender)) setSelectedGender(cfg.genders[0]);
-    const pools = cfg.pools[selectedGender] || cfg.pools[cfg.genders[0]] || [];
+
+    if (!cfg.genders.includes(selectedGender)) {
+      setSelectedGender(cfg.genders[0]);
+      return;
+    }
+
+    const pools =
+      cfg.pools[selectedGender] ||
+      cfg.pools[cfg.genders[0]] ||
+      [];
 
     if (selectedSport === "Athletics") {
       setSelectedStage("Group Stage");
-      if (!pools.includes(selectedEvent)) {
-        setSelectedEvent(pools[0] || "100m");
-      }
-    } else {
-      if (selectedStage === "Group Stage" && !pools.includes(selectedEvent)) {
-        setSelectedEvent(pools[0] || "Pool A");
-      }
-      if (selectedStage === "Knockout") setSelectedEvent("Knockout");
-    }
-  }, [selectedSport, selectedGender, selectedStage, selectedEvent]);
 
-  // Fetch data for current selection
+      if (!pools.includes(selectedEvent)) {
+        setSelectedEvent(
+          pools[0] || "100m"
+        );
+      }
+
+      return;
+    }
+
+    if (
+      selectedStage === "Group Stage" &&
+      !pools.includes(selectedEvent)
+    ) {
+      setSelectedEvent(
+        pools[0] || "Pool A"
+      );
+    }
+
+    if (selectedStage === "Knockout") {
+      setSelectedEvent("Knockout");
+    }
+  }, [
+    selectedSport,
+    selectedGender,
+    selectedStage,
+    selectedEvent,
+  ]);
+
+  /* ─── Fetch data ─────────────────────────────────────── */
+
   const fetchData = useCallback(async () => {
     if (!token) return;
+
     setLoading(true);
     setFetchError("");
     setSaveMsg("");
 
     try {
-      const eventParam = selectedStage === "Knockout" && selectedSport !== "Athletics" ? "Knockout" : selectedEvent;
-      const stageParam = selectedSport === "Athletics" ? "Group Stage" : selectedStage;
+      const eventParam =
+        selectedStage === "Knockout" &&
+        selectedSport !== "Athletics"
+          ? "Knockout"
+          : selectedEvent;
+
+      const stageParam =
+        selectedSport === "Athletics"
+          ? "Group Stage"
+          : selectedStage;
+
       const params = new URLSearchParams({
         sport: selectedSport,
         gender: selectedGender,
@@ -288,71 +552,177 @@ export default function AdminDashboard() {
         stage: stageParam,
       });
 
-      const res = await fetch(`${API_URL}/api/scores?${params}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
+      const response = await fetch(
+        `${API_URL}/api/scores?${params.toString()}`,
+        {
+          method: "GET",
+          cache: "no-cache",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (data.length > 0) {
-        setScoreDoc(data[0]);
-        if (selectedStage === "Knockout" && selectedSport !== "Athletics") {
-          setEditData(JSON.parse(JSON.stringify(data[0].knockout || { rounds: [] })));
+      if (!response.ok) {
+        throw new Error(
+          `HTTP ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      if (Array.isArray(data) && data.length > 0) {
+        if (
+          selectedStage === "Knockout" &&
+          selectedSport !== "Athletics"
+        ) {
+          setEditData(
+            JSON.parse(
+              JSON.stringify(
+                data[0].knockout || {
+                  rounds: [],
+                }
+              )
+            )
+          );
         } else {
-          const pt = data[0].pointsTable || {};
-          const headings = pt.headings && pt.headings.length > 0 ? pt.headings : getDefaultHeadings(selectedSport);
+          const pointsTable =
+            data[0].pointsTable || {};
+
+          const headings =
+            pointsTable.headings &&
+            pointsTable.headings.length > 0
+              ? pointsTable.headings
+              : getDefaultHeadings(
+                  selectedSport
+                );
+
           setEditData({
             headings,
-            data: JSON.parse(JSON.stringify(pt.data || [])),
+            data: JSON.parse(
+              JSON.stringify(
+                pointsTable.data || []
+              )
+            ),
           });
         }
       } else {
-        setScoreDoc(null);
-        if (selectedStage === "Knockout" && selectedSport !== "Athletics") {
+        if (
+          selectedStage === "Knockout" &&
+          selectedSport !== "Athletics"
+        ) {
           setEditData({
             rounds: [
               {
                 name: "Semi-finals",
                 matches: [
-                  { id: "SF1", date: "", venue: "", team1: "", team2: "", score1: "", score2: "", winner: "" },
-                  { id: "SF2", date: "", venue: "", team1: "", team2: "", score1: "", score2: "", winner: "" },
+                  {
+                    id: "SF1",
+                    date: "",
+                    venue: "",
+                    team1: "",
+                    team2: "",
+                    score1: "",
+                    score2: "",
+                    winner: "",
+                  },
+                  {
+                    id: "SF2",
+                    date: "",
+                    venue: "",
+                    team1: "",
+                    team2: "",
+                    score1: "",
+                    score2: "",
+                    winner: "",
+                  },
                 ],
               },
               {
                 name: "Final",
                 matches: [
-                  { id: "F1", date: "", venue: "", team1: "", team2: "", score1: "", score2: "", winner: "" },
+                  {
+                    id: "F1",
+                    date: "",
+                    venue: "",
+                    team1: "",
+                    team2: "",
+                    score1: "",
+                    score2: "",
+                    winner: "",
+                  },
                 ],
               },
             ],
+
             thirdPlace: {
-              match: { id: "TP1", date: "", venue: "", team1: "", team2: "", score1: "", score2: "", winner: "" },
+              match: {
+                id: "TP1",
+                date: "",
+                venue: "",
+                team1: "",
+                team2: "",
+                score1: "",
+                score2: "",
+                winner: "",
+              },
             },
           });
         } else {
-          setEditData({ headings: getDefaultHeadings(selectedSport), data: [] });
+          setEditData({
+            headings:
+              getDefaultHeadings(
+                selectedSport
+              ),
+            data: [],
+          });
         }
       }
-    } catch (err) {
-      setFetchError("Failed to fetch data. Is the backend running?");
-      console.error(err);
+    } catch (error) {
+      console.error(
+        "Fetch error:",
+        error
+      );
+
+      setFetchError(
+        "Failed to fetch data. Is the backend running?"
+      );
     } finally {
       setLoading(false);
     }
-  }, [selectedSport, selectedGender, selectedEvent, selectedStage, token]);
+  }, [
+    selectedSport,
+    selectedGender,
+    selectedEvent,
+    selectedStage,
+    token,
+  ]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  // Save changes
+  /* ─── Save changes ──────────────────────────────────── */
+
   const handleSave = async () => {
     if (!token || !editData) return;
+
     setSaving(true);
     setSaveMsg("");
 
     try {
-      const eventParam = selectedStage === "Knockout" && selectedSport !== "Athletics" ? "Knockout" : selectedEvent;
-      const stageParam = selectedSport === "Athletics" ? "Group Stage" : selectedStage;
+      const eventParam =
+        selectedStage === "Knockout" &&
+        selectedSport !== "Athletics"
+          ? "Knockout"
+          : selectedEvent;
+
+      const stageParam =
+        selectedSport === "Athletics"
+          ? "Group Stage"
+          : selectedStage;
+
       const body = {
         sport: selectedSport,
         gender: selectedGender,
@@ -360,388 +730,1347 @@ export default function AdminDashboard() {
         stage: stageParam,
       };
 
-      if (selectedStage === "Knockout" && selectedSport !== "Athletics") {
+      if (
+        selectedStage === "Knockout" &&
+        selectedSport !== "Athletics"
+      ) {
         body.knockout = editData;
       } else {
         body.pointsTable = editData;
       }
 
-      const res = await fetch(`${API_URL}/api/scores/by-filter/upsert`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `${API_URL}/api/scores/by-filter/upsert`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type":
+              "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
-      if (!res.ok) {
-        const err = await res.json();
-        setSaveMsg(`❌ ${err.message || "Save failed"}`);
+      if (!response.ok) {
+        let errorMessage = "Save failed";
+
+        try {
+          const errorData =
+            await response.json();
+
+          errorMessage =
+            errorData.message ||
+            errorMessage;
+        } catch {
+          // Ignore invalid error response
+        }
+
+        setSaveMsg(
+          `❌ ${errorMessage}`
+        );
+
         return;
       }
 
-      setSaveMsg("✅ Saved successfully!");
-      fetchData(); // Reload
-      setTimeout(() => setSaveMsg(""), 3000);
-    } catch (err) {
-      setSaveMsg("❌ Network error");
+      setSaveMsg(
+        "✅ Saved successfully!"
+      );
+
+      await fetchData();
+
+      setTimeout(() => {
+        setSaveMsg("");
+      }, 3000);
+    } catch (error) {
+      console.error(
+        "Save error:",
+        error
+      );
+
+      setSaveMsg(
+        "❌ Network error"
+      );
     } finally {
       setSaving(false);
     }
   };
 
-  // Logout
+  /* ─── Logout ────────────────────────────────────────── */
+
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminName");
-    localStorage.removeItem("adminEmail");
+    localStorage.removeItem(
+      "adminToken"
+    );
+
+    localStorage.removeItem(
+      "adminName"
+    );
+
+    localStorage.removeItem(
+      "adminEmail"
+    );
+
     navigate("/admin");
   };
 
-  // Edit a cell in the points table
-  const handleCellChange = (rowIdx, colIdx, value) => {
-    if (!editData || !editData.data) return;
-    const newData = { ...editData, data: editData.data.map((r) => [...r]) };
-    const heading = (editData.headings[colIdx] || "").toLowerCase();
+  /* ─── Points table cell editing ─────────────────────── */
 
-    if (heading === "team" || heading === "position" || heading === "#") {
-      newData.data[rowIdx][colIdx] = value;
-    } else {
-      const numVal = Number(value);
-      newData.data[rowIdx][colIdx] = isNaN(numVal) || value === "" ? value : numVal;
+  const handleCellChange = (
+    rowIdx,
+    colIdx,
+    value
+  ) => {
+    if (
+      !editData ||
+      !editData.data
+    ) {
+      return;
     }
+
+    const newData = {
+      ...editData,
+      data: editData.data.map(
+        (row) => [...row]
+      ),
+    };
+
+    const heading = (
+      editData.headings[colIdx] || ""
+    ).toLowerCase();
+
+    if (
+      heading === "team" ||
+      heading === "position" ||
+      heading === "#"
+    ) {
+      newData.data[rowIdx][colIdx] =
+        value;
+    } else {
+      const numericValue =
+        Number(value);
+
+      newData.data[rowIdx][colIdx] =
+        Number.isNaN(numericValue) ||
+        value === ""
+          ? value
+          : numericValue;
+    }
+
     setEditData(newData);
   };
 
-  // Add a row to points table with sport-specific default values
+  /* ─── Add row ───────────────────────────────────────── */
+
   const handleAddRow = () => {
-    if (!editData || !editData.headings) return;
-    const headings = editData.headings;
-    const newRow = headings.map((h) => {
-      const hl = h.toLowerCase();
-      if (hl === "position" || hl === "pos" || hl === "#") {
-        return String((editData.data?.length || 0) + 1);
-      }
-      if (hl === "team") return "";
-      return 0;
-    });
-    setEditData({ ...editData, data: [...(editData.data || []), newRow] });
-  };
-
-  // Delete a row
-  const handleDeleteRow = (rowIdx) => {
-    if (!editData || !editData.data) return;
-    const newData = editData.data.filter((_, i) => i !== rowIdx);
-    // Re-index position column if Athletics
-    const posIdx = editData.headings.findIndex(
-      (h) => h.toLowerCase() === "position" || h.toLowerCase() === "pos"
-    );
-    if (posIdx !== -1) {
-      newData.forEach((r, idx) => {
-        r[posIdx] = String(idx + 1);
-      });
+    if (
+      !editData ||
+      !editData.headings
+    ) {
+      return;
     }
-    setEditData({ ...editData, data: newData });
+
+    const headings =
+      editData.headings;
+
+    const newRow = headings.map(
+      (heading) => {
+        const h =
+          heading.toLowerCase();
+
+        if (
+          h === "position" ||
+          h === "pos" ||
+          h === "#"
+        ) {
+          return String(
+            (editData.data?.length ||
+              0) + 1
+          );
+        }
+
+        if (h === "team") {
+          return "";
+        }
+
+        return 0;
+      }
+    );
+
+    setEditData({
+      ...editData,
+      data: [
+        ...(editData.data || []),
+        newRow,
+      ],
+    });
   };
 
-  // Knockout match editing
-  const handleKnockoutMatchChange = (roundIdx, matchIdx, field, value) => {
-    if (!editData || !editData.rounds) return;
-    const newRounds = JSON.parse(JSON.stringify(editData.rounds));
-    newRounds[roundIdx].matches[matchIdx][field] = value;
-    setEditData({ ...editData, rounds: newRounds });
+  /* ─── Delete row ────────────────────────────────────── */
+
+  const handleDeleteRow = (
+    rowIdx
+  ) => {
+    if (
+      !editData ||
+      !editData.data
+    ) {
+      return;
+    }
+
+    const newData =
+      editData.data.filter(
+        (_, index) =>
+          index !== rowIdx
+      );
+
+    const positionIndex =
+      editData.headings.findIndex(
+        (heading) => {
+          const h =
+            heading.toLowerCase();
+
+          return (
+            h === "position" ||
+            h === "pos" ||
+            h === "#"
+          );
+        }
+      );
+
+    if (positionIndex !== -1) {
+      newData.forEach(
+        (row, index) => {
+          row[positionIndex] =
+            String(index + 1);
+        }
+      );
+    }
+
+    setEditData({
+      ...editData,
+      data: newData,
+    });
   };
 
-  // Third place match editing
-  const handleThirdPlaceChange = (field, value) => {
+  /* ─── Knockout match editing ───────────────────────── */
+
+  const handleKnockoutMatchChange = (
+    roundIdx,
+    matchIdx,
+    field,
+    value
+  ) => {
+    if (
+      !editData ||
+      !editData.rounds
+    ) {
+      return;
+    }
+
+    const newRounds =
+      JSON.parse(
+        JSON.stringify(
+          editData.rounds
+        )
+      );
+
+    newRounds[roundIdx].matches[
+      matchIdx
+    ][field] = value;
+
+    setEditData({
+      ...editData,
+      rounds: newRounds,
+    });
+  };
+
+  /* ─── Add knockout round ───────────────────────────── */
+
+  const handleAddRound = () => {
     if (!editData) return;
-    const tp = editData.thirdPlace ? JSON.parse(JSON.stringify(editData.thirdPlace)) : { match: {} };
-    if (!tp.match) tp.match = {};
-    tp.match[field] = value;
-    setEditData({ ...editData, thirdPlace: tp });
+
+    const rounds = [
+      ...(editData.rounds || []),
+    ];
+
+    rounds.push({
+      name: `Round ${
+        rounds.length + 1
+      }`,
+      matches: [
+        createEmptyKnockoutMatch(),
+      ],
+    });
+
+    setEditData({
+      ...editData,
+      rounds,
+    });
   };
 
-  const cfg = sportsDataMap[selectedSport] || {};
-  const genders = cfg.genders || [];
-  const pools = cfg.pools?.[selectedGender] || [];
-  const stages = cfg.stages || [];
+  /* ─── Rename knockout round ────────────────────────── */
+
+  const handleRoundNameChange = (
+    roundIdx,
+    value
+  ) => {
+    if (!editData?.rounds) return;
+
+    const rounds =
+      JSON.parse(
+        JSON.stringify(
+          editData.rounds
+        )
+      );
+
+    rounds[roundIdx].name =
+      value;
+
+    setEditData({
+      ...editData,
+      rounds,
+    });
+  };
+
+  /* ─── Add knockout match ───────────────────────────── */
+
+  const handleAddKnockoutMatch = (
+    roundIdx
+  ) => {
+    if (!editData?.rounds) return;
+
+    const rounds =
+      JSON.parse(
+        JSON.stringify(
+          editData.rounds
+        )
+      );
+
+    rounds[roundIdx].matches.push(
+      createEmptyKnockoutMatch()
+    );
+
+    setEditData({
+      ...editData,
+      rounds,
+    });
+  };
+
+  /* ─── Delete knockout match ────────────────────────── */
+
+  const handleDeleteKnockoutMatch = (
+    roundIdx,
+    matchIdx
+  ) => {
+    if (!editData?.rounds) return;
+
+    const rounds =
+      JSON.parse(
+        JSON.stringify(
+          editData.rounds
+        )
+      );
+
+    rounds[roundIdx].matches =
+      rounds[
+        roundIdx
+      ].matches.filter(
+        (_, index) =>
+          index !== matchIdx
+      );
+
+    setEditData({
+      ...editData,
+      rounds,
+    });
+  };
+
+  /* ─── Delete knockout round ────────────────────────── */
+
+  const handleDeleteRound = (
+    roundIdx
+  ) => {
+    if (!editData?.rounds) return;
+
+    const rounds =
+      editData.rounds.filter(
+        (_, index) =>
+          index !== roundIdx
+      );
+
+    setEditData({
+      ...editData,
+      rounds,
+    });
+  };
+
+  /* ─── Third place match ────────────────────────────── */
+
+  const handleThirdPlaceChange = (
+    field,
+    value
+  ) => {
+    if (!editData) return;
+
+    const thirdPlace =
+      editData.thirdPlace
+        ? JSON.parse(
+            JSON.stringify(
+              editData.thirdPlace
+            )
+          )
+        : {
+            match:
+              createEmptyKnockoutMatch(),
+          };
+
+    if (!thirdPlace.match) {
+      thirdPlace.match =
+        createEmptyKnockoutMatch();
+    }
+
+    thirdPlace.match[field] =
+      value;
+
+    setEditData({
+      ...editData,
+      thirdPlace,
+    });
+  };
+
+  const handleAddThirdPlace = () => {
+    if (!editData) return;
+
+    setEditData({
+      ...editData,
+      thirdPlace: {
+        match:
+          createEmptyKnockoutMatch(),
+      },
+    });
+  };
+
+  const handleRemoveThirdPlace = () => {
+    if (!editData) return;
+
+    const updated = {
+      ...editData,
+    };
+
+    delete updated.thirdPlace;
+
+    setEditData(updated);
+  };
+
+  /* ─── Current configuration ────────────────────────── */
+
+  const cfg =
+    sportsDataMap[selectedSport] ||
+    {};
+
+  const genders =
+    cfg.genders || [];
+
+  const pools =
+    cfg.pools?.[
+      selectedGender
+    ] || [];
+
+  const stages =
+    cfg.stages || [];
+
+  /* ─── Render ───────────────────────────────────────── */
 
   return (
     <div className="admin-dashboard-page">
+
       {/* Header */}
+
       <div className="admin-header">
         <div className="admin-header-left">
           <h1>⚡ URJA Admin</h1>
-          <span className="admin-welcome">Welcome, {adminName}</span>
+
+          <span className="admin-welcome">
+            Welcome, {adminName}
+          </span>
         </div>
-        <button className="admin-logout-btn" onClick={handleLogout}>
+
+        <button
+          className="admin-logout-btn"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </div>
 
       {/* Selectors */}
+
       <div className="admin-selectors">
+
         <div className="admin-select-group">
           <label>Sport</label>
-          <select value={selectedSport} onChange={(e) => setSelectedSport(e.target.value)}>
-            {Object.keys(sportsDataMap).map((s) => (
-              <option key={s} value={s}>{s}</option>
+
+          <select
+            value={selectedSport}
+            onChange={(event) =>
+              setSelectedSport(
+                event.target.value
+              )
+            }
+          >
+            {Object.keys(
+              sportsDataMap
+            ).map((sport) => (
+              <option
+                key={sport}
+                value={sport}
+              >
+                {sport}
+              </option>
             ))}
           </select>
         </div>
 
         <div className="admin-select-group">
           <label>Gender</label>
-          <select value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
-            {genders.map((g) => (
-              <option key={g} value={g}>{g}</option>
-            ))}
+
+          <select
+            value={selectedGender}
+            onChange={(event) =>
+              setSelectedGender(
+                event.target.value
+              )
+            }
+          >
+            {genders.map(
+              (gender) => (
+                <option
+                  key={gender}
+                  value={gender}
+                >
+                  {gender}
+                </option>
+              )
+            )}
           </select>
         </div>
 
-        {stages.length > 1 && selectedSport !== "Athletics" && (
-          <div className="admin-select-group">
-            <label>Stage</label>
-            <select value={selectedStage} onChange={(e) => setSelectedStage(e.target.value)}>
-              {stages.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </div>
-        )}
+        {stages.length > 1 &&
+          selectedSport !==
+            "Athletics" && (
+            <div className="admin-select-group">
+              <label>Stage</label>
 
-        {(selectedSport === "Athletics" || (selectedStage === "Group Stage" && pools.length > 0)) && (
+              <select
+                value={
+                  selectedStage
+                }
+                onChange={(event) =>
+                  setSelectedStage(
+                    event.target.value
+                  )
+                }
+              >
+                {stages.map(
+                  (stage) => (
+                    <option
+                      key={stage}
+                      value={stage}
+                    >
+                      {stage}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          )}
+
+        {(selectedSport ===
+          "Athletics" ||
+          (selectedStage ===
+            "Group Stage" &&
+            pools.length > 0)) && (
           <div className="admin-select-group">
-            <label>{selectedSport === "Athletics" ? "Event" : "Pool"}</label>
-            <select value={selectedEvent} onChange={(e) => setSelectedEvent(e.target.value)}>
-              {pools.map((p) => (
-                <option key={p} value={p}>{p}</option>
-              ))}
+            <label>
+              {selectedSport ===
+              "Athletics"
+                ? "Event"
+                : "Pool"}
+            </label>
+
+            <select
+              value={
+                selectedEvent
+              }
+              onChange={(event) =>
+                setSelectedEvent(
+                  event.target.value
+                )
+              }
+            >
+              {pools.map(
+                (pool) => (
+                  <option
+                    key={pool}
+                    value={pool}
+                  >
+                    {pool}
+                  </option>
+                )
+              )}
             </select>
           </div>
         )}
       </div>
 
-      {/* Content area */}
+      {/* Content */}
+
       <div className="admin-content">
-        {loading && <div className="admin-loading">Loading...</div>}
-        {fetchError && <div className="admin-fetch-error">{fetchError}</div>}
 
-        {!loading && !fetchError && editData && (selectedSport === "Athletics" || selectedStage === "Group Stage") && (
-          <div className="admin-table-section">
-            <div className="admin-table-header">
-              <h2>
-                {selectedSport} — {selectedGender} — {selectedEvent}
-              </h2>
-              <div className="admin-table-actions">
-                <button className="admin-add-row-btn" onClick={handleAddRow}>
-                  + Add Row
-                </button>
-              </div>
-            </div>
-
-            <div className="admin-table-wrapper">
-              <table className="admin-edit-table">
-                <thead>
-                  <tr>
-                    <th className="admin-row-num">#</th>
-                    {(editData.headings || []).map((h, i) => (
-                      <th key={i}>{h}</th>
-                    ))}
-                    <th className="admin-actions-col">Del</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(editData.data || []).map((row, rIdx) => (
-                    <tr key={rIdx}>
-                      <td className="admin-row-num">{rIdx + 1}</td>
-                      {row.map((cell, cIdx) => {
-                        const heading = (editData.headings[cIdx] || "").toLowerCase();
-                        const isTeamCol = heading === "team";
-
-                        return (
-                          <td key={cIdx}>
-                            {isTeamCol ? (
-                              <TeamDropdown
-                                value={cell}
-                                onChange={(newVal) => handleCellChange(rIdx, cIdx, newVal)}
-                                openUp={rIdx >= 3 && rIdx >= (editData.data?.length || 0) - 3}
-                              />
-                            ) : (
-                              <input
-                                type={heading === "position" || heading === "pos" ? "text" : "number"}
-                                step={heading === "nrr" ? "0.001" : "1"}
-                                value={cell}
-                                onChange={(e) => handleCellChange(rIdx, cIdx, e.target.value)}
-                                className="admin-cell-input"
-                              />
-                            )}
-                          </td>
-                        );
-                      })}
-                      <td className="admin-actions-col">
-                        <button
-                          className="admin-delete-btn"
-                          onClick={() => handleDeleteRow(rIdx)}
-                          title="Delete row"
-                        >
-                          ✕
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  {(editData.data || []).length === 0 && (
-                    <tr>
-                      <td colSpan={(editData.headings?.length || 0) + 2} className="admin-no-data">
-                        No data yet. Click "+ Add Row" to start.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+        {loading && (
+          <div className="admin-loading">
+            Loading...
           </div>
         )}
 
-        {/* Knockout editor */}
-        {!loading && !fetchError && editData && selectedSport !== "Athletics" && selectedStage === "Knockout" && (
-          <div className="admin-knockout-section">
-            <h2>{selectedSport} — {selectedGender} — Knockout</h2>
+        {fetchError && (
+          <div className="admin-fetch-error">
+            {fetchError}
+          </div>
+        )}
 
-            {(editData.rounds || []).map((round, rIdx) => (
-              <div key={rIdx} className="admin-knockout-round">
-                <h3>{round.name}</h3>
-                {(round.matches || []).map((m, mIdx) => (
-                  <div key={mIdx} className="admin-knockout-match">
-                    <div className="admin-ko-field">
-                      <label>Team 1</label>
-                      <TeamDropdown
-                        value={m.team1 || ""}
-                        onChange={(val) => handleKnockoutMatchChange(rIdx, mIdx, "team1", val)}
-                      />
-                    </div>
-                    <div className="admin-ko-field score-field">
-                      <label>Score 1</label>
-                      <input
-                        value={m.score1 || ""}
-                        onChange={(e) => handleKnockoutMatchChange(rIdx, mIdx, "score1", e.target.value)}
-                        placeholder="e.g. 21"
-                      />
-                    </div>
-                    <div className="admin-ko-vs">vs</div>
-                    <div className="admin-ko-field">
-                      <label>Team 2</label>
-                      <TeamDropdown
-                        value={m.team2 || ""}
-                        onChange={(val) => handleKnockoutMatchChange(rIdx, mIdx, "team2", val)}
-                      />
-                    </div>
-                    <div className="admin-ko-field score-field">
-                      <label>Score 2</label>
-                      <input
-                        value={m.score2 || ""}
-                        onChange={(e) => handleKnockoutMatchChange(rIdx, mIdx, "score2", e.target.value)}
-                        placeholder="e.g. 18"
-                      />
-                    </div>
-                    <div className="admin-ko-field">
-                      <label>Winner</label>
-                      <TeamDropdown
-                        value={m.winner || ""}
-                        onChange={(val) => handleKnockoutMatchChange(rIdx, mIdx, "winner", val)}
-                      />
-                    </div>
-                    <div className="admin-ko-field">
-                      <label>Date</label>
-                      <input
-                        value={m.date || ""}
-                        onChange={(e) => handleKnockoutMatchChange(rIdx, mIdx, "date", e.target.value)}
-                        placeholder="e.g. 15 Oct"
-                      />
-                    </div>
-                    <div className="admin-ko-field">
-                      <label>Venue</label>
-                      <input
-                        value={m.venue || ""}
-                        onChange={(e) => handleKnockoutMatchChange(rIdx, mIdx, "venue", e.target.value)}
-                        placeholder="e.g. Court 1"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+        {/* Group Stage / Athletics */}
 
-            {editData.thirdPlace?.match && (
-              <div className="admin-knockout-round admin-third-place">
-                <h3>Third Place</h3>
-                <div className="admin-knockout-match">
-                  <div className="admin-ko-field">
-                    <label>Team 1</label>
-                    <TeamDropdown
-                      value={editData.thirdPlace.match.team1 || ""}
-                      onChange={(val) => handleThirdPlaceChange("team1", val)}
-                      openUp={true}
-                    />
-                  </div>
-                  <div className="admin-ko-field score-field">
-                    <label>Score 1</label>
-                    <input
-                      value={editData.thirdPlace.match.score1 || ""}
-                      onChange={(e) => handleThirdPlaceChange("score1", e.target.value)}
-                      placeholder="e.g. 2"
-                    />
-                  </div>
-                  <div className="admin-ko-vs">vs</div>
-                  <div className="admin-ko-field">
-                    <label>Team 2</label>
-                    <TeamDropdown
-                      value={editData.thirdPlace.match.team2 || ""}
-                      onChange={(val) => handleThirdPlaceChange("team2", val)}
-                      openUp={true}
-                    />
-                  </div>
-                  <div className="admin-ko-field score-field">
-                    <label>Score 2</label>
-                    <input
-                      value={editData.thirdPlace.match.score2 || ""}
-                      onChange={(e) => handleThirdPlaceChange("score2", e.target.value)}
-                      placeholder="e.g. 1"
-                    />
-                  </div>
-                  <div className="admin-ko-field">
-                    <label>Winner</label>
-                    <TeamDropdown
-                      value={editData.thirdPlace.match.winner || ""}
-                      onChange={(val) => handleThirdPlaceChange("winner", val)}
-                      openUp={true}
-                    />
-                  </div>
+        {!loading &&
+          !fetchError &&
+          editData &&
+          (selectedSport ===
+            "Athletics" ||
+            selectedStage ===
+              "Group Stage") && (
+            <div className="admin-table-section">
+
+              <div className="admin-table-header">
+                <h2>
+                  {selectedSport} —{" "}
+                  {selectedGender} —{" "}
+                  {selectedEvent}
+                </h2>
+
+                <div className="admin-table-actions">
+                  <button
+                    className="admin-add-row-btn"
+                    onClick={
+                      handleAddRow
+                    }
+                  >
+                    + Add Row
+                  </button>
                 </div>
               </div>
-            )}
 
-            {(editData.rounds || []).length === 0 && (
-              <div className="admin-no-data">No knockout data available for this selection.</div>
-            )}
-          </div>
-        )}
+              <div className="admin-table-wrapper">
+                <table className="admin-edit-table">
+
+                  <thead>
+                    <tr>
+                      <th className="admin-row-num">
+                        #
+                      </th>
+
+                      {(
+                        editData.headings ||
+                        []
+                      ).map(
+                        (
+                          heading,
+                          index
+                        ) => (
+                          <th
+                            key={
+                              index
+                            }
+                          >
+                            {
+                              heading
+                            }
+                          </th>
+                        )
+                      )}
+
+                      <th className="admin-actions-col">
+                        Del
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {(
+                      editData.data ||
+                      []
+                    ).map(
+                      (
+                        row,
+                        rowIndex
+                      ) => (
+                        <tr
+                          key={
+                            rowIndex
+                          }
+                        >
+                          <td className="admin-row-num">
+                            {rowIndex +
+                              1}
+                          </td>
+
+                          {row.map(
+                            (
+                              cell,
+                              columnIndex
+                            ) => {
+                              const heading =
+                                (
+                                  editData
+                                    .headings[
+                                    columnIndex
+                                  ] ||
+                                  ""
+                                ).toLowerCase();
+
+                              const isTeamColumn =
+                                heading ===
+                                "team";
+
+                              return (
+                                <td
+                                  key={
+                                    columnIndex
+                                  }
+                                >
+                                  {isTeamColumn ? (
+                                    <TeamDropdown
+                                      value={
+                                        cell
+                                      }
+                                      onChange={(
+                                        newValue
+                                      ) =>
+                                        handleCellChange(
+                                          rowIndex,
+                                          columnIndex,
+                                          newValue
+                                        )
+                                      }
+                                      openUp={
+                                        rowIndex >=
+                                          3 &&
+                                        rowIndex >=
+                                          (
+                                            editData
+                                              .data
+                                              ?.length ||
+                                            0
+                                          ) -
+                                            3
+                                      }
+                                    />
+                                  ) : (
+                                    <input
+                                      type={
+                                        heading ===
+                                          "position" ||
+                                        heading ===
+                                          "pos" ||
+                                        heading ===
+                                          "#"
+                                          ? "text"
+                                          : "number"
+                                      }
+                                      step={
+                                        heading ===
+                                        "nrr"
+                                          ? "0.001"
+                                          : "1"
+                                      }
+                                      value={
+                                        cell
+                                      }
+                                      onChange={(
+                                        event
+                                      ) =>
+                                        handleCellChange(
+                                          rowIndex,
+                                          columnIndex,
+                                          event
+                                            .target
+                                            .value
+                                        )
+                                      }
+                                      className="admin-cell-input"
+                                    />
+                                  )}
+                                </td>
+                              );
+                            }
+                          )}
+
+                          <td className="admin-actions-col">
+                            <button
+                              className="admin-delete-btn"
+                              onClick={() =>
+                                handleDeleteRow(
+                                  rowIndex
+                                )
+                              }
+                              title="Delete row"
+                            >
+                              ✕
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    )}
+
+                    {(
+                      editData.data ||
+                      []
+                    ).length === 0 && (
+                      <tr>
+                        <td
+                          colSpan={
+                            (
+                              editData
+                                .headings
+                                ?.length ||
+                              0
+                            ) + 2
+                          }
+                          className="admin-no-data"
+                        >
+                          No data yet.
+                          Click "+ Add
+                          Row" to start.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+          )}
+
+        {/* Knockout */}
+
+        {!loading &&
+          !fetchError &&
+          editData &&
+          selectedSport !==
+            "Athletics" &&
+          selectedStage ===
+            "Knockout" && (
+            <div className="admin-knockout-section">
+
+              <div className="admin-table-header">
+                <h2>
+                  {selectedSport} —{" "}
+                  {selectedGender} —
+                  Knockout
+                </h2>
+
+                <button
+                  className="admin-add-row-btn"
+                  onClick={
+                    handleAddRound
+                  }
+                >
+                  + Add Round
+                </button>
+              </div>
+
+              {(editData.rounds ||
+                []
+              ).map(
+                (
+                  round,
+                  roundIndex
+                ) => (
+                  <div
+                    key={
+                      roundIndex
+                    }
+                    className="admin-knockout-round"
+                  >
+
+                    <div className="admin-round-header">
+                      <input
+                        className="admin-round-name-input"
+                        value={
+                          round.name ||
+                          ""
+                        }
+                        onChange={(
+                          event
+                        ) =>
+                          handleRoundNameChange(
+                            roundIndex,
+                            event
+                              .target
+                              .value
+                          )
+                        }
+                      />
+
+                      <button
+                        className="admin-delete-btn"
+                        onClick={() =>
+                          handleDeleteRound(
+                            roundIndex
+                          )
+                        }
+                        title="Delete round"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    {(round.matches ||
+                      []
+                    ).map(
+                      (
+                        match,
+                        matchIndex
+                      ) => (
+                        <div
+                          key={
+                            match.id ||
+                            matchIndex
+                          }
+                          className="admin-knockout-match"
+                        >
+
+                          <div className="admin-ko-field">
+                            <label>
+                              Team 1
+                            </label>
+
+                            <TeamDropdown
+                              value={
+                                match.team1 ||
+                                ""
+                              }
+                              onChange={(
+                                value
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "team1",
+                                  value
+                                )
+                              }
+                            />
+                          </div>
+
+                          <div className="admin-ko-field score-field">
+                            <label>
+                              Score 1
+                            </label>
+
+                            <input
+                              value={
+                                match.score1 ||
+                                ""
+                              }
+                              onChange={(
+                                event
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "score1",
+                                  event
+                                    .target
+                                    .value
+                                )
+                              }
+                              placeholder="e.g. 21"
+                            />
+                          </div>
+
+                          <div className="admin-ko-vs">
+                            vs
+                          </div>
+
+                          <div className="admin-ko-field">
+                            <label>
+                              Team 2
+                            </label>
+
+                            <TeamDropdown
+                              value={
+                                match.team2 ||
+                                ""
+                              }
+                              onChange={(
+                                value
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "team2",
+                                  value
+                                )
+                              }
+                            />
+                          </div>
+
+                          <div className="admin-ko-field score-field">
+                            <label>
+                              Score 2
+                            </label>
+
+                            <input
+                              value={
+                                match.score2 ||
+                                ""
+                              }
+                              onChange={(
+                                event
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "score2",
+                                  event
+                                    .target
+                                    .value
+                                )
+                              }
+                              placeholder="e.g. 18"
+                            />
+                          </div>
+
+                          <div className="admin-ko-field">
+                            <label>
+                              Winner
+                            </label>
+
+                            <TeamDropdown
+                              value={
+                                match.winner ||
+                                ""
+                              }
+                              onChange={(
+                                value
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "winner",
+                                  value
+                                )
+                              }
+                            />
+                          </div>
+
+                          <div className="admin-ko-field">
+                            <label>
+                              Date
+                            </label>
+
+                            <input
+                              value={
+                                match.date ||
+                                ""
+                              }
+                              onChange={(
+                                event
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "date",
+                                  event
+                                    .target
+                                    .value
+                                )
+                              }
+                              placeholder="e.g. 15 Oct"
+                            />
+                          </div>
+
+                          <div className="admin-ko-field">
+                            <label>
+                              Venue
+                            </label>
+
+                            <input
+                              value={
+                                match.venue ||
+                                ""
+                              }
+                              onChange={(
+                                event
+                              ) =>
+                                handleKnockoutMatchChange(
+                                  roundIndex,
+                                  matchIndex,
+                                  "venue",
+                                  event
+                                    .target
+                                    .value
+                                )
+                              }
+                              placeholder="e.g. Court 1"
+                            />
+                          </div>
+
+                          <button
+                            className="admin-delete-btn admin-ko-delete"
+                            onClick={() =>
+                              handleDeleteKnockoutMatch(
+                                roundIndex,
+                                matchIndex
+                              )
+                            }
+                            title="Delete match"
+                          >
+                            ✕
+                          </button>
+
+                        </div>
+                      )
+                    )}
+
+                    <button
+                      className="admin-add-row-btn"
+                      onClick={() =>
+                        handleAddKnockoutMatch(
+                          roundIndex
+                        )
+                      }
+                    >
+                      + Add Match
+                    </button>
+
+                  </div>
+                )
+              )}
+
+              {/* Third Place */}
+
+              {editData.thirdPlace?.match ? (
+                <div className="admin-knockout-round admin-third-place">
+
+                  <div className="admin-round-header">
+                    <h3>
+                      Third Place
+                    </h3>
+
+                    <button
+                      className="admin-delete-btn"
+                      onClick={
+                        handleRemoveThirdPlace
+                      }
+                      title="Remove third-place match"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <div className="admin-knockout-match">
+
+                    <div className="admin-ko-field">
+                      <label>
+                        Team 1
+                      </label>
+
+                      <TeamDropdown
+                        value={
+                          editData
+                            .thirdPlace
+                            .match
+                            .team1 ||
+                          ""
+                        }
+                        onChange={(
+                          value
+                        ) =>
+                          handleThirdPlaceChange(
+                            "team1",
+                            value
+                          )
+                        }
+                        openUp
+                      />
+                    </div>
+
+                    <div className="admin-ko-field score-field">
+                      <label>
+                        Score 1
+                      </label>
+
+                      <input
+                        value={
+                          editData
+                            .thirdPlace
+                            .match
+                            .score1 ||
+                          ""
+                        }
+                        onChange={(
+                          event
+                        ) =>
+                          handleThirdPlaceChange(
+                            "score1",
+                            event
+                              .target
+                              .value
+                          )
+                        }
+                        placeholder="e.g. 2"
+                      />
+                    </div>
+
+                    <div className="admin-ko-vs">
+                      vs
+                    </div>
+
+                    <div className="admin-ko-field">
+                      <label>
+                        Team 2
+                      </label>
+
+                      <TeamDropdown
+                        value={
+                          editData
+                            .thirdPlace
+                            .match
+                            .team2 ||
+                          ""
+                        }
+                        onChange={(
+                          value
+                        ) =>
+                          handleThirdPlaceChange(
+                            "team2",
+                            value
+                          )
+                        }
+                        openUp
+                      />
+                    </div>
+
+                    <div className="admin-ko-field score-field">
+                      <label>
+                        Score 2
+                      </label>
+
+                      <input
+                        value={
+                          editData
+                            .thirdPlace
+                            .match
+                            .score2 ||
+                          ""
+                        }
+                        onChange={(
+                          event
+                        ) =>
+                          handleThirdPlaceChange(
+                            "score2",
+                            event
+                              .target
+                              .value
+                          )
+                        }
+                        placeholder="e.g. 1"
+                      />
+                    </div>
+
+                    <div className="admin-ko-field">
+                      <label>
+                        Winner
+                      </label>
+
+                      <TeamDropdown
+                        value={
+                          editData
+                            .thirdPlace
+                            .match
+                            .winner ||
+                          ""
+                        }
+                        onChange={(
+                          value
+                        ) =>
+                          handleThirdPlaceChange(
+                            "winner",
+                            value
+                          )
+                        }
+                        openUp
+                      />
+                    </div>
+
+                  </div>
+                </div>
+              ) : (
+                <button
+                  className="admin-add-row-btn"
+                  onClick={
+                    handleAddThirdPlace
+                  }
+                >
+                  + Add Third Place Match
+                </button>
+              )}
+
+              {(editData.rounds ||
+                []).length === 0 && (
+                <div className="admin-no-data">
+                  No knockout data
+                  available for this
+                  selection.
+                </div>
+              )}
+
+            </div>
+          )}
       </div>
 
       {/* Save bar */}
+
       {!loading && editData && (
         <div className="admin-save-bar">
+
           {saveMsg && (
-            <span className={`admin-save-msg ${saveMsg.startsWith("✅") ? "success" : "error"}`}>
+            <span
+              className={`admin-save-msg ${
+                saveMsg.startsWith("✅")
+                  ? "success"
+                  : "error"
+              }`}
+            >
               {saveMsg}
             </span>
           )}
-          <button className="admin-save-btn" onClick={handleSave} disabled={saving}>
-            {saving ? "Saving..." : "💾 Save Changes"}
+
+          <button
+            className="admin-save-btn"
+            onClick={handleSave}
+            disabled={saving}
+          >
+            {saving
+              ? "Saving..."
+              : "💾 Save Changes"}
           </button>
+
         </div>
       )}
+
     </div>
   );
 }

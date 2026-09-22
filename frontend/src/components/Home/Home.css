@@ -1,7 +1,7 @@
 /* =========================================================
    URJA '27 — HOME PAGE
    Theme: VORTEX
-   Background: Video + Neon Pink + Black
+   Background: Hyperspeed + Neon Pink + Black
 ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
@@ -30,13 +30,9 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-
   background: #000000;
-
   color: white;
-
   overflow: hidden;
-
   font-family:
     'Poppins',
     system-ui,
@@ -55,7 +51,6 @@ body {
 
 .hero-section {
   position: relative;
-
   width: 100%;
   height: 100vh;
 
@@ -64,68 +59,57 @@ body {
   justify-content: center;
 
   overflow: hidden;
-
   background: #000000;
 }
 
 
 /* =========================================================
-   VIDEO BACKGROUND CONTAINER
+   HYPERSPEED BACKGROUND
 ========================================================= */
 
-.video-bg {
+.hyperspeed-background {
   position: absolute;
-
   inset: 0;
 
   width: 100%;
   height: 100%;
 
   z-index: 0;
-
   overflow: hidden;
 
-  background: #000000;
+  pointer-events: none;
 }
 
 
-/* =========================================================
-   ACTUAL VIDEO
-========================================================= */
+/* Make Hyperspeed fill the entire hero */
 
-.hero-video {
+.hyperspeed-background #lights {
   position: absolute;
-
-  top: 50%;
-  left: 50%;
+  inset: 0;
 
   width: 100%;
   height: 100%;
 
-  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
 
-  object-fit: cover;
 
-  object-position: center;
+/* Three.js canvas */
 
+.hyperspeed-background canvas {
   display: block;
 
-  background: #000000;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 
 /* =========================================================
-   VIDEO DARK + NEON PINK OVERLAY
+   HYPERSPEED OVERLAY
 ========================================================= */
 
-/*
-   This layer makes the original red/orange video
-   blend with the URJA neon-pink + black theme.
-*/
-
-.video-overlay {
+.hyperspeed-overlay {
   position: absolute;
-
   inset: 0;
 
   width: 100%;
@@ -136,53 +120,48 @@ body {
   pointer-events: none;
 
   background:
-
-    /* Top pink glow */
+    /* Top neon-pink glow */
     radial-gradient(
       circle at 50% 0%,
-      rgba(255, 20, 147, 0.45),
+      rgba(255, 20, 147, 0.28),
       transparent 55%
     ),
 
     /* Bottom-left pink glow */
     radial-gradient(
       circle at 15% 70%,
-      rgba(255, 105, 180, 0.18),
+      rgba(255, 105, 180, 0.12),
       transparent 40%
     ),
 
     /* Right-side pink glow */
     radial-gradient(
       circle at 90% 50%,
-      rgba(255, 20, 147, 0.20),
+      rgba(255, 20, 147, 0.15),
       transparent 35%
     ),
 
-    /* Main black/pink gradient */
+    /* Dark overall gradient */
     linear-gradient(
       180deg,
-      rgba(26, 0, 18, 0.72) 0%,
-      rgba(16, 0, 12, 0.78) 50%,
-      rgba(5, 0, 3, 0.90) 100%
+      rgba(10, 0, 8, 0.25) 0%,
+      rgba(8, 0, 6, 0.35) 50%,
+      rgba(0, 0, 0, 0.65) 100%
     );
-
-  mix-blend-mode: normal;
 }
 
 
 /* =========================================================
-   EXTRA DARKNESS
+   EXTRA DARKNESS / VIGNETTE
 ========================================================= */
 
 .hero-section::after {
   content: "";
 
   position: absolute;
-
   inset: 0;
 
   z-index: 3;
-
   pointer-events: none;
 
   background:
@@ -205,7 +184,6 @@ body {
 
 .hero-content {
   position: relative;
-
   z-index: 10;
 
   width: 100%;
@@ -216,11 +194,9 @@ body {
   padding: 0 1.5rem;
 
   display: flex;
-
   flex-direction: column;
 
   justify-content: center;
-
   align-items: center;
 
   text-align: center;
@@ -237,25 +213,18 @@ body {
   color: #ffffff;
 
   font-size: 3.75rem;
-
   font-weight: 900;
 
   line-height: 1.1;
-
   letter-spacing: 1px;
 
   -webkit-text-stroke: 0.9px rgba(0, 0, 0, 0.75);
 
   text-shadow:
-
     0 0 5px #ffffff,
-
     0 0 12px rgba(255, 20, 147, 0.75),
-
     0 0 25px rgba(255, 20, 147, 0.65),
-
     0 0 45px rgba(255, 20, 147, 0.35),
-
     0 6px 18px rgba(0, 0, 0, 0.9);
 }
 
@@ -265,11 +234,9 @@ body {
 ========================================================= */
 
 @media (min-width: 768px) {
-
   .hero-title {
     font-size: 6rem;
   }
-
 }
 
 
@@ -279,7 +246,6 @@ body {
 
 .hero-subtitle {
   margin-top: 0.5rem;
-
   margin-left: auto;
   margin-right: auto;
 
@@ -288,7 +254,6 @@ body {
   color: rgba(255, 255, 255, 0.92);
 
   font-size: 1.25rem;
-
   font-weight: 500;
 
   letter-spacing: 0.6px;
@@ -296,11 +261,8 @@ body {
   -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.6);
 
   text-shadow:
-
     0 0 5px rgba(255, 255, 255, 0.8),
-
     0 0 12px rgba(255, 20, 147, 0.65),
-
     0 4px 12px rgba(0, 0, 0, 0.9);
 }
 
@@ -310,11 +272,9 @@ body {
 ========================================================= */
 
 @media (min-width: 768px) {
-
   .hero-subtitle {
     font-size: 1.5rem;
   }
-
 }
 
 
@@ -339,11 +299,9 @@ body {
 ========================================================= */
 
 .hero-btn-primary {
-
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 0.5rem;
@@ -355,7 +313,6 @@ body {
   border-radius: 9999px;
 
   background:
-
     linear-gradient(
       135deg,
       #ffffff 0%,
@@ -365,7 +322,6 @@ body {
   color: #000000;
 
   font-weight: 700;
-
   font-size: 1.125rem;
 
   cursor: pointer;
@@ -382,7 +338,6 @@ body {
 ========================================================= */
 
 .hero-btn-primary:hover {
-
   transform:
     scale(1.05)
     translateY(-2px);
@@ -390,12 +345,26 @@ body {
   background: #ffffff;
 
   box-shadow:
-
     0 0 10px #ffffff,
-
     0 0 20px rgba(255, 20, 147, 0.7),
-
     0 0 35px rgba(255, 20, 147, 0.45);
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON ICON
+========================================================= */
+
+.hero-btn-primary .icon {
+  width: 20px;
+  height: 20px;
+
+  transition: transform 0.3s ease;
+}
+
+
+.hero-btn-primary:hover .icon {
+  transform: translateX(4px);
 }
 
 
@@ -404,24 +373,20 @@ body {
 ========================================================= */
 
 .hero-btn-secondary {
-
   padding: 1rem 2rem;
 
   border:
-
     1px solid
     rgba(255, 105, 180, 0.8);
 
   border-radius: 9999px;
 
   background:
-
     rgba(0, 0, 0, 0.35);
 
   color: #ffffff;
 
   font-weight: 700;
-
   font-size: 1.125rem;
 
   cursor: pointer;
@@ -430,13 +395,10 @@ body {
     all 0.3s ease;
 
   backdrop-filter: blur(6px);
-
   -webkit-backdrop-filter: blur(6px);
 
   box-shadow:
-
     0 0 8px rgba(255, 20, 147, 0.25),
-
     inset 0 0 10px rgba(255, 20, 147, 0.05);
 }
 
@@ -446,9 +408,7 @@ body {
 ========================================================= */
 
 .hero-btn-secondary:hover {
-
   background:
-
     linear-gradient(
       135deg,
       rgba(255, 20, 147, 0.45),
@@ -464,13 +424,9 @@ body {
   border-color: #ff69b4;
 
   box-shadow:
-
     0 0 8px rgba(255, 20, 147, 0.8),
-
     0 0 20px rgba(255, 20, 147, 0.6),
-
     0 0 35px rgba(255, 20, 147, 0.3),
-
     inset 0 0 15px rgba(255, 20, 147, 0.12);
 }
 
@@ -480,11 +436,9 @@ body {
 ========================================================= */
 
 .scroll-indicator {
-
   position: absolute;
 
   bottom: 25px;
-
   left: 50%;
 
   transform: translateX(-50%);
@@ -492,11 +446,9 @@ body {
   z-index: 10;
 
   width: 30px;
-
   height: 48px;
 
   border:
-
     2px solid
     rgba(255, 255, 255, 0.65);
 
@@ -509,7 +461,6 @@ body {
   padding-top: 8px;
 
   box-shadow:
-
     0 0 8px rgba(255, 20, 147, 0.4);
 }
 
@@ -519,9 +470,7 @@ body {
 ========================================================= */
 
 .scroll-mouse {
-
   width: 4px;
-
   height: 8px;
 
   border-radius: 4px;
@@ -529,9 +478,7 @@ body {
   background: #ffffff;
 
   box-shadow:
-
     0 0 8px #ff1493,
-
     0 0 15px rgba(255, 20, 147, 0.7);
 
   animation:
@@ -558,137 +505,6 @@ body {
   100% {
     transform: translateY(0);
     opacity: 1;
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-  .hero-title {
-
-    font-size: 2.5rem;
-
-    margin-bottom: 2rem;
-
-  }
-
-
-  .hero-buttons {
-
-    gap: 0.75rem;
-
-    margin-top: 2.5rem;
-
-  }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .hero-title {
-
-    font-size: 2rem;
-
-    margin-bottom: 1.5rem;
-
-  }
-
-
-  .hero-subtitle {
-
-    font-size: 1rem;
-
-    padding: 0 1rem;
-
-  }
-
-
-  .hero-buttons {
-
-    flex-direction: column;
-
-    gap: 0.5rem;
-
-  }
-
-
-  .hero-btn-primary,
-  .hero-btn-secondary {
-
-    width: 280px;
-
-    padding: 0.75rem 1.5rem;
-
-    font-size: 1rem;
-
-  }
-
-
-  .scroll-indicator {
-
-    bottom: 18px;
-
-  }
-
-}
-
-
-/* =========================================================
-   VERY SMALL SCREEN
-========================================================= */
-
-@media (max-width: 360px) {
-
-  .hero-title {
-
-    font-size: 1.75rem;
-
-  }
-
-
-  .hero-btn-primary,
-  .hero-btn-secondary {
-
-    width: 250px;
-
-  }
-
-}
-
-
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .hero-video {
-
-    animation: none;
-
-  }
-
-  .scroll-mouse {
-
-    animation: none;
-
-  }
-
-  .hero-title,
-  .hero-buttons button {
-
-    transition: none !important;
-
   }
 
 }

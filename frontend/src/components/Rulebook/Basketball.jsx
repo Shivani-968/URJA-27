@@ -3,14 +3,14 @@ import React from 'react';
 const BasketballRules = () => {
     const basketballRulebook = {
         sections: {
-            // ... (rest of the sections data)
             matchStructure: {
                 heading: 'Match Structure',
                 rules: [
-                    'Each game consists of 4 quarters of 10 minutes each (FIBA standard) with a 5-minute halftime break.',
+                    'Each game consists of 4 quarters of 10 minutes each (FIBA standard) with a 4-minute halftime break.',
                     'If the game ends in a tie, overtime of 5 minutes will be played until a winner is decided.'
                 ]
             },
+
             teamComposition: {
                 heading: 'Team Composition',
                 rules: [
@@ -18,6 +18,7 @@ const BasketballRules = () => {
                     'Unlimited substitutions are allowed during stoppages in play.'
                 ]
             },
+
             scoringSystem: {
                 heading: 'Scoring System',
                 rules: [
@@ -26,15 +27,17 @@ const BasketballRules = () => {
                     'Free throws = 1 point each.'
                 ]
             },
+
             gameRules: {
                 heading: 'Game Rules',
                 rules: [
                     'The game is played according to FIBA rules.',
                     'Dribbling is mandatory while moving; traveling and double dribble are violations.',
                     'Personal fouls, technical fouls, and unsportsmanlike conduct are penalized according to FIBA standards.',
-                    'A team is disqualified if a player receives 5 personal fouls or 2 technical fouls.'
+                    'A player is disqualified if they receive 5 personal fouls.'
                 ]
             },
+
             timeouts: {
                 heading: 'Timeouts',
                 rules: [
@@ -42,13 +45,15 @@ const BasketballRules = () => {
                     'Timeouts last for 1 minute each.'
                 ]
             },
+
             conduct: {
                 heading: 'Conduct & Fair Play',
                 rules: [
                     'Players, coaches, and officials must adhere to principles of fair play and sportsmanship.',
-                    'Unsportsmanlike conduct may result in point deductions, ejection, or disqualification.'
+                    'Unsportsmanlike conduct may result in technical fouls, ejection, or disqualification.'
                 ]
             },
+
             equipment: {
                 heading: 'Equipment',
                 rules: [
@@ -62,10 +67,12 @@ const BasketballRules = () => {
 
     return (
         <div className="sport-rules-container">
-            <h2>Rules for Basketball</h2> {/* This is the new heading */}
+            <h2>Rules for Basketball</h2>
+
             {Object.values(basketballRulebook.sections).map((section, index) => (
                 <div key={index}>
                     <h3>{section.heading}</h3>
+
                     <ul>
                         {section.rules.map((rule, ruleIndex) => (
                             <li key={ruleIndex}>{rule}</li>
