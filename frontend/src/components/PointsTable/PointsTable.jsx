@@ -13,29 +13,10 @@ const SCORES_API_URL = `${API_URL}/api/scores`;
 
 const sportsDataMap = {
   Athletics: {
-    genders: ["Boys", "Girls"],
-    events: [
-      "100m",
-      "200m",
-      "400m",
-      "800m",
-      "1500m",
-      "Discus",
-      "4x400m Relay",
-      "Cross Country",
-      "3000m",
-      "Tug Of War",
-      "Triple Jump",
-      "Medley",
-      "Long Jump",
-      "High Jump",
-      "Shot Put",
-      "Javelin Throw",
-      "4x100m Relay",
-    ],
-    stages: ["Group Stage"],
-  },
-
+  genders: ["Boys", "Girls"],
+  events: ["100m", "200m", "400m"],
+  stages: ["Group Stage"],
+},
   Badminton: {
     genders: ["Boys", "Girls"],
     pools: ["Pool A", "Pool B"],
