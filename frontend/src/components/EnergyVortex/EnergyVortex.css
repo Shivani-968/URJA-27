@@ -1,0 +1,464 @@
+/* ================================
+   ENERGY VORTEX
+================================ */
+
+.energy-vortex {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 20, 147, 0.18) 0%,
+      rgba(255, 20, 147, 0.07) 22%,
+      transparent 58%
+    ),
+    linear-gradient(
+      135deg,
+      #000000 0%,
+      #080006 50%,
+      #000000 100%
+    );
+}
+
+
+/* ================================
+   CENTRAL ENERGY CORE
+================================ */
+
+.vortex-core {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 20, 147, 0.95) 7%,
+      rgba(255, 20, 147, 0.45) 22%,
+      rgba(255, 20, 147, 0.12) 45%,
+      transparent 72%
+    );
+
+  box-shadow:
+    0 0 20px rgba(255, 20, 147, 0.8),
+    0 0 60px rgba(255, 20, 147, 0.55),
+    0 0 120px rgba(255, 20, 147, 0.25);
+
+  filter: blur(2px);
+
+  animation: energyPulse 2.4s ease-in-out infinite;
+}
+
+
+/* ================================
+   VORTEX RINGS
+================================ */
+
+.vortex-ring {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(255, 20, 147, 0.45);
+
+  box-shadow:
+    0 0 15px rgba(255, 20, 147, 0.3),
+    inset 0 0 18px rgba(255, 20, 147, 0.15);
+}
+
+
+/* inner fast ring */
+.ring-1 {
+  width: 280px;
+  height: 100px;
+
+  border-width: 2px;
+
+  box-shadow:
+    0 0 15px rgba(255, 20, 147, 0.55),
+    0 0 35px rgba(255, 20, 147, 0.2);
+
+  animation: vortexSpin 4.5s linear infinite;
+}
+
+
+/* second ring */
+.ring-2 {
+  width: 440px;
+  height: 145px;
+
+  border-color: rgba(255, 20, 147, 0.32);
+
+  animation: vortexSpinReverse 7s linear infinite;
+}
+
+
+/* large white/pink energy ring */
+.ring-3 {
+  width: 640px;
+  height: 220px;
+
+  border-color: rgba(255, 255, 255, 0.16);
+
+  box-shadow:
+    0 0 25px rgba(255, 20, 147, 0.2);
+
+  animation: vortexSpin 10s linear infinite;
+}
+
+
+/* outer vortex */
+.ring-4 {
+  width: 880px;
+  height: 310px;
+
+  border-color: rgba(255, 20, 147, 0.14);
+
+  animation: vortexSpinReverse 14s linear infinite;
+}
+
+
+/* ================================
+   SPORTS ENERGY TRAILS
+================================ */
+
+.energy-trail {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 680px;
+  height: 170px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border-top: 3px solid rgba(255, 20, 147, 0.65);
+
+  box-shadow:
+    0 -5px 18px rgba(255, 20, 147, 0.35);
+
+  filter: blur(0.7px);
+
+  opacity: 0.8;
+}
+
+
+/* fast streak */
+.trail-1 {
+  animation: vortexSpin 3.8s linear infinite;
+}
+
+
+/* white energy streak */
+.trail-2 {
+  width: 540px;
+  height: 125px;
+
+  border-top:
+    2px solid rgba(255, 255, 255, 0.65);
+
+  box-shadow:
+    0 -4px 15px rgba(255, 255, 255, 0.25);
+
+  animation: vortexSpinReverse 4.8s linear infinite;
+}
+
+
+/* outer pink streak */
+.trail-3 {
+  width: 780px;
+  height: 235px;
+
+  border-top:
+    2px solid rgba(255, 20, 147, 0.3);
+
+  animation: vortexSpin 7s linear infinite reverse;
+}
+
+
+/* ================================
+   ENERGY PARTICLES
+================================ */
+
+.vortex-particles {
+  position: absolute;
+  inset: 0;
+}
+
+
+.vortex-particle {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 5px #ffffff,
+    0 0 12px rgba(255, 20, 147, 1),
+    0 0 22px rgba(255, 20, 147, 0.7);
+
+  animation:
+    particleOrbit 6s linear infinite,
+    particlePulse 1.5s ease-in-out infinite;
+
+  animation-delay: var(--delay);
+}
+
+
+/* ================================
+   SPORTS SPEED LINES
+================================ */
+
+.energy-vortex::before,
+.energy-vortex::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 100%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 20, 147, 0.15),
+      rgba(255, 20, 147, 0.7),
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 20, 147, 0.7),
+      rgba(255, 20, 147, 0.15),
+      transparent
+    );
+
+  box-shadow:
+    0 0 15px rgba(255, 20, 147, 0.5);
+
+  transform: translate(-50%, -50%);
+}
+
+.energy-vortex::before {
+  transform:
+    translate(-50%, -50%)
+    rotate(18deg);
+
+  animation: speedLine 3s linear infinite;
+}
+
+.energy-vortex::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(-18deg);
+
+  opacity: 0.5;
+
+  animation: speedLineReverse 4s linear infinite;
+}
+
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes vortexSpin {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg);
+  }
+}
+
+
+@keyframes vortexSpinReverse {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+}
+
+
+@keyframes energyPulse {
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.85);
+
+    opacity: 0.65;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.18);
+
+    opacity: 1;
+  }
+}
+
+
+@keyframes particleOrbit {
+  from {
+    transform:
+      rotate(calc(var(--i) * 15deg))
+      translateX(calc(110px + var(--i) * 10px));
+  }
+
+  to {
+    transform:
+      rotate(calc(var(--i) * 15deg + 360deg))
+      translateX(calc(110px + var(--i) * 10px));
+  }
+}
+
+
+@keyframes particlePulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    scale: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+    scale: 1.5;
+  }
+}
+
+
+/* sports-style moving streaks */
+
+@keyframes speedLine {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-70%, -50%)
+      rotate(18deg);
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(20%, -50%)
+      rotate(18deg);
+  }
+}
+
+
+@keyframes speedLineReverse {
+  0% {
+    opacity: 0;
+    transform:
+      translate(20%, -50%)
+      rotate(-18deg);
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(-70%, -50%)
+      rotate(-18deg);
+  }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+  .vortex-core {
+    width: 120px;
+    height: 120px;
+  }
+
+  .ring-1 {
+    width: 220px;
+    height: 80px;
+  }
+
+  .ring-2 {
+    width: 340px;
+    height: 120px;
+  }
+
+  .ring-3 {
+    width: 500px;
+    height: 170px;
+  }
+
+  .ring-4 {
+    width: 680px;
+    height: 240px;
+  }
+
+  .energy-trail {
+    width: 520px;
+  }
+}
+
+
+/* ================================
+   REDUCED MOTION
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .vortex-ring,
+  .energy-trail,
+  .vortex-particle,
+  .vortex-core {
+    animation: none;
+  }
+}

@@ -53,40 +53,47 @@ const Hyperspeed = ({
        ===================================================== */
 
     colors: {
-      roadColor: 0x050505,
-      islandColor: 0x000000,
-      background: 0x000000,
+  /* =====================================================
+     URJA VORTEX THEME
+     BLACK + NEON PINK + WHITE
+     ===================================================== */
 
-      shoulderLines: 0xffffff,
-      brokenLines: 0xffffff,
+  /* Road */
+  roadColor: 0x030303,
+  islandColor: 0x000000,
+  background: 0x000000,
 
-      /* Actual road-line colors */
-      linePink: 0xff1493,
-      lineBlue: 0x00bfff,
-      lineWhite: 0xffffff,
+  /* Road markings */
+  shoulderLines: 0xffffff,
+  brokenLines: 0xff1493,
 
-      /* Moving lights */
-      leftCars: [
-        0xff1493,
-        0x00bfff,
-        0xffffff,
-        0xff69b4,
-      ],
+  /* VORTEX road-line colors */
+  linePink: 0xff1499,
+  lineBlue: 0xff69b4,
+  lineWhite: 0xffffff,
 
-      rightCars: [
-        0x00bfff,
-        0xff1493,
-        0xffffff,
-        0x66d9ff,
-      ],
+  /* Moving car lights */
+  leftCars: [
+    0xff1493,
+    0xff69b4,
+    0xffffff,
+    0xff1493,
+  ],
 
-      /* Roadside sticks */
-      sticks: [
-        0xff1493,
-        0x00bfff,
-        0xffffff,
-      ],
-    },
+  rightCars: [
+    0xffffff,
+    0xff1493,
+    0xff69b4,
+    0xffffff,
+  ],
+
+  /* Roadside neon sticks */
+  sticks: [
+    0xff1499,
+    0xff69b4,
+    0xffffff,
+  ],
+},
   },
 }) => {
   const hyperspeed = useRef(null);

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import TextType from "../TextType/TextType";
-import Hyperspeed from "../Hyperspeed/Hyperspeed";
+import EnergyVortex from "../EnergyVortex/EnergyVortex";
 import "./Home.css";
 
 export default function Home() {
@@ -21,17 +21,17 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="hero-section">
 
-        {/* HYPERSPEED BACKGROUND */}
+        {/* ENERGY VORTEX BACKGROUND */}
         <div
-          className="hyperspeed-background"
+          className="energy-vortex-background"
           aria-hidden="true"
         >
-          <Hyperspeed />
+          <EnergyVortex />
         </div>
 
         {/* DARK + PINK OVERLAY */}
         <div
-          className="hyperspeed-overlay"
+          className="vortex-overlay"
           aria-hidden="true"
         ></div>
 

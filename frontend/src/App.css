@@ -4,23 +4,16 @@
 
 .vortex-top-icon {
   position: absolute;
-
   top: 120px;
   left: 50%;
-
   transform: translateX(-50%);
-
   width: 100%;
   height: 55px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: transparent;
-
   z-index: 100;
-
   pointer-events: none;
 }
 
@@ -32,13 +25,9 @@
 .vortex-top-icon img {
   width: 170px;
   height: 170px;
-
   object-fit: contain;
-
   display: block;
-
   background: transparent;
-
   filter:
     drop-shadow(0 0 5px #ff1493)
     drop-shadow(0 0 11px #ff1493)
@@ -53,7 +42,6 @@
 .main-page-content {
   width: 100%;
   min-height: 100vh;
-
   padding-top: 84px;
 }
 
@@ -63,17 +51,15 @@
    ========================================= */
 
 @media (max-width: 1024px) {
-
   .vortex-top-icon {
     top: 84px;
     height: 52px;
   }
 
   .vortex-top-icon img {
-    width: 48px;
-    height: 48px;
+    width: 150px;
+    height: 150px;
   }
-
 }
 
 
@@ -82,19 +68,17 @@
    ========================================= */
 
 @media (max-width: 768px) {
-
   .vortex-top-icon {
     top: 72px;
     height: 50px;
   }
 
   .vortex-top-icon img {
-    width: 44px;
-    height: 44px;
+    width: 120px;
+    height: 120px;
   }
 
   .main-page-content {
     padding-top: 70px;
   }
-
 }
