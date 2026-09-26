@@ -65,10 +65,27 @@ router.get("/", async (req, res) => {
 
         if (!teamName || points === 0) continue;
 
-        if (!teamBreakdown[teamName]) teamBreakdown[teamName] = {};
-        if (!teamBreakdown[teamName][sport])
-          teamBreakdown[teamName][sport] = 0;
-        teamBreakdown[teamName][sport] += points;
+        // Check if teamName contains one or more base branches (e.g. CE+PG, (PIE+ECM) + ECE)
+        const matchedBranches = [];
+        let cleanName = teamName;
+        if (cleanName.includes("PIE+ECM") || cleanName.includes("PIE + ECM")) {
+          matchedBranches.push("PIE+ECM");
+          cleanName = cleanName.replace(/\(?PIE\s*\+\s*ECM\)?/g, "");
+        }
+        for (const b of ["CE", "PG", "MME", "CSE", "ME", "ECE", "EE"]) {
+          const regex = new RegExp(`(^|[^A-Za-z])${b}([^A-Za-z]|$)`);
+          if (regex.test(cleanName)) {
+            matchedBranches.push(b);
+            cleanName = cleanName.replace(regex, "$1$2");
+          }
+        }
+
+        const targetTeams = matchedBranches.length > 0 ? matchedBranches : [teamName];
+        for (const t of targetTeams) {
+          if (!teamBreakdown[t]) teamBreakdown[t] = {};
+          if (!teamBreakdown[t][sport]) teamBreakdown[t][sport] = 0;
+          teamBreakdown[t][sport] += points;
+        }
       }
     }
 

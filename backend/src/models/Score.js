@@ -23,7 +23,7 @@ const scoreSchema = new mongoose.Schema(
     stage: {
       type: String,
       default: "Group Stage",
-      enum: ["Group Stage", "Knockout"],
+      trim: true,
     },
     // Points table data (for group stage / athletics events)
     pointsTable: {

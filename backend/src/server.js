@@ -22,10 +22,21 @@ const allowedOrigins = [
   "https://www.urja-nitjsr.com",
   "https://urja-nitjsr.com",
   "https://aditya1006gt.github.io",
+  "https://shivani-968.github.io",
 ];
 
 if (process.env.FRONTEND_URL) {
-  allowedOrigins.push(process.env.FRONTEND_URL);
+  try {
+    const parsed = new URL(process.env.FRONTEND_URL);
+    if (!allowedOrigins.includes(parsed.origin)) {
+      allowedOrigins.push(parsed.origin);
+    }
+  } catch {
+    const cleaned = process.env.FRONTEND_URL.replace(/\/$/, "");
+    if (!allowedOrigins.includes(cleaned)) {
+      allowedOrigins.push(cleaned);
+    }
+  }
 }
 
 app.use(
@@ -33,7 +44,12 @@ app.use(
     origin: function (origin, callback) {
       // Allow requests with no origin (mobile apps, curl, etc.)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".github.io") ||
+        origin.includes("localhost") ||
+        origin.includes("127.0.0.1")
+      ) {
         return callback(null, true);
       }
       return callback(new Error("Not allowed by CORS"));
