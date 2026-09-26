@@ -41,19 +41,54 @@ const normalizeText = (value) =>
 ------------------------------------------------------- */
 const extractBranchPoints = (document) => {
   const rows = document?.pointsTable?.data;
+  const headings = document?.pointsTable?.headings;
 
-  if (!Array.isArray(rows)) {
+  if (!Array.isArray(rows) || rows.length === 0) {
     return [];
+  }
+
+  /*
+    Dynamically find the Team and Points columns
+    using the headings array.
+
+    Athletics:     ["Position", "Team", "Points"]  → team=1, pts=2
+    Chess/default: ["Team", "Pld", "W", "L", "Pts"] → team=0, pts=4
+    Football:      ["Team", "Pld", "W", "D", "L", "GD", "GS", "Pts"] → team=0, pts=7
+    Cricket:       ["Team", "Pld", "W", "L", "NRR", "Pts"] → team=0, pts=5
+  */
+  let teamIndex = 1;
+  let pointsIndex = 2;
+
+  if (Array.isArray(headings) && headings.length > 0) {
+    const lowerHeadings = headings.map((h) =>
+      String(h).trim().toLowerCase()
+    );
+
+    const foundTeamIndex = lowerHeadings.findIndex(
+      (h) => h === "team" || h === "player"
+    );
+
+    const foundPointsIndex = lowerHeadings.findIndex(
+      (h) => h === "points" || h === "pts"
+    );
+
+    if (foundTeamIndex !== -1) {
+      teamIndex = foundTeamIndex;
+    }
+
+    if (foundPointsIndex !== -1) {
+      pointsIndex = foundPointsIndex;
+    }
   }
 
   return rows
     .map((row) => {
-      if (!Array.isArray(row) || row.length < 3) {
+      if (!Array.isArray(row) || row.length < 2) {
         return null;
       }
 
-      const branch = normalizeText(row[1]);
-      const points = toNumber(row[2]);
+      const branch = normalizeText(row[teamIndex]);
+      const points = toNumber(row[pointsIndex]);
 
       if (!branch) {
         return null;

@@ -158,7 +158,7 @@ const getDefaultHeadings = (sport) => {
   }
 
   if (sport === "Football") {
-    return ["Team", "Pld", "W", "L", "GD", "GS", "Pts"];
+    return ["Team", "Pld", "W", "D", "L", "GD", "GS", "Pts"];
   }
 
   return ["Team", "Pld", "W", "L", "Pts"];
