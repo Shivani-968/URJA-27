@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./LeaderBoard.css";
+import { calculateBranchStandings } from "../../utils/branchUtils";
 
 const API_URL = (
   import.meta.env.VITE_API_URL || "https://urja-2026.onrender.com"
@@ -8,172 +9,19 @@ const API_URL = (
 const SCORES_API_URL = `${API_URL}/api/scores`;
 
 /* -------------------------------------------------------
-   Convert value safely into a number
-------------------------------------------------------- */
-const toNumber = (value) => {
-  const number = Number(value);
-  return Number.isFinite(number) ? number : 0;
-};
-
-/* -------------------------------------------------------
-   Normalize text
-------------------------------------------------------- */
-const normalizeText = (value) =>
-  String(value ?? "")
-    .trim()
-    .replace(/\s+/g, " ");
-
-/* -------------------------------------------------------
-   Extract branch + points from one score document
-
-   Backend format:
-
-   pointsTable: {
-     headings: ["Position", "Team", "Points"],
-     data: [
-       ["1", "ECE", 6],
-       ["2", "EE", 5],
-       ["3", "CSE", 4],
-       ["4", "ME", 3],
-       ["5", "MME", 2]
-     ]
-   }
-------------------------------------------------------- */
-const extractBranchPoints = (document) => {
-  const rows = document?.pointsTable?.data;
-  const headings = document?.pointsTable?.headings;
-
-  if (!Array.isArray(rows) || rows.length === 0) {
-    return [];
-  }
-
-  /*
-    Dynamically find the Team and Points columns
-    using the headings array.
-
-    Athletics:     ["Position", "Team", "Points"]  → team=1, pts=2
-    Chess/default: ["Team", "Pld", "W", "L", "Pts"] → team=0, pts=4
-    Football:      ["Team", "Pld", "W", "D", "L", "GD", "GS", "Pts"] → team=0, pts=7
-    Cricket:       ["Team", "Pld", "W", "L", "NRR", "Pts"] → team=0, pts=5
-  */
-  let teamIndex = 1;
-  let pointsIndex = 2;
-
-  if (Array.isArray(headings) && headings.length > 0) {
-    const lowerHeadings = headings.map((h) =>
-      String(h).trim().toLowerCase()
-    );
-
-    const foundTeamIndex = lowerHeadings.findIndex(
-      (h) => h === "team" || h === "player"
-    );
-
-    const foundPointsIndex = lowerHeadings.findIndex(
-      (h) => h === "points" || h === "pts"
-    );
-
-    if (foundTeamIndex !== -1) {
-      teamIndex = foundTeamIndex;
-    }
-
-    if (foundPointsIndex !== -1) {
-      pointsIndex = foundPointsIndex;
-    }
-  }
-
-  return rows
-    .map((row) => {
-      if (!Array.isArray(row) || row.length < 2) {
-        return null;
-      }
-
-      const branch = normalizeText(row[teamIndex]);
-      const points = toNumber(row[pointsIndex]);
-
-      if (!branch) {
-        return null;
-      }
-
-      return {
-        branch,
-        points,
-      };
-    })
-    .filter(Boolean);
-};
-
-/* -------------------------------------------------------
    Build overall branch leaderboard
 
    Every Group Stage points table contributes to the
    overall branch score.
 
-   Example:
-
-   Athletics 100m:
-   ECE = 6
-
-   Athletics 200m:
-   ECE = 5
-
-   Badminton:
-   ECE = 10
-
-   Overall:
-   ECE = 21
+   Rules:
+   - Fixed official 8 original branches (CSE, ECE, EE, CE, ME, MME, PIE+ECM, PG).
+   - Girls' combined teams (e.g. "ECE + EE") credit points to both constituent branches.
+   - Combined teams never create a 9th/12th branch entry.
+   - Exactly 8 branches are returned, sorted by points descending.
 ------------------------------------------------------- */
 const buildBranchLeaderboard = (documents) => {
-  const branchMap = new Map();
-
-  documents.forEach((document) => {
-    const stage = normalizeText(document?.stage).toLowerCase();
-
-    /*
-      Only Group Stage is used.
-
-      Knockout data is ignored so that points are not
-      accidentally counted twice.
-    */
-    if (stage !== "group stage") {
-      return;
-    }
-
-    const rows = extractBranchPoints(document);
-
-    rows.forEach(({ branch, points }) => {
-      if (!branchMap.has(branch)) {
-        branchMap.set(branch, 0);
-      }
-
-      branchMap.set(
-        branch,
-        branchMap.get(branch) + points
-      );
-    });
-  });
-
-  /* -----------------------------------------------------
-     Sort:
-
-     1. Highest points first
-     2. Alphabetical order if points are equal
-  ----------------------------------------------------- */
-  return Array.from(branchMap.entries())
-    .map(([branch, points]) => ({
-      branch,
-      points,
-    }))
-    .sort((a, b) => {
-      if (b.points !== a.points) {
-        return b.points - a.points;
-      }
-
-      return a.branch.localeCompare(b.branch);
-    })
-    .map((item, index) => ({
-      ...item,
-      position: index + 1,
-    }));
+  return calculateBranchStandings(documents);
 };
 
 /* -------------------------------------------------------
@@ -319,13 +167,6 @@ const LeaderBoard = () => {
   ----------------------------------------------------- */
   const topThree = useMemo(() => {
     return leaderboard.slice(0, 3);
-  }, [leaderboard]);
-
-  /* -----------------------------------------------------
-     Remaining branches
-  ----------------------------------------------------- */
-  const remainingBranches = useMemo(() => {
-    return leaderboard.slice(3);
   }, [leaderboard]);
 
   /* -----------------------------------------------------

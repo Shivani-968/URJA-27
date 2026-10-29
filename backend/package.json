@@ -7,7 +7,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "seed": "node src/config/seed.js",
-    "seed:scores": "node src/config/seedScores.js"
+    "seed:scores": "node src/config/seedScores.js",
+    "test": "node --test tests/**/*.test.js"
   },
   "keywords": [],
   "author": "",

@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "node --test src/utils/branchUtils.test.js",
     "preview": "vite preview",
     "predeploy": "npm run build && copy dist\\index.html dist\\404.html",
     "deploy": "gh-pages -d dist -f"
