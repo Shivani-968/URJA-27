@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./LeaderBoard.css";
 import { calculateBranchStandings } from "../../utils/branchUtils";
 
-const API_URL = (
+const API_URL = ( 
   import.meta.env.VITE_API_URL || "https://urja-2026.onrender.com"
 ).replace(/\/$/, "");
 
