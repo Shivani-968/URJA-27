@@ -169,6 +169,10 @@ const LeaderBoard = () => {
     return leaderboard.slice(0, 3);
   }, [leaderboard]);
 
+  const remainingBranches = useMemo(() => {
+    return leaderboard.slice(3);
+  }, [leaderboard]);
+
   /* -----------------------------------------------------
      Total points
   ----------------------------------------------------- */
@@ -552,7 +556,7 @@ const LeaderBoard = () => {
 
               <tbody>
 
-                {leaderboard.map((branch) => (
+                {remainingBranches.map((branch) => (
 
                   <tr
                     key={branch.branch}
